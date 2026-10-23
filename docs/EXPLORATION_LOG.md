@@ -474,3 +474,22 @@ RMSE relative to the best data-only method (kNN + low-rank stack), MCAR / MNAR:
 - The gap points at reference *relevance*: matching cell types and acquisition.
 - Next: reference selection (choose the external cells most similar to the target, as genotype imputation chooses the
   closest haplotypes), and nonlinear models.
+
+## 2026-10-23 · Phase B dev: reference selection and masked autoencoder (3 original dev targets, `results/phaseB/dev/`)
+RMSE relative to the kNN + low-rank stack, mean over 3 targets × 2 masks:
+
+| Method | `dev_select` | `dev_mae30` |
+|---|---|---|
+| `stack3_plain` (full public reference) | 0.974 | 0.970 |
+| top-2000 most similar reference cells | 0.973 | — |
+| 2000 random reference cells (control) | 0.981 | — |
+| top-3 most similar reference datasets | 0.983 | — |
+| MAE alone (30 epochs) | — | 1.025 |
+| 4-way stack + MAE / + scrambled-reference MAE | — | 0.970 / 0.970 |
+
+**Read:**
+- Similarity-based selection beats a random subset of equal size by 0.8%, but not the full reference.
+- The MAE is worse than kNN alone, and the stack gives it no weight.
+- Neither closes the gap to the in-domain ceiling (0.855).
+- Run-to-run ALS variability of `stack3_plain` is about 0.5% (0.974 vs 0.970 vs 0.980 for the same configuration
+  with different row orders).

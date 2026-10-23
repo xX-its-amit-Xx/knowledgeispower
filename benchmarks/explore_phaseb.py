@@ -111,6 +111,14 @@ def evaluate(X, names, models, n_cells, kind, seed, labels, ceiling=False):
     preds, wts = {"knn": base}, {}
     preds["stack_lowrank"], wts["stack_lowrank"] = stack([base, lr], [bi, lri])
     preds["stack3_plain"], wts["stack3_plain"] = stack([base, lr, pj], [bi, lri, pji])
+    if "Zref" in models:  # Amendment 15 workstream 3: reference selection (+ random-selection control of equal size)
+        Zr, src = models["Zref"], models["src"]
+        for lab, kw in (("sel_cells2000", {"n": 2000}), ("sel_rand2000", {"n": 2000, "seed": seed}),
+                        ("sel_ds3", {"n": 0, "mode": "datasets", "src": src})):
+            rows_sel = T.select_reference(Zr, Xm, **kw)
+            Vs, ws = T.fit_loadings(Zr[rows_sel])
+            ps, psi = T.project(Xm, Vs, ws, base), T.project(Xi, Vs, ws, bi)
+            preds[f"stack3_{lab}"], wts[f"stack3_{lab}"] = stack([base, lr, ps], [bi, lri, psi])
     if ceiling:  # diagnostic, not a candidate: the ideal reference = the *other* cells of the same dataset
         rest = np.setdiff1d(np.arange(X.shape[0]), idx)
         Vin, win = T.fit_loadings(T._z(X[rest]))
@@ -145,9 +153,21 @@ def main():
     for tname in targets:
         X, names, labels = load_target(tname)
         refs = reference_datasets(exclude=(tname,))
-        Z = np.vstack([T.corpus_reference(names, (tname,), refs), T.bulk_reference(names, bulk)])
+        parts, src = [], []
+        for d in refs:
+            if d == tname:
+                continue
+            zd = T.corpus_reference(names, (tname,), [d])
+            parts.append(zd)
+            src += [d] * len(zd)
+        zb = T.bulk_reference(names, bulk)
+        parts.append(zb)
+        src += ["bulk"] * len(zb)
+        Z, src = np.vstack(parts), np.array(src)
         V, warm = T.fit_loadings(Z)
         models = {"V": V, "warm": warm}
+        if "--select" in sys.argv:
+            models["Zref"], models["src"] = Z, src
         if "--no-mae" not in sys.argv:
             models["mae"] = MAE.train_mae(Z, epochs=epochs, seed=0)
             Zs = Z[:, np.random.default_rng(0).permutation(Z.shape[1])]

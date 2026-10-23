@@ -209,3 +209,38 @@ def donor_knn(Xm: np.ndarray, Zref: np.ndarray, base: np.ndarray, k: int = 10, n
             nn = np.argsort(np.where(has, d, np.inf))[:k]
             out[i, j] = mu[j] + sd[j] * R[nn, j].mean()
     return out
+
+
+def reference_similarity(Zref: np.ndarray, Xm: np.ndarray, min_overlap: int = 20, top: int = 3) -> np.ndarray:
+    """Score each reference sample by how much it resembles the target cells (Amendment 15, reference selection).
+
+    Both sides are z-scored per protein within their own dataset; the score of reference sample r is the mean of its
+    `top` highest Pearson correlations (over co-observed proteins) with the target cells. Uses only observed target
+    entries."""
+    Zt = _z(Xm)
+    ot, orf = ~np.isnan(Zt), ~np.isnan(Zref)
+    A, B = np.where(orf, Zref, 0.0), np.where(ot, Zt, 0.0)
+    Of, Ot = orf.astype(float), ot.astype(float)
+    n = Of @ Ot.T
+    sxy = A @ B.T
+    sxx = (A ** 2) @ Ot.T
+    syy = Of @ (B ** 2).T
+    r = sxy / np.sqrt(np.maximum(sxx * syy, 1e-12))
+    r[n < min_overlap] = -1.0
+    k = min(top, r.shape[1])
+    return np.sort(r, axis=1)[:, -k:].mean(1)
+
+
+def select_reference(Zref: np.ndarray, Xm: np.ndarray, n: int, src: np.ndarray | None = None, mode: str = "cells",
+                     n_datasets: int = 3, seed: int | None = None) -> np.ndarray:
+    """Row indices of the selected reference. mode='cells': top-n samples by similarity; mode='datasets': all samples
+    of the n_datasets sources with the highest mean similarity (needs src); seed given -> random n rows (control)."""
+    if seed is not None:
+        return np.sort(np.random.default_rng(seed).choice(len(Zref), min(n, len(Zref)), replace=False))
+    s = reference_similarity(Zref, Xm)
+    if mode == "datasets":
+        srcs = np.unique(src)
+        means = {d: s[src == d].mean() for d in srcs}
+        best = sorted(srcs, key=lambda d: -means[d])[:n_datasets]
+        return np.where(np.isin(src, best))[0]
+    return np.sort(np.argsort(-s)[:min(n, len(Zref))])

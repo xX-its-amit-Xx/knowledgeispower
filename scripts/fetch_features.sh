@@ -71,3 +71,33 @@ PC=https://download.baderlab.org/PathwayCommons/PC2/v14
 sha256sum ccle/protein_quant_current_normalized.csv.gz proteomehd/ProteomeHD_v1_1.7z proteomehd/ProteomeHD_v1_1.csv \
   proteomehd/coregulation_scores.zip pathwaycommons/pc-hgnc.txt.gz pathwaycommons/datasources.txt
 )
+
+# --- Phase B bulk atlases
+# Bulk proteomics reference panels -> data/cache/reps/{procan,gtex_proteome,cptac,atlantic}/; derived caches
+# (procan_matrix.npz, gtex_proteome_matrix.npz, cptac_matrix.npz, atlantic_matrix.npz) are rebuilt on first use by
+# scp_graphfs_mcp.reps.<name>. Checksums: data/PROVENANCE.md. ~420 MB in total; no file > 1 GB.
+(
+case "$(basename "$PWD")" in cache) ;; *) cd "$(dirname "$0")/../data/cache" ;; esac
+mkdir -p reps/procan reps/gtex_proteome reps/cptac reps/atlantic && cd reps
+UA='scp-graphfs-mcp/0.1 (research)'
+# ProCan-DepMapSanger (Goncalves et al. 2022), figshare 10.6084/m9.figshare.19345397 v1 (figshare MD5s match).
+(cd procan && curl -sS -L -R -A "$UA" -o ProCan-DepMapSanger_protein_matrix_8498_averaged.txt https://ndownloader.figshare.com/files/34411172 \
+  && curl -sS -L -R -A "$UA" -o ProCan-DepMapSanger_mapping_file_averaged.txt https://ndownloader.figshare.com/files/34411133 \
+  && curl -sS -L -R -A "$UA" -o README.md https://ndownloader.figshare.com/files/36155439)
+# GTEx proteome (Jiang et al. 2020, Cell) Table S2 (Elsevier CDN; the PMC copy is behind a captcha).
+(cd gtex_proteome && curl -sS -L -R -A "$UA" -O https://ars.els-cdn.com/content/image/1-s2.0-S0092867420310783-mmc3.xlsx)
+# CPTAC BCM harmonised gene-level proteome tables, Zenodo record 8394329 (data store of the `cptac` package).
+(cd cptac && for f in \
+    brca:BRCA:Tumor ccrcc:CCRCC:Normal ccrcc:CCRCC:Tumor coad:COAD:Normal coad:COAD:Tumor gbm:GBM:Tumor \
+    hnscc:HNSCC:Normal hnscc:HNSCC:Tumor lscc:LSCC:Normal lscc:LSCC:Tumor luad:LUAD:Normal luad:LUAD:Tumor \
+    ov:OV:Normal ov:OV:Tumor pdac:PDAC:Normal pdac:PDAC:Tumor ucec:UCEC:Normal ucec:UCEC:Tumor; do
+  IFS=: read -r c C k <<< "$f"
+  n="bcm-$c-proteomics-${C}_proteomics_gene_abundance_log2_reference_intensity_normalized_$k.txt.gz"
+  curl -sS -L -R -A "$UA" -o "$n" "https://zenodo.org/api/records/8394329/files/$n/content"
+done && n=bcm-brca-mapping-gencode.v34.basic.annotation-mapping.txt.gz \
+  && curl -sS -L -R -A "$UA" -o "$n" "https://zenodo.org/api/records/8394329/files/$n/content")
+# ATLANTiC NCI60 + CRC65 proteomes (Frejno et al. 2020, Nat Commun), Supplementary Data 3.
+(cd atlantic && curl -sS -L -R -A "$UA" -O "https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fs41467-020-17336-9/MediaObjects/41467_2020_17336_MOESM6_ESM.xlsx")
+sha256sum procan/ProCan-DepMapSanger_protein_matrix_8498_averaged.txt procan/ProCan-DepMapSanger_mapping_file_averaged.txt \
+  procan/README.md gtex_proteome/1-s2.0-S0092867420310783-mmc3.xlsx cptac/bcm-*.txt.gz atlantic/41467_2020_17336_MOESM6_ESM.xlsx
+)
