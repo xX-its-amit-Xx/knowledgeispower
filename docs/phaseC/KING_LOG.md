@@ -483,3 +483,128 @@ tissue/technology line moves from the V prior (dead) to the shrinkage hyperprior
 **Rules reminder:** `--pool fast --jobs 2`; full pool only at cand_stack ≤ 0.99 and ≥ 0.005 below both the null and
 the `<id>_base` run (for `cshrink`: ≤ 0.99 vs the champion); dev data only; every number from `results/phaseC/`;
 provenance rows in the idea doc.
+
+## Round 4 · 2026-10-23 · review and directives for round 5
+
+**Verification.** The king re-read every number in the four worker reports from `results/phaseC/*.json` (summary
+means all / in-complex, per-mask means, per-target/mask values quoted, stack weights, splits ≤ 0.99, full-pool files).
+All matched. Two record notes: (i) mnarjoint's reported runtimes (424.6 s main, 459.8 s w1) are from the first pass;
+the JSONs, rewritten by the worker's reruns, record 749.8 s and 519.8 s (summaries unchanged); (ii) techhyper's MNAR
+cand_raw is 0.9389 as the mean of the six rounded target-mask values (reported 0.9390; rounding only).
+
+**What each queen tried** (fast pool unless marked; rmse_all mean relative to the champion, all / in-complex; from
+round 4 every idea is credited against the selected-ψ constant base):
+
+| queen | idea | cand_stack | null_stack | base / control | cand_solo | verdict |
+|---|---|---|---|---|---|---|
+| abd | `cshrink` (explicit selected-ψ shrink-to-constant, grid to ∞) | 0.9554 / 0.9533; **full 0.9609 / 0.9610** | 0.9637 / 0.9641 (random ψ); full 0.9716 / 0.9728 | fixed ψ = 16: 0.9576 fast, 0.9624 full | 0.9548 | **passes its null; best pipeline; misses the v9-draft bar** |
+| rep | `mnarjoint` ([X ∣ w·M] shared cell factors) | 0.9576 / 0.9564 | 0.9576 / 0.9564 | w = 0: 0.9575 / 0.9563 | 0.9575 | dead (w = 0 chosen 37/48; forced w = 1: 0.9654, null 0.9773) |
+| mod | `subthr` (sub-threshold PSM / PEP evidence, 2 targets) | 0.9647 / 0.9628 | 0.9609 / 0.9598 | κ = 0: 0.9640 | 0.9631 | dead (worse than null and base; MCAR raw 0.9771 vs 0.9743) |
+| bio | `techhyper` (metadata-kernel hyperprior on ψ) | 0.9568 / 0.9544 | 0.9569 / 0.9543 | flat prior: 0.9567 | 0.9559 | dead (margins ≤ 0.0004) |
+
+**What the round taught us:**
+- **The standardisation lever is used up.** cshrink's full pool is 0.9609 (MCAR 0.9714, MNAR 0.9504; 26/30
+  target-masks ≤ 0.99), vs 0.9716 for its random-ψ null. But fixed ψ = 16 with one global sd is 0.9624 on full, ψ = ∞
+  is within 0.0005 of main on fast, tau²(log-sd) sits at its floor in every arm, and techhyper shows the ψ curve is
+  flat above ψ ≈ 16 (pseudo-target curves move ≤ 0.024 in log-RMSE over 16–∞). What cshrink really found is that the
+  champion's per-protein unit-variance z-scoring of a 30-cell target is harmful; choosing ψ more cleverly is worth
+  ≤ 0.002. No more ψ / standardisation ideas.
+- **Missingness as a channel is closed in the anchored projection.** mnarjoint's true pattern beats its permuted
+  pattern at fixed w = 1 (0.9654 vs 0.9773), so it carries information, but the inner mask switches it off because
+  it never beats ignoring it (MCAR raw 0.9896 vs base 0.9697). subthr's sadiku MNAR gain (raw 0.9021 vs base 0.9190)
+  is "missing = low", which its null reproduces better (0.9293 vs 0.9409 stacked); leduc's sub-threshold PSMs cover
+  ~614 of ~43–46k holes per split. Sub-threshold quantities exist only in raw artefacts above the 2 GB budget.
+- **The remaining weak spot is TMT/carrier MCAR** on the full pool: woo2025_PC3 1.0006, williams2020_tmt 0.9989,
+  schoof2021 0.9972 (cand_stack). Selection picks ψ 1–2 there.
+- **The remaining gap is covariance in the target's own domain** (the ideal in-domain reference reached −14.5% vs
+  data-only in Phase B; cshrink is about −4% vs the champion). Every round-5 idea must change the covariance /
+  loadings the target sees, or bring new information about that covariance.
+
+**Stuck queens** (last two ideas failed ≤ 0.99-and-beat-null): **bio** (varprior → techhyper; every bio idea so far is
+dead), **rep** (selmnar → mnarjoint), **mod** (seqprior → subthr). **abd is not stuck:** cshrink is ≤ 0.99 and beats
+its null by 0.0083 fast / 0.0107 full.
+
+**Dead ends added this round (no queen may repeat):** any hyperprior or metadata model for ψ or the shrinkage
+strengths (technology, carrier, tissue kernels; argmin vs posterior mean); a shared-factor [X ∣ M] missingness block
+in the anchored projection; forced photometry on published search outputs (sub-threshold PSMs, DIA PEP as a floor
+observation); PEP as a value floor. Still closed: protein-specific shrinkage targets, global probit tilts, CORUM graph
+penalties (Phase A), dataset-level reference weighting (ttprior), cell weighting (ctprior), HPA tissue scRNA SVD
+factors (scrnaprior), target-only precision inversion (dca).
+
+**Best idea so far:** `cshrink:impute` (data-only, selected-ψ shrink-to-constant of the target's per-protein mean and
+log-sd): fast 0.9554 / 0.9533 (null 0.9637), **full 0.9609 / 0.9610** (null 0.9716 / 0.9728; MCAR 0.9714, MNAR
+0.9504; 26/30 target-masks ≤ 0.99; worst woo2025_PC3 MCAR 1.0006). It misses the v9-draft bar (full MCAR ≤ 0.97 and
+no target-mask > 1.00), so no holdout is touched and the H15 champion stands. The simpler `cshrink_gsd` (one global
+sd, fixed ψ = 16 slot) is 0.9607 on full with worst target-mask 0.9994.
+
+**Rule for round 5:** the base is `scp_graphfs_mcp.phasec.cshrink:impute`. Every worker reports cand_stack,
+cand_solo, cand_raw per mask, the null, and an `<id>_base` run of the same code with the idea switched off (must equal
+cshrink within 0.001: unit check first). Internal calibration uses the 50/50 MCAR/MNAR inner mask built from the input
+matrix only (tgtshrink's recipe, rng seed + 31337). Bars: fast cand_stack ≤ 0.99 *and* ≥ 0.005 below both the null
+and the base; MCAR cand_raw no worse than the base by > 0.005. Report the TMT/carrier targets separately on the full
+pool.
+
+### Directive · abd (not stuck): `mllr`, her own MLLR analogy (shared transform of the reference loadings)
+- **Why:** the champion pulls each protein's loading V_j toward Vref_j separately (lam_v = 100), spending 30 cells on
+  p × r parameters; speaker adaptation (Leggetter & Woodland 1995; verify before citing) adapts all means with one
+  shared affine transform. A shared r × r A re-rotates and re-weights the reference subspace to the target's own
+  covariance with ~r² parameters, which 30 cells × ~1,500 proteins can support. It is a new encoding of adaptation,
+  not a per-protein λ (ebshrink, dead).
+- **Build:** `phasec/mllr.py` on cshrink: V_t = Vref·A (+ the champion's free extra factors), alternate U-step /
+  closed-form A-step with ridge ‖A − I‖² weight from {0.1, 1, 10, 100, ∞} on the inner mask (∞ = base). Diagnose
+  ‖A − I‖ and A's spectrum per target, and which targets move most (expect TMT/carrier ones).
+- **Null:** A fitted on a protein-permuted target (columns shuffled before the A-step, un-shuffled after).
+- **Housekeeping first (cheap):** run `cshrink_inf` on the full pool and record it in her doc, so the king can choose
+  between selected ψ and the parameter-free ψ = ∞ for any later preregistration.
+
+### Directive · rep (stuck → pushed to covariance encoding): `lwkrige`, kriging with a locally re-estimated variogram
+- **Why:** abd's second analogy. Geostatisticians blend a local empirical variogram with a regional prior instead of
+  kriging a new field with another region's model; Ledoit–Wolf shrinkage (2004, *J. Multivariate Analysis* 88:365–411;
+  verify before citing) is the matrix version. This puts the target's own in-domain covariance into the imputation,
+  which is exactly what the −14.5% ideal reference had and the champion lacks.
+- **Build:** `phasec/lwkrige.py`: on the cshrink-standardised target, S_target = pairwise-complete covariance (with
+  an analytic Ledoit–Wolf δ as a starting point), Σ_ref = V Vᵀ + diag from the leave-target-out reference;
+  Σ_t = (1 − δ) S_target + δ Σ_ref, made PSD; impute each cell by the conditional Gaussian mean given its observed
+  proteins (Woodbury / low-rank-plus-diagonal solve, restricted to the top ~1,500 proteins if needed, kNN for the
+  rest); δ from {0.5, 0.7, 0.85, 0.95, 1} on the inner mask (δ = 1 is the base arm). Arm `lwkrige_tech`: Σ_ref built
+  only from reference datasets of the target's technology class (ttprior's metadata), which tests Amit's
+  tissue/technology seed at the covariance level.
+- **Null:** S_target computed after permuting cells independently within each protein (keeps marginals, destroys
+  in-domain covariance). This differs from dca (dead): dca inverted a target-only precision, with no reference blend
+  and no selection.
+
+### Directive · mod (stuck → new modality): `linerna`, within-cell-line single-cell RNA co-variation
+- **Why:** the missing information is the target's in-domain covariance. scrnaprior used HPA *between-cell-type*
+  tissue profiles (dead); a pan-cancer cell-line scRNA atlas (e.g. Kinker et al. 2020, *Nat Genet*; verify citation,
+  accession and licence before use) measures *cell-to-cell* co-variation inside the same cell line (cell cycle, stress,
+  EMT-like programs), a new modality about exactly the domain our cell-line targets live in.
+- **Build:** audit first (in the doc): map each dev target to its cell line(s) and list which are in the atlas (≥ 2
+  needed to screen; ≥ 5 for the full pool). Download < 2 GB to `data/cache/phasec/linerna/`. For each matched line,
+  compute the gene–gene covariance of log-normalised expression across cells (top ~20 PCs), map genes to the target's
+  proteins, and feed it as Σ_prior: either as extra loadings in the cshrink projection (ridge-weighted, weight on the
+  inner mask) or, preferably, as the Σ_ref replacement in rep's `lwkrige` (coordinate through shared code; do not edit
+  rep's file, import it).
+- **Null:** the same machinery with a mismatched cell line's scRNA covariance (wrong domain, same modality), plus a
+  gene-permuted arm. Credit only the margin below both.
+
+### Directive · bio (stuck → new cutting-edge encoding of curated biology): `plmemb`, protein language-model embeddings as a prior on loadings
+- **Why:** every bio idea so far tried to encode knowledge as weights, targets or hyperpriors on quantities the data
+  already pin down. The place where prior knowledge can still act is proteins whose reference loadings are weak or
+  missing for this target. abd's word2vec analogy: evolutionary-scale protein language models distil function into
+  dense embeddings; UniProt publishes precomputed per-protein ProtT5 embeddings for the human proteome (verify URL,
+  size and licence; < 2 GB).
+- **Build:** `phasec/plmemb.py`: diagnose first, per dev target, how many target proteins have weak reference support
+  (few reference datasets / low loading norm). Then smooth those proteins' rows of V toward a kernel-weighted average
+  of their k nearest embedding neighbours' rows (V_j ← (1 − β_j) V_j + β_j Σ k(e_j, e_i) V_i, β_j increasing with weak
+  support), β-scale selected on the inner mask, inside the cshrink pipeline.
+- **Null:** embedding rows permuted across proteins (same kernel, same β, wrong neighbours). Also report a
+  random-Gaussian-embedding arm. Phase A's CORUM graph penalty failed as "regularisation, not curation", so the margin
+  over the permuted null is the only credit.
+
+**Cross-pollination:** abd's MLLR and kriging analogies become abd's and rep's round-5 ideas; mod's new modality plugs
+into rep's kriging machinery as a domain-matched Σ_ref; Amit's tissue/technology seed moves from ψ (dead) to the
+covariance prior (`lwkrige_tech`); abd's word2vec analogy drives bio's `plmemb`.
+
+**Rules reminder:** `--pool fast --jobs 2`; full pool only after the fast bars; dev data only (never derks2022,
+wu2026, brunner2022, khan2023; no `confirm_v*.py`); every number from `results/phaseC/`; provenance rows (URL, licence,
+SHA-256) in the idea doc.

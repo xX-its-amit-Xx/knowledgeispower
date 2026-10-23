@@ -665,3 +665,31 @@ LODO dev targets × 2 masks × 3 seeds; rmse_all mean relative to the H15 champi
   random-ψ null, full pool), `mnarjoint` (joint low-rank of values and missingness indicators), `subthr` (sub-threshold
   DIA precursor evidence at naturally missing entries) and `techhyper` (technology/tissue-aware hyperprior on ψ). All
   are credited only against the selected-ψ constant base.
+
+## 2026-10-23 · Phase C round 4 (dev): the standardisation lever is used up; `cshrink` reaches 0.9609 on the full pool (`results/phaseC/*.json`)
+**Setup:** as in rounds 1–3 (`benchmarks/phasec.py`; fast = 6 dev targets × 2 masks × 2 seeds; full = 15 LODO dev
+targets × 2 masks × 3 seeds; rmse_all mean relative to the H15 champion, all / in-complex). From round 4 every idea is
+credited against the selected-ψ shrink-to-constant base.
+
+| id (queen) | idea | cand_stack | null_stack | base / control | cand_solo |
+|---|---|---|---|---|---|
+| `cshrink` (abd), fast | explicit selected-ψ shrink-to-constant of target mean/log-sd, ψ ∈ {1…64, ∞} | 0.9554 / 0.9533 | 0.9637 / 0.9641 (random ψ) | fixed ψ 16: 0.9576 | 0.9548 |
+| `cshrink` (abd), **full** | the same | **0.9609 / 0.9610** | 0.9716 / 0.9728 | fixed ψ 16 (`cshrink_gsd`): 0.9624 | 0.9606 |
+| `mnarjoint` (rep) | [X ∣ w·M] shared cell factors, w on the inner mask | 0.9576 / 0.9564 | 0.9576 / 0.9564 | w = 0: 0.9575 | 0.9575 |
+| `subthr` (mod), 2 targets | sub-threshold PSM / PEP evidence at naturally missing entries | 0.9647 / 0.9628 | 0.9609 / 0.9598 | κ = 0: 0.9640 | 0.9631 |
+| `techhyper` (bio) | metadata-kernel hyperprior on ψ | 0.9568 / 0.9544 | 0.9569 / 0.9543 | flat prior: 0.9567 | 0.9559 |
+
+**Read:**
+- cshrink beats its random-ψ null (full MCAR 0.9714, MNAR 0.9504 vs null 0.9793 / 0.9640; 26/30 target-masks ≤ 0.99)
+  but misses the bar for a v9 draft (MCAR > 0.97; woo2025_PC3 MCAR 1.0006). Selection over fixed ψ = 16 adds only
+  0.0022 fast / 0.0015 full, ψ = ∞ is 0.9559 on fast, and tau²(log-sd) sits at its floor: the gain is from dropping the
+  champion's per-protein unit-variance scaling, not from tuning ψ. techhyper confirms the ψ curve is flat above ≈ 16.
+- mnarjoint: the inner mask chose w = 0 in 37/48 calls; forced w = 1 is 0.9654 (permuted-pattern null 0.9773), with
+  cand_raw MCAR 0.9896 / MNAR 0.9535 vs base 0.9697 / 0.9412.
+- subthr: MCAR cand_raw 0.9771 vs base 0.9743; the sadiku MNAR gain (raw 0.9021 vs 0.9190) is reproduced better by
+  the null (stacked 0.9293 vs 0.9409), i.e. it is "missing = low", not the PEP content.
+- Weak spot left: TMT/carrier MCAR on the full pool (woo2025_PC3 1.0006, williams2020_tmt 0.9989, schoof2021 0.9972).
+- Round 5 (directives in `docs/phaseC/KING_LOG.md`) moves to covariance in the target's own domain: `mllr` (shared
+  r × r transform of the reference loadings), `lwkrige` (Ledoit–Wolf / kriging blend of target and reference
+  covariance, with a technology-matched arm), `linerna` (within-cell-line scRNA co-variation as a new modality) and
+  `plmemb` (protein language-model embeddings as a prior on weakly supported loadings).
