@@ -1,0 +1,143 @@
+{
+ "note": "perm uses rng default_rng(0 + 7177), gauss default_rng(0 + 4242) (seed 0 = the diag); loo = leave-one-out kernel prediction (k=15, tau=0.1) of each pool protein's Vref row from its pool neighbours",
+ "targets": {
+  "petrosius2023": {
+   "p": 2813,
+   "n_cold": 106,
+   "n_g_gt_0.5": 1296,
+   "n_has_emb": 2812,
+   "n_cold_has_emb": 106,
+   "n_pool": 1516,
+   "median_n_ds_warm": 11.0,
+   "loo_loading_prediction_pool": {
+    "true": {
+     "mean_cos": 0.4673,
+     "R2": 0.1086
+    },
+    "perm": {
+     "mean_cos": 0.2441,
+     "R2": -0.142
+    },
+    "gauss": {
+     "mean_cos": 0.2654,
+     "R2": -0.0754
+    }
+   }
+  },
+  "leduc2022": {
+   "p": 2844,
+   "n_cold": 297,
+   "n_g_gt_0.5": 1359,
+   "n_has_emb": 2842,
+   "n_cold_has_emb": 297,
+   "n_pool": 1484,
+   "median_n_ds_warm": 11.0,
+   "loo_loading_prediction_pool": {
+    "true": {
+     "mean_cos": 0.4556,
+     "R2": 0.0609
+    },
+    "perm": {
+     "mean_cos": 0.2691,
+     "R2": -0.1374
+    },
+    "gauss": {
+     "mean_cos": 0.2957,
+     "R2": -0.0729
+    }
+   }
+  },
+  "weiss2026_liver": {
+   "p": 4520,
+   "n_cold": 360,
+   "n_g_gt_0.5": 2143,
+   "n_has_emb": 4518,
+   "n_cold_has_emb": 360,
+   "n_pool": 2375,
+   "median_n_ds_warm": 8.0,
+   "loo_loading_prediction_pool": {
+    "true": {
+     "mean_cos": 0.4202,
+     "R2": 0.0569
+    },
+    "perm": {
+     "mean_cos": 0.2245,
+     "R2": -0.1504
+    },
+    "gauss": {
+     "mean_cos": 0.2629,
+     "R2": -0.0714
+    }
+   }
+  },
+  "gregoire2023_mixCTRL": {
+   "p": 1878,
+   "n_cold": 75,
+   "n_g_gt_0.5": 869,
+   "n_has_emb": 1875,
+   "n_cold_has_emb": 75,
+   "n_pool": 1008,
+   "median_n_ds_warm": 13.0,
+   "loo_loading_prediction_pool": {
+    "true": {
+     "mean_cos": 0.475,
+     "R2": 0.1152
+    },
+    "perm": {
+     "mean_cos": 0.2364,
+     "R2": -0.1432
+    },
+    "gauss": {
+     "mean_cos": 0.2696,
+     "R2": -0.0666
+    }
+   }
+  },
+  "px063590_ADbrain": {
+   "p": 5140,
+   "n_cold": 1157,
+   "n_g_gt_0.5": 2928,
+   "n_has_emb": 4991,
+   "n_cold_has_emb": 1011,
+   "n_pool": 2209,
+   "median_n_ds_warm": 7.0,
+   "loo_loading_prediction_pool": {
+    "true": {
+     "mean_cos": 0.4995,
+     "R2": 0.1034
+    },
+    "perm": {
+     "mean_cos": 0.3095,
+     "R2": -0.139
+    },
+    "gauss": {
+     "mean_cos": 0.3307,
+     "R2": -0.0802
+    }
+   }
+  },
+  "sadiku2025": {
+   "p": 3039,
+   "n_cold": 208,
+   "n_g_gt_0.5": 1357,
+   "n_has_emb": 3036,
+   "n_cold_has_emb": 208,
+   "n_pool": 1680,
+   "median_n_ds_warm": 10.0,
+   "loo_loading_prediction_pool": {
+    "true": {
+     "mean_cos": 0.4607,
+     "R2": 0.0825
+    },
+    "perm": {
+     "mean_cos": 0.2498,
+     "R2": -0.1414
+    },
+    "gauss": {
+     "mean_cos": 0.279,
+     "R2": -0.0711
+    }
+   }
+  }
+ }
+}
