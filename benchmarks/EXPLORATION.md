@@ -470,3 +470,57 @@ kNN + low-rank + reference projection, with simplex weights chosen on an inner m
 - BIM vs `bim_null`.
 
 **Details:** `benchmarks/PREREGISTRATION_v7.md` and `benchmarks/confirm_v7.py`.
+
+---
+
+# Phase B: post-hackathon scaling program (from Oct 23, 2026)
+
+**Submission snapshot:** the OSI Hackathon entry, as judged, is `main` at `076a946`. All later work happens on
+`claude/happy-hamilton-kdexid` and never changes the numbers of the submitted claims.
+
+## Amendment 15: goal, data, holdouts and protocol for scaling (committed before any Phase-B data is downloaded or any run)
+
+**Goal (Amit, Oct 23):**
+- Push the gain of prior-informed imputation over the best data-only method from 2–5% toward 20–30%.
+- Do this with much more biological data, new representations and bigger models.
+- The goal is aspirational. We report what we get.
+
+**Primary metric:**
+- Relative RMSE vs `stack_lowrank` (kNN + low-rank, inner-mask weights), on 30-cell subsamples, MCAR and MNAR, all
+  proteins and in-complex.
+- Secondary: 10- and 100-cell regimes.
+
+**Holdouts (reserved now, before any Phase-B work):**
+- **H-A: `wu2026`** (prenatal human brain, 2268 cells, DIA). It is removed from every reference from now on. It was
+  reference-only in Amendments 11–14 and was never imputed or scored.
+- **H-B: `derks2022`**, to be rebuilt from *unimputed* precursor data (scpdata's protein assay is imputed). Only shape
+  and missingness may be inspected while building.
+- Each holdout is used **once**, for the single best Phase-B method, with a preregistration committed beforehand. The
+  pass rule is the Amendment-14 rule (CI < 0 and a 1% SESOI vs kNN, the kNN + low-rank stack, and the method's own
+  scrambled-reference null).
+
+**Dev protocol:**
+- **Targets:** leave-one-dataset-out over all non-holdout single-cell datasets with ≥ 100 cells and cell labels.
+  That is the original three dev targets plus any reference dataset that qualifies, a much larger dev set than in
+  Phase A.
+- **Seeds:** dev seeds 100–102.
+- **Rule:** a new idea moves forward only if its *mean* gain over the current best method is ≥ 1% across dev targets,
+  and it beats its own scrambled control.
+- **Logging:** every idea is listed in `docs/EXPLORATION_LOG.md` with its result, including failures.
+
+**Workstreams:**
+1. **More reference data (bulk):**
+   - Sanger ProCan cell-line proteomes;
+   - GTEx tissue proteomes;
+   - CPTAC pan-cancer proteomes;
+   - any other public protein × sample matrix with ≥ 100 samples.
+
+   Each needs SHA-256 provenance and a `reference()` module like `reps/ccle.py`.
+2. **More reference data (single-cell):** additional public SCP datasets (PRIDE/MassIVE/Zenodo), built with the
+   Amendment-11 rules.
+3. **Reference selection:** weight reference samples or datasets by similarity to the target, analogous to selecting
+   the most similar haplotypes.
+4. **Nonlinear transfer:** a masked autoencoder pretrained on the full reference, with only the cell embedding fitted on
+   the target. This is the nonlinear version of reference projection.
+5. **Peptide-level priors:** impute peptides, then aggregate, where complex stoichiometry constrains ratios.
+6. **Head-to-heads:** GIRAFI, Lupine and omicsGMF, if their code is available, as extra baselines.

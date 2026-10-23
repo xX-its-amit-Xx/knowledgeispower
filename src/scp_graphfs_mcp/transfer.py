@@ -31,6 +31,7 @@ def _z(X):
 # Amendment 11: extra scpdata datasets built by scripts/corpus_ext/ (whatever built successfully; see PROVENANCE).
 EXCLUDED_FROM_CORPUS = HOLDOUTS | {"leduc2022_plexDIA", "specht2019v2"}
 AMENDMENT13_HOLDOUT = "brunner2022"  # reference-only until Amendment 13; never in a reference from then on
+PHASE_B_HOLDOUTS = {"brunner2022", "wu2026", "derks2022"}  # Amendment 15: never in any Phase-B reference
 
 
 def extended_corpus() -> list[str]:
