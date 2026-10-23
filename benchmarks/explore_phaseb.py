@@ -78,7 +78,7 @@ def subsample(n_total, labels, n_cells, seed):
     return np.sort(rng.choice(n_total, n_cells, replace=False))
 
 
-def evaluate(X, names, models, n_cells, kind, seed, labels):
+def evaluate(X, names, models, n_cells, kind, seed, labels, ceiling=False):
     idx = subsample(X.shape[0], labels, n_cells, seed)
     Xs = X[idx]
     keepcol = ~np.isnan(Xs).all(0)
@@ -111,6 +111,11 @@ def evaluate(X, names, models, n_cells, kind, seed, labels):
     preds, wts = {"knn": base}, {}
     preds["stack_lowrank"], wts["stack_lowrank"] = stack([base, lr], [bi, lri])
     preds["stack3_plain"], wts["stack3_plain"] = stack([base, lr, pj], [bi, lri, pji])
+    if ceiling:  # diagnostic, not a candidate: the ideal reference = the *other* cells of the same dataset
+        rest = np.setdiff1d(np.arange(X.shape[0]), idx)
+        Vin, win = T.fit_loadings(T._z(X[rest]))
+        pin, pini = T.project(Xm, Vin, win, base), T.project(Xi, Vin, win, bi)
+        preds["ceiling_indomain"], wts["ceiling_indomain"] = stack([base, lr, pin], [bi, lri, pini])
     for key in ("mae", "mae@null"):
         if key not in models:
             continue
@@ -151,7 +156,7 @@ def main():
               flush=True)
         for kind in ("MCAR", "MNAR"):
             for seed in SEEDS:
-                for r in evaluate(X, names, models, 30, kind, seed, labels):
+                for r in evaluate(X, names, models, 30, kind, seed, labels, ceiling="--ceiling" in sys.argv):
                     rows.append({"target": tname, **r})
         (out_dir / f"dev_{tag}.json").write_text(json.dumps({"meta": meta, "rows": rows}, indent=1) + "\n")
     summarize(rows)

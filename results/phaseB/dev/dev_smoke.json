@@ -1,0 +1,482 @@
+{
+ "meta": {
+  "tag": "smoke",
+  "bulk": [
+   "ccle",
+   "proteomehd"
+  ],
+  "targets": [
+   "petrosius2023"
+  ],
+  "seeds": [
+   100,
+   101,
+   102
+  ],
+  "epochs": 10
+ },
+ "rows": [
+  {
+   "target": "petrosius2023",
+   "method": "knn",
+   "rmse_all": 0.9022971937276031,
+   "rmse_in_complex": 0.848999277879786,
+   "weights": null,
+   "n_cells": 28,
+   "mask": "MCAR",
+   "seed": 100
+  },
+  {
+   "target": "petrosius2023",
+   "method": "stack_lowrank",
+   "rmse_all": 0.8379660657387873,
+   "rmse_in_complex": 0.7740786520217741,
+   "weights": [
+    0.75,
+    0.25
+   ],
+   "n_cells": 28,
+   "mask": "MCAR",
+   "seed": 100
+  },
+  {
+   "target": "petrosius2023",
+   "method": "stack3_plain",
+   "rmse_all": 0.777085592007709,
+   "rmse_in_complex": 0.703715188918202,
+   "weights": [
+    0.25,
+    0.25,
+    0.5
+   ],
+   "n_cells": 28,
+   "mask": "MCAR",
+   "seed": 100
+  },
+  {
+   "target": "petrosius2023",
+   "method": "mae",
+   "rmse_all": 0.8614918735102288,
+   "rmse_in_complex": 0.7904875079088252,
+   "weights": null,
+   "n_cells": 28,
+   "mask": "MCAR",
+   "seed": 100
+  },
+  {
+   "target": "petrosius2023",
+   "method": "stack4_mae",
+   "rmse_all": 0.777085592007709,
+   "rmse_in_complex": 0.703715188918202,
+   "weights": [
+    0.25,
+    0.25,
+    0.5,
+    0.0
+   ],
+   "n_cells": 28,
+   "mask": "MCAR",
+   "seed": 100
+  },
+  {
+   "target": "petrosius2023",
+   "method": "stack4_mae@null",
+   "rmse_all": 0.777085592007709,
+   "rmse_in_complex": 0.703715188918202,
+   "weights": [
+    0.25,
+    0.25,
+    0.5,
+    0.0
+   ],
+   "n_cells": 28,
+   "mask": "MCAR",
+   "seed": 100
+  },
+  {
+   "target": "petrosius2023",
+   "method": "knn",
+   "rmse_all": 0.9660477701590559,
+   "rmse_in_complex": 0.9092950642488844,
+   "weights": null,
+   "n_cells": 28,
+   "mask": "MCAR",
+   "seed": 101
+  },
+  {
+   "target": "petrosius2023",
+   "method": "stack_lowrank",
+   "rmse_all": 0.9091408556571497,
+   "rmse_in_complex": 0.8587964077684488,
+   "weights": [
+    0.75,
+    0.25
+   ],
+   "n_cells": 28,
+   "mask": "MCAR",
+   "seed": 101
+  },
+  {
+   "target": "petrosius2023",
+   "method": "stack3_plain",
+   "rmse_all": 0.8522269782364023,
+   "rmse_in_complex": 0.7961831893727942,
+   "weights": [
+    0.0,
+    0.25,
+    0.75
+   ],
+   "n_cells": 28,
+   "mask": "MCAR",
+   "seed": 101
+  },
+  {
+   "target": "petrosius2023",
+   "method": "mae",
+   "rmse_all": 0.9209838662575228,
+   "rmse_in_complex": 0.8433706257084208,
+   "weights": null,
+   "n_cells": 28,
+   "mask": "MCAR",
+   "seed": 101
+  },
+  {
+   "target": "petrosius2023",
+   "method": "stack4_mae",
+   "rmse_all": 0.846350258812367,
+   "rmse_in_complex": 0.785723684263807,
+   "weights": [
+    0.0,
+    0.25,
+    0.5,
+    0.25
+   ],
+   "n_cells": 28,
+   "mask": "MCAR",
+   "seed": 101
+  },
+  {
+   "target": "petrosius2023",
+   "method": "stack4_mae@null",
+   "rmse_all": 0.8522269782364023,
+   "rmse_in_complex": 0.7961831893727942,
+   "weights": [
+    0.0,
+    0.25,
+    0.75,
+    0.0
+   ],
+   "n_cells": 28,
+   "mask": "MCAR",
+   "seed": 101
+  },
+  {
+   "target": "petrosius2023",
+   "method": "knn",
+   "rmse_all": 1.0748067595275412,
+   "rmse_in_complex": 1.0062762439139845,
+   "weights": null,
+   "n_cells": 28,
+   "mask": "MCAR",
+   "seed": 102
+  },
+  {
+   "target": "petrosius2023",
+   "method": "stack_lowrank",
+   "rmse_all": 0.9972220264416188,
+   "rmse_in_complex": 0.9500187117852132,
+   "weights": [
+    0.75,
+    0.25
+   ],
+   "n_cells": 28,
+   "mask": "MCAR",
+   "seed": 102
+  },
+  {
+   "target": "petrosius2023",
+   "method": "stack3_plain",
+   "rmse_all": 0.9484734135065491,
+   "rmse_in_complex": 0.901891088111293,
+   "weights": [
+    0.0,
+    0.25,
+    0.75
+   ],
+   "n_cells": 28,
+   "mask": "MCAR",
+   "seed": 102
+  },
+  {
+   "target": "petrosius2023",
+   "method": "mae",
+   "rmse_all": 1.0747388710061305,
+   "rmse_in_complex": 1.0063197792842868,
+   "weights": null,
+   "n_cells": 28,
+   "mask": "MCAR",
+   "seed": 102
+  },
+  {
+   "target": "petrosius2023",
+   "method": "stack4_mae",
+   "rmse_all": 0.9484734135065491,
+   "rmse_in_complex": 0.901891088111293,
+   "weights": [
+    0.0,
+    0.25,
+    0.75,
+    0.0
+   ],
+   "n_cells": 28,
+   "mask": "MCAR",
+   "seed": 102
+  },
+  {
+   "target": "petrosius2023",
+   "method": "stack4_mae@null",
+   "rmse_all": 0.9484734135065491,
+   "rmse_in_complex": 0.901891088111293,
+   "weights": [
+    0.0,
+    0.25,
+    0.75,
+    0.0
+   ],
+   "n_cells": 28,
+   "mask": "MCAR",
+   "seed": 102
+  },
+  {
+   "target": "petrosius2023",
+   "method": "knn",
+   "rmse_all": 0.9065216922230592,
+   "rmse_in_complex": 0.8978652409535443,
+   "weights": null,
+   "n_cells": 28,
+   "mask": "MNAR",
+   "seed": 100
+  },
+  {
+   "target": "petrosius2023",
+   "method": "stack_lowrank",
+   "rmse_all": 0.8797746683438172,
+   "rmse_in_complex": 0.8678156585367688,
+   "weights": [
+    0.75,
+    0.25
+   ],
+   "n_cells": 28,
+   "mask": "MNAR",
+   "seed": 100
+  },
+  {
+   "target": "petrosius2023",
+   "method": "stack3_plain",
+   "rmse_all": 0.8580433684006175,
+   "rmse_in_complex": 0.8302609624715415,
+   "weights": [
+    0.25,
+    0.25,
+    0.5
+   ],
+   "n_cells": 28,
+   "mask": "MNAR",
+   "seed": 100
+  },
+  {
+   "target": "petrosius2023",
+   "method": "mae",
+   "rmse_all": 0.956105068598407,
+   "rmse_in_complex": 0.9129324790438518,
+   "weights": null,
+   "n_cells": 28,
+   "mask": "MNAR",
+   "seed": 100
+  },
+  {
+   "target": "petrosius2023",
+   "method": "stack4_mae",
+   "rmse_all": 0.8580433684006175,
+   "rmse_in_complex": 0.8302609624715415,
+   "weights": [
+    0.25,
+    0.25,
+    0.5,
+    0.0
+   ],
+   "n_cells": 28,
+   "mask": "MNAR",
+   "seed": 100
+  },
+  {
+   "target": "petrosius2023",
+   "method": "stack4_mae@null",
+   "rmse_all": 0.8580433684006175,
+   "rmse_in_complex": 0.8302609624715415,
+   "weights": [
+    0.25,
+    0.25,
+    0.5,
+    0.0
+   ],
+   "n_cells": 28,
+   "mask": "MNAR",
+   "seed": 100
+  },
+  {
+   "target": "petrosius2023",
+   "method": "knn",
+   "rmse_all": 0.9777057676202325,
+   "rmse_in_complex": 0.9401528401210293,
+   "weights": null,
+   "n_cells": 28,
+   "mask": "MNAR",
+   "seed": 101
+  },
+  {
+   "target": "petrosius2023",
+   "method": "stack_lowrank",
+   "rmse_all": 0.9433003331645803,
+   "rmse_in_complex": 0.8956773176121893,
+   "weights": [
+    0.5,
+    0.5
+   ],
+   "n_cells": 28,
+   "mask": "MNAR",
+   "seed": 101
+  },
+  {
+   "target": "petrosius2023",
+   "method": "stack3_plain",
+   "rmse_all": 0.9288713649784027,
+   "rmse_in_complex": 0.8629718299784619,
+   "weights": [
+    0.0,
+    0.25,
+    0.75
+   ],
+   "n_cells": 28,
+   "mask": "MNAR",
+   "seed": 101
+  },
+  {
+   "target": "petrosius2023",
+   "method": "mae",
+   "rmse_all": 1.0148120189112313,
+   "rmse_in_complex": 0.9475141362264223,
+   "weights": null,
+   "n_cells": 28,
+   "mask": "MNAR",
+   "seed": 101
+  },
+  {
+   "target": "petrosius2023",
+   "method": "stack4_mae",
+   "rmse_all": 0.931368520499319,
+   "rmse_in_complex": 0.8678250439571072,
+   "weights": [
+    0.0,
+    0.25,
+    0.5,
+    0.25
+   ],
+   "n_cells": 28,
+   "mask": "MNAR",
+   "seed": 101
+  },
+  {
+   "target": "petrosius2023",
+   "method": "stack4_mae@null",
+   "rmse_all": 0.9288713649784027,
+   "rmse_in_complex": 0.8629718299784619,
+   "weights": [
+    0.0,
+    0.25,
+    0.75,
+    0.0
+   ],
+   "n_cells": 28,
+   "mask": "MNAR",
+   "seed": 101
+  },
+  {
+   "target": "petrosius2023",
+   "method": "knn",
+   "rmse_all": 1.0029770450022581,
+   "rmse_in_complex": 0.9566633611935136,
+   "weights": null,
+   "n_cells": 28,
+   "mask": "MNAR",
+   "seed": 102
+  },
+  {
+   "target": "petrosius2023",
+   "method": "stack_lowrank",
+   "rmse_all": 0.9554795566005003,
+   "rmse_in_complex": 0.9077056608559176,
+   "weights": [
+    0.75,
+    0.25
+   ],
+   "n_cells": 28,
+   "mask": "MNAR",
+   "seed": 102
+  },
+  {
+   "target": "petrosius2023",
+   "method": "stack3_plain",
+   "rmse_all": 0.9451673035898475,
+   "rmse_in_complex": 0.8876699462683744,
+   "weights": [
+    0.25,
+    0.25,
+    0.5
+   ],
+   "n_cells": 28,
+   "mask": "MNAR",
+   "seed": 102
+  },
+  {
+   "target": "petrosius2023",
+   "method": "mae",
+   "rmse_all": 1.110651233577564,
+   "rmse_in_complex": 1.0375594103789687,
+   "weights": null,
+   "n_cells": 28,
+   "mask": "MNAR",
+   "seed": 102
+  },
+  {
+   "target": "petrosius2023",
+   "method": "stack4_mae",
+   "rmse_all": 0.9451673035898475,
+   "rmse_in_complex": 0.8876699462683744,
+   "weights": [
+    0.25,
+    0.25,
+    0.5,
+    0.0
+   ],
+   "n_cells": 28,
+   "mask": "MNAR",
+   "seed": 102
+  },
+  {
+   "target": "petrosius2023",
+   "method": "stack4_mae@null",
+   "rmse_all": 0.9451673035898475,
+   "rmse_in_complex": 0.8876699462683744,
+   "weights": [
+    0.25,
+    0.25,
+    0.5,
+    0.0
+   ],
+   "n_cells": 28,
+   "mask": "MNAR",
+   "seed": 102
+  }
+ ]
+}

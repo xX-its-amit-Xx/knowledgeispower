@@ -446,3 +446,31 @@ information, because the reference already contains it.
     only 0.2–0.6% over the kNN + low-rank stack and did not pass. **So the effect replicates on 1 of 2 holdouts, and its
     size likely depends on dataset and reference similarity.**
   - Only 7 HeLa single cells are in the reference. We did not check the cell-line composition of ProteomeHD.
+
+---
+
+# Phase B (post-hackathon; `main` frozen at `076a946` as the submission)
+
+## 2026-10-23 · Ceiling diagnostic: how much could transfer gain with an *ideal* reference? (`results/phaseB/dev/dev_ceiling.json`)
+**Setup:**
+- Same projection method as `stack3_plain`, but the reference is the target dataset's **own other cells** (same cell
+  types, lab and instrument; disjoint from the 30-cell subsample).
+- It is a diagnostic, not a candidate.
+- Phase-B reference: wu2026, brunner2022 and derks2022 excluded as holdouts.
+
+RMSE relative to the best data-only method (kNN + low-rank stack), MCAR / MNAR:
+
+| Target | `stack3_plain` (public reference) | ideal in-domain reference |
+|---|---|---|
+| Leduc | 0.993 / 0.996 | **0.903 / 0.907** |
+| Petrosius | 0.939 / 0.983 | **0.790 / 0.829** |
+| SCoPE2 | 0.984 / 0.984 | **0.860 / 0.841** |
+| **mean** | **0.980** | **0.855** |
+
+**Read:**
+- With an ideal reference, transfer would give −10% to −21% (mean −14.5%) vs the best data-only method. Today's
+  public reference captures about 1/7 of that.
+- 20–30% is beyond this linear ceiling on average, though not on Petrosius.
+- The gap points at reference *relevance*: matching cell types and acquisition.
+- Next: reference selection (choose the external cells most similar to the target, as genotype imputation chooses the
+  closest haplotypes), and nonlinear models.
