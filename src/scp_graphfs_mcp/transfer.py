@@ -65,16 +65,24 @@ def corpus_reference(var_names, exclude: tuple[str, ...], datasets: list[str] | 
     return np.vstack(blocks)
 
 
-def bulk_reference(var_names) -> np.ndarray:
-    """CCLE + ProteomeHD samples aligned to var_names, (N_samples x p), z-scored per protein (NaN = absent)."""
-    from .reps import ccle, proteomehd
+BULK_MODULES = ("ccle", "proteomehd")  # Phase-A default; Phase B passes more (procan, gtex_proteome, cptac, ...)
+
+
+def bulk_reference(var_names, modules=BULK_MODULES) -> np.ndarray:
+    """Bulk reference samples (one block per module in `reps`) aligned to var_names, (N_samples x p), z-scored per
+    protein (NaN = absent). Modules that are not built yet are skipped."""
+    import importlib
 
     out = []
-    for m in (ccle, proteomehd):
+    for name in modules:
+        try:
+            m = importlib.import_module(f"scp_graphfs_mcp.reps.{name}")
+        except ModuleNotFoundError:
+            continue
         R, has = m.reference(var_names)
         R = np.where(np.asarray(has, bool)[:, None], R, np.nan)
         out.append(_z(R.T))
-    return np.vstack(out)
+    return np.vstack(out) if out else np.zeros((0, len(var_names)))
 
 
 def fit_loadings(Zref: np.ndarray, rank: int = 20, lam: float = 5.0, iters: int = 15, min_obs: int = 20,
