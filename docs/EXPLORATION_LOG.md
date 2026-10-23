@@ -508,3 +508,28 @@ RMSE relative to the kNN + low-rank stack, mean over 3 targets × 2 masks:
 - The transferable structure comes from *single-cell* references: same measurement physics, carrier and missingness
   patterns.
 - Next: more single-cell datasets (agent in progress), and technology-matched references.
+
+## 2026-10-23 · Phase B dev: more single-cell data, then domain-adapted projection (`dev_sc25`, `dev_adapt*`)
+**More data.** A single-cell-only reference with 25 datasets (8 new PRIDE datasets, ~5,400 more cells) gives
+`stack3_plain` = 0.973, the same as with 13 datasets (0.970). More generic reference data has plateaued.
+
+**Domain adaptation.** `transfer.adapt_project` is MAP low-rank on the 30 target cells, with the reference loadings as
+a Gaussian prior (strength λ_v) plus `extra` free factors.
+
+Scores are relative to the kNN + low-rank stack, mean of 3 targets × 2 masks; single-cell reference only.
+
+| Configuration | With reference | Scrambled reference | No reference (zero prior, same free factors) |
+|---|---|---|---|
+| plain projection (Phase A) | 0.973 | | |
+| λ_v = 30, 3 extra | 0.954 | | |
+| λ_v = 100, 0 extra | 0.970 | | |
+| **λ_v = 100, 10 extra** | **0.953** | 0.975 | 0.975 |
+| λ_v = 100, 20 extra | 0.953 | 0.976 | 0.976 |
+| λ_v = 300 / 1000, 3 extra | 0.971 / 0.973 | | |
+
+**Read:**
+- Letting the target bend the reference loadings, and add a few factors of its own, roughly doubles the transfer gain:
+  −4.75% vs −2.7%.
+- The reference accounts for about 2.3 points of that (vs. scrambled or no reference).
+- λ_v and `extra` were tuned on these 3 dev targets. Next: check that this generalises across the full LODO dev pool
+  before anything goes near a holdout.

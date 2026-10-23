@@ -111,6 +111,27 @@ def evaluate(X, names, models, n_cells, kind, seed, labels, ceiling=False):
     preds, wts = {"knn": base}, {}
     preds["stack_lowrank"], wts["stack_lowrank"] = stack([base, lr], [bi, lri])
     preds["stack3_plain"], wts["stack3_plain"] = stack([base, lr, pj], [bi, lri, pji])
+    if "--adapt" in sys.argv:  # Amendment 15: domain-adapted projection (reference loadings as a prior)
+        grid = [tuple(map(float, g.split("x"))) for g in sys.argv[sys.argv.index("--adapt-grid") + 1].split(",")] \
+            if "--adapt-grid" in sys.argv else [(10.0, 3.0), (30.0, 3.0)]
+        for lv, ex in grid:
+            a = T.adapt_project(Xm, V, warm, base, lam_v=lv, extra=int(ex))
+            ai = T.adapt_project(Xi, V, warm, bi, lam_v=lv, extra=int(ex))
+            key = f"stack3_adapt{int(lv)}" + ("" if int(ex) == 3 else f"_x{int(ex)}")
+            preds[key], wts[key] = stack([base, lr, a], [bi, lri, ai])
+        if "Vnull" in models:
+            for lv, ex in grid:
+                a = T.adapt_project(Xm, models["Vnull"], warm, base, lam_v=lv, extra=int(ex))
+                ai = T.adapt_project(Xi, models["Vnull"], warm, bi, lam_v=lv, extra=int(ex))
+                key = f"stack3_adapt{int(lv)}" + ("" if int(ex) == 3 else f"_x{int(ex)}") + "@null"
+                preds[key], wts[key] = stack([base, lr, a], [bi, lri, ai])
+            # and the same free factors with NO reference at all (zero prior): isolates the reference's contribution
+            for lv, ex in grid:
+                z0 = np.zeros_like(V)
+                a = T.adapt_project(Xm, z0, np.zeros_like(warm), base, lam_v=lv, extra=int(ex))
+                ai = T.adapt_project(Xi, z0, np.zeros_like(warm), bi, lam_v=lv, extra=int(ex))
+                key = f"stack3_adapt{int(lv)}" + ("" if int(ex) == 3 else f"_x{int(ex)}") + "@noref"
+                preds[key], wts[key] = stack([base, lr, a], [bi, lri, ai])
     if "Zref" in models:  # Amendment 15 workstream 3: reference selection (+ random-selection control of equal size)
         Zr, src = models["Zref"], models["src"]
         for lab, kw in (("sel_cells2000", {"n": 2000}), ("sel_rand2000", {"n": 2000, "seed": seed}),
@@ -167,6 +188,8 @@ def main():
         Z, src = np.vstack(parts), np.array(src)
         V, warm = T.fit_loadings(Z)
         models = {"V": V, "warm": warm}
+        if "--adapt" in sys.argv:
+            models["Vnull"] = T.permute_rows(V, warm, 0)
         if "--select" in sys.argv:
             models["Zref"], models["src"] = Z, src
         if "--no-mae" not in sys.argv:

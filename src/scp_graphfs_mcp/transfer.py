@@ -244,3 +244,36 @@ def select_reference(Zref: np.ndarray, Xm: np.ndarray, n: int, src: np.ndarray |
         best = sorted(srcs, key=lambda d: -means[d])[:n_datasets]
         return np.where(np.isin(src, best))[0]
     return np.sort(np.argsort(-s)[:min(n, len(Zref))])
+
+
+def adapt_project(Xm: np.ndarray, Vref: np.ndarray, usable: np.ndarray, base: np.ndarray, lam_v: float = 10.0,
+                  lam: float = 5.0, extra: int = 3, iters: int = 10, seed: int = 0) -> np.ndarray:
+    """Domain-adapted reference projection (Amendment 15): MAP low-rank on the *target*, with the reference loadings as
+    a Gaussian prior, min |P_obs(Z - U V^T)|^2 + lam|U|^2 + lam_v|V - V_ref|^2, plus `extra` free factors (ridge only).
+    Unobserved entries are predicted from the adapted factors; proteins with no target observations keep `base`."""
+    obs = ~np.isnan(Xm)
+    mu = np.nanmean(Xm, 0)
+    sd = np.nanstd(Xm, 0)
+    sd = np.where(np.isfinite(sd) & (sd > 1e-6), sd, 1.0)
+    ok = np.isfinite(mu)
+    Z = np.where(obs, (Xm - np.nan_to_num(mu)) / sd, 0.0)
+    r0 = Vref.shape[1]
+    rng = np.random.default_rng(seed)
+    Vp = np.hstack([np.where(usable[:, None], Vref, 0.0), np.zeros((len(Vref), extra))])
+    V = Vp + np.hstack([np.zeros_like(Vref), 0.01 * rng.normal(size=(len(Vref), extra))])
+    r = r0 + extra
+    U = np.zeros((Xm.shape[0], r))
+    I = np.eye(r)
+    for _ in range(iters):
+        for i in range(Xm.shape[0]):
+            o = obs[i] & ok
+            U[i] = np.linalg.solve(V[o].T @ V[o] + lam * I, V[o].T @ Z[i, o])
+        for j in np.where(ok)[0]:
+            o = obs[:, j]
+            Uo = U[o]
+            V[j] = np.linalg.solve(Uo.T @ Uo + lam_v * I, Uo.T @ Z[o, j] + lam_v * Vp[j])
+    out = base.copy()
+    P = U @ V.T
+    miss = ~obs & ok[None, :]
+    out[miss] = (mu[None, :] + sd[None, :] * P)[miss]
+    return out
