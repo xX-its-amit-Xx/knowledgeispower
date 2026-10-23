@@ -559,3 +559,28 @@ Mean relative to the kNN + low-rank stack, 15 targets × 2 masks:
 
 **Gate:** this passes the Amendment-15 dev gate (≥ 1% mean gain over the current best, and beats its controls).
 `PREREGISTRATION_v8.md` commits the single wu2026 confirmation.
+
+## 2026-10-23 · v8 confirmation on the wu2026 holdout (Amendment 15, H15): **CONFIRMED, 16/16** (`results/confirm_v8/confirm_v8.json`)
+**Setup:**
+- Prenatal human brain, 2268 cells, DIA, 90% missing.
+- 30-cell random subsamples, seeds 8000–8009.
+- Single-cell reference: 21 datasets, no holdouts.
+- Adapted projection (λ_v = 100, 10 extra factors) stacked with kNN and low-rank.
+
+| `adapt` vs | MCAR, all | MCAR, in-complex | MNAR, all | MNAR, in-complex |
+|---|---|---|---|---|
+| kNN | −14.2% | −15.4% | −15.4% | −16.1% |
+| **kNN + low-rank (best data-only)** | **−5.0%** | **−4.9%** | **−6.8%** | **−6.8%** |
+| scrambled reference | −5.2% | −5.3% | −6.1% | −6.1% |
+| no reference | −5.1% | −5.1% | −7.2% | −7.2% |
+
+All 16 paired-bootstrap 95% CIs are below 0, and every difference is beyond the 1% SESOI.
+
+**Read:**
+- On a tissue and technology not used in development, borrowing protein co-regulation from 21 public single-cell
+  datasets, and letting the target adapt it, cuts imputation error by 5–7% vs. the best data-only method and by
+  14–16% vs. kNN.
+- The scrambled-reference and no-reference controls show the gain comes from the *biological content* of the
+  reference.
+- This is about 2× the Phase-A holdout effect on Brunner (2.4–5.4%), on a harder (90%-missing) dataset.
+- derks2022 remains reserved.
