@@ -636,3 +636,32 @@ relative to the H15 champion, all / in-complex; full-pool bars: cand_stack ≤ 0
   full pool if it holds), `selmnar` (probit selection model for the missing entries), `seqprior` (sequence
   detectability features as shrinkage targets) and `varprior` (half-life / complex-buffering prior on log-sd). The
   last two must beat shrink-to-constant at the same ψ.
+
+## 2026-10-23 · Phase C round 3 (dev): shrinkage is the lever, not its target; selected-ψ constant shrinkage reaches 0.9650 on the full pool (`results/phaseC/*.json`)
+**Setup:** as in rounds 1–2 (`benchmarks/phasec.py`, fast pool = 6 dev targets × 2 masks × 2 seeds; full pool = 15
+LODO dev targets × 2 masks × 3 seeds; rmse_all mean relative to the H15 champion, all / in-complex).
+
+| id (queen) | idea | cand_stack | null_stack | cand_solo |
+|---|---|---|---|---|
+| `tgtshrink` (abd), fast | shrink target mean/log-sd toward a (mean, obs-fraction) trend, ψ selected on a 50/50 inner mask | 0.9597 / 0.9586 | 0.9575 / 0.9563 | 0.9640 |
+| `tgtshrink` (abd), **full** | the same | 0.9683 / 0.9684 | **0.9650 / 0.9653** | 0.9699 |
+| `tgtshrink_psi4` / `_const_psi4` | fixed ψ = 4: trend / constant | 0.9730 / 0.9691 | 0.9683 / — | 0.9756 / 0.9692 |
+| `selmnar` (rep) | Heckman probit selection model in an EM U-step | 1.0000 / 1.0000 | 0.9985 / 0.9986 | 1.0192 |
+| `seqprior` (mod) | sequence/HPA detectability features as shrinkage targets | 0.9686 / 0.9689 | 0.9687 / 0.9694 | 0.9687 |
+| `varprior` (bio) | half-life (Mathieson 2018) + CORUM as a log-sd shrinkage target | 0.9679 / 0.9686 | 0.9718 / 0.9728 | 0.9678 |
+
+**Read:**
+- No idea clears its bars; the champion stands. tgtshrink's trend is worse than its permuted null (fast −0.0022, full
+  −0.0033). seqprior ties its shrink-to-constant baseline (0.9686); varprior beats its constant baseline by 0.0007 and
+  its null by 0.0039 (v2 0.9682 vs null 0.9686).
+- **The useful result is data-only:** tgtshrink's null (shrink the target's per-protein mean and log-sd toward a
+  constant, ψ chosen per target on an inner mask) is 0.9575 fast and 0.9650 on the full pool (MCAR 0.9736, MNAR 0.9564;
+  25/30 target-masks ≤ 0.99; worst woo2025_PC3 MCAR 1.0000), vs 0.9691 for fixed ψ = 4 on fast. ψ = 16, the top of the
+  grid, was chosen in 30/48 null calls.
+- selmnar's missingness model is strongly mask-dependent: cand_raw MNAR 0.8774 (permuted-indicator null 0.9615, no
+  selection 0.9967) but MCAR 1.2721; the stack gives it weight 0.0000. The MNAR eval mask is value-logistic, so part of
+  that gain may be the model re-learning the mask generator.
+- Round 4 (directives in `docs/phaseC/KING_LOG.md`): `cshrink` (explicit selected-ψ constant shrinkage, extended grid,
+  random-ψ null, full pool), `mnarjoint` (joint low-rank of values and missingness indicators), `subthr` (sub-threshold
+  DIA precursor evidence at naturally missing entries) and `techhyper` (technology/tissue-aware hyperprior on ψ). All
+  are credited only against the selected-ψ constant base.

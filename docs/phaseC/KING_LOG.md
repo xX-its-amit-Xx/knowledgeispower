@@ -369,3 +369,117 @@ filtering with `PHASE_B_HOLDOUTS` (as `explore_phaseb.reference_datasets` does).
 **Rules reminder:** `--pool fast --jobs 2`; the full pool only at cand_stack ≤ 0.99 and ≥ 0.005 below the null (for
 `tgtshrink`, ≤ 0.99 vs the champion); dev data only; every number from `results/phaseC/<id>_fast.json`; provenance rows
 in the idea doc.
+
+## Round 3 · 2026-10-23 · review and directives for round 4
+
+**Verification.** The king re-read every number in the four worker reports from `results/phaseC/*.json`: summary
+means (all / in-complex), per-mask means, per-target/mask values quoted in the reports, stack weights and splits
+≤ 0.99 (`tgtshrink_full.json` included). All matched. One rounding note: selmnar's MCAR null_stack mean is 0.99985
+(reported 0.9998, recorded in the ledger as 0.9999); varprior's "weiss2026_liver 0.9873 vs 0.9659" are cand_stack values.
+
+**What each queen tried** (fast pool unless marked; rmse_all mean relative to the champion, all / in-complex; bars:
+cand_stack ≤ 0.99 *and* ≥ 0.005 below the null; bio and mod also ≥ 0.005 below shrink-to-constant at ψ = 4):
+
+| queen | idea | cand_stack | null_stack | cand_solo | verdict |
+|---|---|---|---|---|---|
+| abd | `tgtshrink` (shrink target mean/log-sd toward a (mean, obs-fraction) trend, ψ selected) | 0.9597 / 0.9586; **full 0.9683 / 0.9684** | 0.9575 / 0.9563; **full 0.9650 / 0.9653** | 0.9640 | trend dead (worse than null by 0.0022 / 0.0033); **null pipeline is the best Phase-C result** |
+| rep | `selmnar` (Heckman probit selection, EM U-step) | 1.0000 / 1.0000 | 0.9985 / 0.9986 | 1.0192 | dead (weight 0.0000); raw MNAR 0.8774 vs null 0.9615, raw MCAR 1.2721 |
+| mod | `seqprior` (sequence/HPA detectability → shrinkage targets) | 0.9686 / 0.9689 | 0.9687 / 0.9694 | 0.9687 | dead (= constant 0.9686; ridge 0.9683) |
+| bio | `varprior` (half-life + CORUM → log-sd target) | 0.9679 / 0.9686 | 0.9718 / 0.9728 | 0.9678 | dead (margin 0.0039 over null, 0.0007 over constant 0.9686; v2 0.9682 vs 0.9686) |
+
+**What the round taught us:**
+- **The lever is shrinkage itself, not where it shrinks to.** Three independent protein-specific shrinkage targets
+  (nfbase reference baselines, varprior half-life/complex, seqprior sequence/location) all tie shrink-to-constant
+  (0.9686–0.9691 at ψ = 4). tgtshrink's own trend loses to its permuted null. This line is closed.
+- **Choosing ψ per target is worth another ~1%.** The selected-ψ constant pipeline (tgtshrink null) is 0.9575 fast
+  vs 0.9691 at fixed ψ = 4, and 0.9650 on the full pool (MCAR 0.9736, MNAR 0.9564; 25/30 target-masks ≤ 0.99; worst
+  woo2025_PC3 MCAR 1.0000). ψ = 16, the top of the grid, was chosen in 30/48 null calls and tau²(log-sd) sat at its
+  floor: the champion's per-protein unit-variance scaling looks harmful in itself. That is an encoding finding.
+- **Missingness carries real, value-dependent information** (selmnar raw MNAR 0.8774 vs permuted-indicator null
+  0.9615 and σ_d = ∞ 0.9967), but a single parametric tilt applied to every missing entry costs 17–27% on MCAR, and the
+  random-inner-mask stack gives it weight 0.0000. Two lessons: (i) any missingness model must calibrate its strength
+  on an inner mask that contains MNAR-like holes (tgtshrink's 50/50 inner mask is the template), (ii) part of the MNAR
+  gain may be re-learning the harness's value-logistic mask generator, so per-mask diagnostics are mandatory.
+- A transferred observed-fraction trend hurts (varprior_fonly 0.9720 vs const 0.9686); sequence features predict the
+  reference (OOF R² 0.15–0.19) but cannot move a BLUP that keeps 0.88–0.93 weight on the target's own mean.
+
+**Stuck queens: all four** by the charter's rule.
+- bio: ctprior → varprior (three biology-prior lines dead; varprior reached ≤ 0.99 only through the shared machinery).
+- rep: copula → selmnar (selmnar's signal is real but the encoding is wrong; adjacent move, not a restart).
+- mod: pepev → seqprior (protein-intrinsic features are exhausted for this benchmark).
+- abd: nfbase → tgtshrink (both failed their nulls, but her machinery is the best pipeline; she finalises it).
+
+**Dead ends added this round (no queen may repeat):** any protein-specific shrinkage *target* for the target's
+mean/log-sd (reference baselines, half-life, complex membership/size, sequence detectability, HPA location, a
+(mean, observed-fraction) spline trend, a transferred observed-fraction trend); a single global probit/Heckman tilt of
+all missing entries (with or without a MAR mixture or calibrated ρ). Also still closed from Phase A: CORUM graph
+penalties on the low-rank model (regularisation, not curation).
+
+**Best idea so far:** the *data-only* selected-ψ shrink-to-constant pipeline (tgtshrink's null): fast cand_stack
+0.9575 / 0.9563, full 0.9650 / 0.9653 (MCAR 0.9736, MNAR 0.9564), 25/30 full target-masks ≤ 0.99. It has never been
+run as a named candidate with its own control, so round 4's `cshrink` does that. Until then the champion stands.
+
+**Rule for round 4:** every candidate builds on, and is credited only against, the `cshrink` base (the selected-ψ
+constant shrinkage), not the bare champion: report cand_stack, cand_solo, cand_raw per mask, the null, and a
+`<id>_base` run of the same code with the idea switched off. Any internal calibration uses the 50/50 MCAR/MNAR inner
+mask built only from the input matrix (tgtshrink's recipe, rng seed + 31337). Until `cshrink` lands, the other three
+reuse `tgtshrink.impute_null`'s pipeline as the base.
+
+### Directive · abd: `cshrink`, the selected-ψ constant shrinkage as an explicit champion revision
+- **Why:** her round-3 null is the best pipeline in Phase C (full 0.9650) and selection hits the top of the grid.
+- **Build:** `phasec/cshrink.py` on `nfbase.adapt_project_mb`: shrink the target's per-protein mean and log-sd toward
+  constants (no permutation step), ψ from {1, 2, 4, 8, 16, 32, 64, ∞} on the 50/50 inner mask; plus an arm with no
+  per-protein scaling at all (one global sd; the ψ = ∞ log-sd limit) to test whether unit-variance scaling is the harm.
+  Unit check: reproduces tgtshrink's null numbers on the old grid within 0.001.
+- **Null:** the same pipeline with ψ drawn at random from the grid per call (seeded); this keeps the machinery and
+  destroys the selection information. Also report fixed ψ = 16 and fixed ψ = ∞.
+- **Pool:** fast, then full. If full cand_stack ≤ 0.97 on both masks with no target-mask > 1.00, write a *draft*
+  `docs/phaseC/PREREGISTRATION_v9_draft.md` for Amit (no holdout is touched).
+- **Then:** in her doc, propose two analogies for round 5 aimed at the remaining bottleneck (covariance in the
+  target's own domain: the ideal in-domain reference reached −14.5%).
+
+### Directive · rep: `mnarjoint`, missingness as a second channel of a joint low-rank encoding (adjacent pivot from selmnar)
+- **Why:** selmnar proved the missingness pattern is informative but a parametric tilt on every hole is the wrong
+  encoding. Sportisse, Boyer & Josse (2020, *Stat. Comput.* 30:1629–1643; verify the DOI before citing) impute MNAR
+  data by a low-rank fit of the concatenation [X ∣ M]: the cell factors must explain which proteins are missing, so a
+  hole is imputed low only where the pattern says so, entry by entry.
+- **Build:** `phasec/mnarjoint.py`: on the base pipeline's standardised target, fit shared cell factors U to
+  [Z_obs ∣ w·(M − mean)] with the champion's ridge V-step for the value block and a separate free loading block for M
+  (logistic or Gaussian surrogate); w from {0, 0.1, 0.3, 1, 3} on the 50/50 inner mask. w = 0 must reproduce the base.
+- **Null:** missing indicators permuted within each cell (selmnar's null). Report cand_raw per mask; the bar is the
+  usual one *and* MCAR cand_raw no worse than the base by > 0.005.
+
+### Directive · mod: `subthr`, sub-threshold DIA evidence ("forced photometry", abd's astronomy analogy)
+- **Why:** astronomers do not discard non-detections; they measure flux at the known position and keep it as a noisy
+  upper-limit observation. Our DIA matrices discard precursors that pass a run-level q-value but fail the experiment-
+  wide filter. That is NEW information about exactly the naturally missing entries, and it corrects the upward-biased
+  means and sds that the shrinkage lever acts on.
+- **Build:** `phasec/subthr.py`. Audit first (record in the doc): for weiss2026_liver (PXD062231, pepev's range-read
+  route), petrosius2023 (pepev's Spectronaut export) and sadiku2025, does a report exist with per-run precursor
+  quantities and q-values beyond what the matrix keeps? Keep downloads < 2 GB in `data/cache/phasec/subthr/`.
+  Use evidence **only** for (cell, protein) pairs whose protein is absent from the published matrix for that cell; by
+  construction these are never masked/scored entries (masked entries were observed). Add them as low-precision
+  observations (precision from the q-value) in the mean/log-sd estimates and the U-step of the base pipeline.
+- **Null:** the sub-threshold evidence vectors permuted across proteins (same positions, wrong protein).
+- **Pool:** fast with `--targets` restricted to the targets that have evidence (≥ 2 needed; if fewer, stop and report
+  the audit). It cannot go to the full pool unless ≥ 5 dev targets have evidence.
+
+### Directive · bio: `techhyper`, a technology/tissue-aware hyperprior on the standardisation (Amit's favourite seed, moved to where the lever is)
+- **Why:** with 30 cells, per-target ψ selection on an inner mask is noisy (ψ choices are spread over the grid), and
+  ttprior found that technology carries the only metadata signal. Learn how much each kind of dataset should be
+  shrunk from the reference datasets themselves.
+- **Build:** `phasec/techhyper.py`. For each reference dataset (`explore_phaseb.reference_datasets` only, LODO),
+  subsample 30 cells, run the cshrink inner-mask selection and record the ψ-grid loss curve. Prior for the target =
+  ttprior's metadata-kernel weighted average of those curves (technology, carrier yes/no, tissue/primary vs cell line);
+  posterior = prior × the target's own inner-mask curve; use the posterior-mean ψ. Report technology-only and
+  tissue-only kernels too.
+- **Null:** metadata rows permuted across reference datasets. **Baseline:** cshrink's flat prior. Credit only the
+  margin below both.
+
+**Cross-pollination:** abd's astronomy analogy (forced photometry on non-detections) becomes mod's `subthr`; her
+round-3 null becomes everyone's base; rep's selmnar evidence is re-encoded as a joint [X ∣ M] factor model; bio's
+tissue/technology line moves from the V prior (dead) to the shrinkage hyperprior (live lever).
+
+**Rules reminder:** `--pool fast --jobs 2`; full pool only at cand_stack ≤ 0.99 and ≥ 0.005 below both the null and
+the `<id>_base` run (for `cshrink`: ≤ 0.99 vs the champion); dev data only; every number from `results/phaseC/`;
+provenance rows in the idea doc.

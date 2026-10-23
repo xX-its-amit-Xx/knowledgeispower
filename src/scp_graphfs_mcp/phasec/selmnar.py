@@ -328,11 +328,6 @@ def diag():
     (ROOT / "results" / "phaseC" / "selmnar_diag.json").write_text(json.dumps(out, indent=1) + "\n")
 
 
-if __name__ == "__main__":
-    if len(sys.argv) > 1 and sys.argv[1] == "diag":
-        diag()
-
-
 # ================================================================ v2 (the one revision): MAR + MNAR mixture selection
 # P(miss | x) = pi + (1 - pi) * Phi((c - x)/sigma_d): a global random-dropout probability pi (MAR component) plus the
 # probit detection limit. v1 forced the probit to explain every hole, including random dropouts (e.g. the MCAR eval
@@ -455,3 +450,8 @@ def impute_v2(Xm, ctx):
 
 def impute_null_v2(Xm, ctx):
     return _run_v2(Xm, ctx, null=True)
+
+
+if __name__ == "__main__":
+    if len(sys.argv) > 1 and sys.argv[1] == "diag":
+        diag()
