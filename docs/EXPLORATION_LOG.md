@@ -584,3 +584,27 @@ All 16 paired-bootstrap 95% CIs are below 0, and every difference is beyond the 
   reference.
 - This is about 2× the Phase-A holdout effect on Brunner (2.4–5.4%), on a harder (90%-missing) dataset.
 - derks2022 remains reserved.
+
+## 2026-10-23 · Phase C round 1 (dev, fast pool): four new information sources / encodings, all dead (`results/phaseC/*_fast.json`)
+**Setup:** `benchmarks/phasec.py --pool fast` (6 dev targets × 2 masks × 2 seeds); every number is rmse_all mean
+relative to the H15 champion (< 1 is better), all / in-complex. Bars for the full pool: cand_stack ≤ 0.99 and ≥ 0.005
+below the null. Charter and per-idea docs: `docs/phaseC/`.
+
+| id (queen) | idea | cand_stack | null_stack | cand_solo |
+|---|---|---|---|---|
+| `ttprior` (bio) | metadata-kernel (tissue + technology) dataset weights in `fit_loadings`, τ = 1 | 0.9951 / 0.9953 | 0.9991 / 1.0005 | 0.9944 |
+| `ebshrink` (rep) | per-protein λ_v,j from cross-dataset loading variance | 0.9986 / 0.9983 | 1.0000 / 0.9999 | 0.9991 |
+| `scrnaprior` (mod) | HPA single-cell-type RNA SVD (k = 8) as an extra factor block | 0.9973 / 0.9974 | 0.9987 / 0.9988 | 0.9989 |
+| `dca` (abd) | shrinkage-inverse precision (direct couplings), Gaussian conditional mean | 1.0004 / 1.0006 | 1.0000 / 1.0000 | 1.032 |
+
+**Read:**
+- None reaches the bar; none went to the full pool. The champion stands.
+- Re-shaping the prior on V is saturated: the best gain is 0.5% (ttprior) and only 0.4% beyond its null.
+- ttprior's kernels separate the axes: technology-only 0.9970 (null 0.9980) vs tissue-only 0.9992 (null 0.9997). Its
+  gain sits on Astral-DIA targets (sadiku2025 MCAR 0.9797); TMT-carrier targets stay at 0.997–1.001.
+- dca's conditional mean is real signal on its own (cand_solo 1.032 vs stack_lowrank 1.0773) but gets stack weight
+  0.0104: the adapted projection covers it. Its couplings put 0.0799 of top-30 partners in a shared CORUM complex vs
+  0.1063 for raw correlation and 0.0177 for its null (`dca_couplings_diag.json`).
+- Round 2 (king's directives in `docs/phaseC/KING_LOG.md`) moves to cell-level marker weighting (`ctprior`), a
+  nonparanormal encoding (`copula`), peptide-level precision weights (`pepev`) and Netflix-style shrunken target
+  baselines (`nfbase`).

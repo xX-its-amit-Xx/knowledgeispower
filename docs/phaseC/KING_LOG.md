@@ -114,3 +114,127 @@ The king appends one entry per round:
 **Rules reminder for all workers:**
 - `--pool fast --jobs 2`; go to the full pool only at cand_stack ≤ 0.99 *and* below null.
 - Dev data only. Every number in a doc comes from `results/phaseC/<id>_fast.json`.
+
+## Round 1 · 2026-10-23 · review and directives for round 2
+
+**Verification.** The king re-read every number in the four worker reports from `results/phaseC/*_fast.json` and
+`results/phaseC/dca_couplings_diag.json`: summary means, in-complex means, per-target/mask values, stack weights and
+the CORUM diagnostic. Every number matched; no record needed correcting.
+
+**What each queen tried** (fast pool, rmse_all mean relative to the champion, all / in-complex; bars are
+cand_stack ≤ 0.99 *and* a margin ≥ 0.005 below the null):
+
+| queen | idea | cand_stack | null_stack | cand_solo | verdict |
+|---|---|---|---|---|---|
+| bio | `ttprior` (FULL metadata kernel, τ = 1) | 0.9951 / 0.9953 | 0.9991 / 1.0005 | 0.9944 | dead, closest of the round (margin 0.0040) |
+| rep | `ebshrink` (per-protein λ_v,j) | 0.9986 / 0.9983 | 1.0000 / 0.9999 | 0.9991 | dead (v2: 0.9988) |
+| mod | `scrnaprior` (HPA scRNA SVD block) | 0.9973 / 0.9974 | 0.9987 / 0.9988 | 0.9989 | dead |
+| abd | `dca` (shrinkage-inverse precision) | 1.0004 / 1.0006 | 1.0000 / 1.0000 | 1.032 | dead (stack weight ≈ 0) |
+
+**What the round taught us:**
+- Every lever that only reshapes the *prior on V* is saturated: re-weighting datasets, per-protein strength,
+  extra cell-type factors and a precision encoding of the same reference all land within 0.5% of the champion. The
+  adapted projection already spans the reference's co-regulation content (dca: cand_solo 1.032, but stack weight 0.01).
+- The one consistent signal is **technology**, not tissue: tech-only weighting 0.9970 vs tissue-only 0.9992 (= its
+  null 0.9997), and the ttprior gain sits on label-free Astral-DIA targets (sadiku2025 MCAR 0.9797, petrosius2023
+  0.9905–0.9943, weiss2026_liver 0.9932–0.9956) while TMT-carrier targets stay at 0.997–1.001. The worker's read is that
+  the weighting partly corrects platform-specific *marginal* behaviour (offsets, scales, compression), not
+  co-regulation. Note that the tech-only null (0.9980) is close, so part of the effect is generic re-weighting.
+- scrnaprior's small real-over-null signal is also on tissue-like targets (weiss2026_liver 0.9903 / 0.9908).
+- The champion standardises the target with per-protein mean/sd estimated from 30 masked cells (`adapt_project`:
+  `np.nanmean(Xm, 0)`, `np.nanstd(Xm, 0)`). Nothing in the colony has yet touched that step, which is noisy and
+  MNAR-biased. Round 2 attacks it from two sides.
+
+**Stuck queens:** none by the charter's definition (each queen has one failed idea, not two). All four are on *one
+strike*, and all four ideas died, so every queen is moved off her round-1 line rather than given a revision of it. A
+second dead idea next round makes a queen stuck.
+
+**Dead ends added this round (no queen may repeat):** metadata-kernel dataset weighting of `fit_loadings` (any τ,
+tissue or tech kernel, two-block); per-protein λ_v,j from cross-dataset loading variance; scRNA cell-type SVD as an
+extra factor block (HPA single-cell-type table, k = 8); shrinkage-inverse / DCA Gaussian conditional mean on the
+reference; RBF/GP kernel ridge across proteins on the reference loadings (rep's listed fallback; not built, but it is a
+protein-side similarity smoother of the kind already dead as pkNN/RPR, and dca shows the reference's pairwise content is
+covered).
+
+**Best idea so far:** `ttprior` (bio): cand_stack 0.9951 / 0.9953, null 0.9991 / 1.0005, cand_solo 0.9944. Dead at
+the bar; the champion stands.
+
+### Directive · bio: `ctprior`, marker-knowledge cell-type-aware *cell* weighting (pivot from dataset to cell level)
+- **Why:** dataset-level tissue similarity carried nothing because most reference datasets mix cell types and the
+  tissue label is too coarse. Amit's tissue-aware seed is kept but moved to the resolution where scrnaprior saw its
+  (small) real signal: cell types. The information source is curated *marker knowledge*, not data similarity, so it
+  does not repeat dead hard top-k cell selection.
+- **Build:**
+  - Marker sets: the HPA single-cell-type table already cached by scrnaprior
+    (`data/cache/phasec/scrnaprior/rna_single_cell_type.tsv.zip`, provenance row merged this round). Define each cell
+    type's markers as its top-enriched genes (e.g. ≥ 4-fold over the next type, top 50), mapped to accessions with
+    `ids.group_accessions`.
+  - Score every reference cell and every target cell for every cell type with a missingness-robust signature score
+    (mean z of observed markers minus mean z of observed random background genes, ≥ 3 observed markers required).
+  - Soft cell weights w_i = exp(−‖s_i − s̄_target‖² / τ) (s = cell-type score vectors), renormalised to mean 1, in a
+    weighted `fit_loadings` (reuse ttprior's vectorised weighted V-step and its cache layout). τ from {∞, median distance,
+    ½ median} chosen a priori, all reported.
+- **Null:** the same machinery with marker sets drawn as random gene sets matched in size and in observation rate
+  (keeps weight distribution, destroys the biology).
+- **Diagnostic to report:** per-target effective number of reference cells, and which reference datasets gain weight.
+
+### Directive · rep: `copula`, a nonparanormal (rank-Gaussian) encoding per dataset (new encoding)
+- **Why:** ttprior says the residual signal is platform-specific marginal behaviour. TMT reporter-ion ratio compression
+  and DIA/LFQ intensity-dependent noise are monotone *nonlinear* distortions that per-protein z-scoring cannot remove,
+  so the loadings learn a mixture of platform shapes. A Gaussian-copula encoding (Liu, Lafferty & Wasserman 2009,
+  *JMLR*, the "nonparanormal") removes the marginal shape and keeps only rank-dependence, which is the
+  co-regulation content.
+- **Build:** within each reference dataset, map every protein to normal scores (rank → Φ⁻¹ with the observed-only
+  ranks); refit `fit_loadings` on that; in the target, map observed entries to normal scores the same way, run
+  `adapt_project`, and back-transform predictions with the target's own empirical quantiles per protein (fall back to a
+  linear map where < 5 observed). Unit check: with an identity marginal transform, reproduce the champion exactly.
+- **Null:** the same pipeline with each reference dataset's per-protein marginal transforms assigned to a random other
+  protein of the same dataset (same shapes, wrong proteins).
+- **Keep orthogonal to abd:** rep owns the *shape* of the marginals; abd owns the *location/scale* of the target's
+  standardisation. Do not add offsets or shrinkage of the target mean here.
+
+### Directive · mod: `pepev`, peptide-level evidence as per-entry precision weights (new modality)
+- **Why:** every model so far treats each observed protein value as equally reliable. Peptide/precursor-level evidence
+  (number of precursors or PSMs, q-values, carrier/reporter signal) is information that has never entered the colony,
+  and it is the "peptide-level evidence" modality in mod's charter. HPA imaging is held back as the fallback because
+  scrnaprior shows that extra annotation blocks on V are near-saturated.
+- **Build:**
+  - For the six fast-pool targets only, find the precursor/PSM-level tables behind the existing corpus builds (scpdata
+    peptide/PSM assays for leduc2022 and gregoire2023_mixCTRL; the DIA-NN / Spectronaut reports or archives already
+    named in `data/PROVENANCE.md` for weiss2026_liver, sadiku2025, px063590_ADbrain; the Dataverse record for
+    petrosius2023). Check size first; < 2 GB in `data/cache/phasec/pepev/`. Record URL, licence and SHA-256.
+  - Build per-entry precision w_ij (e.g. log(1 + n_precursors) or a PSM-count/q-value score), aligned to the same
+    cells as the harness. `ctx` gives the target and seed, not cell ids, so recompute the subsample with
+    `explore_phaseb.subsample` and assert the observed pattern matches `Xm` before using any weight.
+  - Use the weights as heteroscedastic weights in the U-step (per-cell weighted ridge) of a local copy of
+    `adapt_project`; all-ones weights must reproduce the champion exactly.
+- **Null:** precision weights permuted among the observed entries of each cell (same distribution, wrong entries).
+- **Abort rule:** if peptide-level data cannot be aligned for at least 4 of the 6 fast targets, stop early and switch
+  to the fallback (HPA IF-image compartment intensities as a block structure on the *extra* factors).
+
+### Directive · abd: `nfbase`, Netflix-Prize baseline predictors for the target's standardisation (her queued analogy)
+- **Analogy:** in the Netflix Prize, explicit global + user + item biases fitted with shrinkage before the factors
+  were among the largest single gains (Koren, *KDD* 2008; Bell & Koren, *SIGKDD Explorations* 2007). Here the "item bias" is a protein's
+  location and scale, and the champion estimates it for the target from 30 masked cells only, which is noisy and, under
+  MNAR, biased upwards.
+- **Build:**
+  - From the *unstandardised* reference (per-dataset log values before `_z`), estimate per-protein relative location
+    (protein mean minus dataset grand mean) and log-scale per dataset.
+  - Fit a hierarchical (empirical-Bayes) model: dataset value = protein effect + technology-group × protein effect
+    + noise, using ttprior's cited metadata table for the technology group (TMT carrier / LFQ-DDA / DIA, and
+    instrument family).
+  - For the target, shrink the 30-cell per-protein mean and sd toward the prediction from its technology group, with
+    the weight set by the number of observed values (James–Stein / BLUP). Then run `adapt_project` unchanged with
+    those baselines in place of `np.nanmean` / `np.nanstd`. Unit check: zero shrinkage reproduces the champion exactly.
+- **Null:** the same hierarchy with protein labels permuted within each reference dataset's baseline vectors (and,
+  as a second null, technology labels permuted across datasets).
+- **Next analogy queued:** extreme deconvolution from astronomy (Bovy, Hogg & Roweis 2011, *Ann. Appl. Stat.*), which
+  fits a density from noisy, incomplete data with *per-point* noise covariances; it pairs with mod's per-entry
+  precision weights if `pepev` shows they carry signal.
+
+**Cross-pollination:** abd's Netflix analogy and bio's technology finding produce `nfbase`; mod's `pepev` is the data
+source abd's next analogy (extreme deconvolution) needs; bio reuses mod's HPA download; rep's `copula` and abd's
+`nfbase` split the marginal problem into shape vs location/scale so that neither duplicates the other.
+
+**Rules reminder:** `--pool fast --jobs 2`; the full pool only at cand_stack ≤ 0.99 and ≥ 0.005 below the null; dev
+data only; every number from `results/phaseC/<id>_fast.json`; provenance rows in the idea doc.
