@@ -12,7 +12,7 @@ All numbers are mean ratios vs the H15 champion (< 1 is better), from `results/p
 
 | id | queen | idea (one line) | status | fast cand_stack (all / in-cx) | null_stack | full | notes |
 |---|---|---|---|---|---|---|---|
-| sanity | — | the champion fed back as a candidate (harness check) | see results | | | | must be ≈ 1.00 |
+| sanity | — | the champion fed back as a candidate (harness check) | screened-fast | 1.000 / 1.000 | 1.000 (noise; weight 0) | | harness OK; champion = 0.928 of stack_lowrank on the fast pool; 107 s per screen |
 
 ## Seed backlog (from Amit, Oct 23 · not yet built)
 - **Tissue/technology-aware priors.** Weight reference datasets, or use separate loadings, by tissue and technology
