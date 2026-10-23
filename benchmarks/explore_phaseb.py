@@ -142,7 +142,8 @@ def evaluate(X, names, models, n_cells, kind, seed, labels, ceiling=False):
 
 def main():
     tag = sys.argv[sys.argv.index("--tag") + 1] if "--tag" in sys.argv else "phaseb"
-    bulk = tuple(sys.argv[sys.argv.index("--bulk") + 1].split(",")) if "--bulk" in sys.argv else T.BULK_MODULES
+    bulk = tuple(b for b in sys.argv[sys.argv.index("--bulk") + 1].split(",") if b) if "--bulk" in sys.argv else T.BULK_MODULES
+    no_sc = "--no-sc-ref" in sys.argv  # ablation: bulk-only reference
     only = sys.argv[sys.argv.index("--targets") + 1].split(",") if "--targets" in sys.argv else None
     epochs = int(sys.argv[sys.argv.index("--epochs") + 1]) if "--epochs" in sys.argv else 30
     out_dir = ROOT / "results" / "phaseB" / "dev"
@@ -154,7 +155,7 @@ def main():
         X, names, labels = load_target(tname)
         refs = reference_datasets(exclude=(tname,))
         parts, src = [], []
-        for d in refs:
+        for d in ([] if no_sc else refs):
             if d == tname:
                 continue
             zd = T.corpus_reference(names, (tname,), [d])

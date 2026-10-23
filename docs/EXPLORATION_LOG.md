@@ -493,3 +493,18 @@ RMSE relative to the kNN + low-rank stack, mean over 3 targets × 2 masks:
 - Neither closes the gap to the in-domain ceiling (0.855).
 - Run-to-run ALS variability of `stack3_plain` is about 0.5% (0.974 vs 0.970 vs 0.980 for the same configuration
   with different row orders).
+
+## 2026-10-23 · Phase B dev: which reference carries the signal? (`dev_bigbulk`, `dev_sc_only`, `dev_bulk_only`)
+`stack3_plain` RMSE relative to the kNN + low-rank stack (3 dev targets × 2 masks):
+
+| Reference | Score |
+|---|---|
+| single-cell corpus only (13 datasets) | **0.970** |
+| single-cell + 6 bulk atlases (CCLE, ProteomeHD, ProCan, GTEx, CPTAC, ATLANTiC; ~4,000 samples) | 0.971 |
+| bulk atlases only | 0.982 |
+
+**Read:**
+- Adding ~2,800 bulk samples (ProCan, GTEx, CPTAC, ATLANTiC) does not help.
+- The transferable structure comes from *single-cell* references: same measurement physics, carrier and missingness
+  patterns.
+- Next: more single-cell datasets (agent in progress), and technology-matched references.
