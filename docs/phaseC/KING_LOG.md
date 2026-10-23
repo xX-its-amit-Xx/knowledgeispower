@@ -608,3 +608,139 @@ covariance prior (`lwkrige_tech`); abd's word2vec analogy drives bio's `plmemb`.
 **Rules reminder:** `--pool fast --jobs 2`; full pool only after the fast bars; dev data only (never derks2022,
 wu2026, brunner2022, khan2023; no `confirm_v*.py`); every number from `results/phaseC/`; provenance rows (URL, licence,
 SHA-256) in the idea doc.
+
+## Round 5 · 2026-10-23 · review and directives for round 6
+
+**Verification.** The king re-read every number in the four worker reports from `results/phaseC/*.json` (summary
+means all / in-complex, per-mask means, the per-target/mask values quoted, stack weights, splits ≤ 0.99, subgroup
+means, `plmemb_diag.json`, `plmemb_report_fast.json` b histogram, `cshrink_inf_full.json`). All matched. Record notes:
+(i) plmemb's diagnostic LOO R² range is 0.057–0.115 (reported "0.06–0.12", rounding only); (ii) `plmemb_smoke_fast.json`
+(1 target) is committed for the record but does not count; (iii) the ProtT5 file already has a PROVENANCE row (same
+SHA-256; the worker's re-hash matches), so no new row; (iv) the linerna download hashes were re-computed by the king
+and match the worker's rows.
+
+**What each queen tried** (fast pool; rmse_all mean relative to the champion, all / in-complex; credited against the
+cshrink base, 0.9554 / 0.9533):
+
+| queen | idea | cand_stack | null_stack | base / control | cand_solo | verdict |
+|---|---|---|---|---|---|---|
+| abd | `mllr` (shared r × r transform A of Vref) | 0.9552 / 0.9531 | 0.9538 / 0.9528 | κ = ∞: 0.9554; diagonal A: 0.9550 | 0.9546 | dead (worse than its null; A ≈ I) |
+| rep | `lwkrige` v2 (Ledoit–Wolf blend of the target's own covariance, δ on the inner mask) | **0.9522 / 0.9494** | 0.9553 / 0.9531 | base 0.9554; δ = 0.98 forced 0.9524 (null 0.9598); tech arm 0.9554 | 0.9516 | dead at the bar (margins 0.0031 / 0.0032), **real signal** |
+| mod | `linerna` v2 (within-cell-line scRNA programmes, 4 targets) | 0.9668 / 0.9686 | 0.9661 / 0.9682 (mismatched line) | base 0.9668; perm 0.9669 | 0.9668 | dead (worse than null) |
+| bio | `plmemb` (ProtT5 kernel prior on weak/cold Vref rows) | 0.9529 / 0.9520 | 0.9539 / 0.9517 | base 0.9554; Gaussian emb. 0.9535; v2 0.9526 (null 0.9538) | 0.9524 | dead (margin 0.0010; ≈ 75% regularisation) |
+
+Housekeeping (abd): `cshrink_inf` on the full pool 0.9607 / 0.9606 (MCAR 0.9704, MNAR 0.9509; 26/30 ≤ 0.99; worst
+woo2025_PC3 MCAR 1.0009) vs selected-ψ cshrink 0.9609: they tie once stacked; selected ψ has the better cand_raw
+(0.9605 vs 0.9653). Neither fixes the TMT/carrier MCAR weak spot.
+
+**What the round taught us:**
+- **The target's own covariance is the only round-5 channel that carries real information**, but a 30-cell S is
+  usable only at ≈ 1% weight (δ = 0.99 in 40/48 calls; forced δ = 0.98 beats its null by 0.0074 but the base by
+  only 0.0030; δ = 0.85 explodes, cand_raw 1.59). The gain sits on TMT (0.9678 → 0.9627, null 0.9676), exactly the
+  weak spot. The bottleneck is *estimation noise in S*, i.e. a localisation / regularisation-structure problem: the
+  classic fix in ensemble data assimilation is a Schur-product taper.
+- **Adapting the reference subspace is saturated.** mllr's A stays at I (rotation is absorbed by free U, re-weighting
+  by the U-step and D). Its permuted null wins MCAR on three targets by switching off reference directions: some
+  targets want *less* reference, not a different one.
+- **External covariance (any modality) is generic.** linerna's matched-line RNA programmes lose to a mismatched line;
+  lwkrige_tech's unadapted technology-matched Σ_ref loses to the adapted one; plmemb's embeddings predict pool
+  loadings (R² ≈ 0.1) but the eval mask (proteins seen in ≥ 50% of cells) rarely needs that help, and Gaussian
+  embeddings reproduce 0.0019 of its 0.0025 gain.
+- **Small, separable data-only gains exist** (plmemb Gaussian-arm weak-row smoothing 0.0019, lwkrige 0.0032, mllr-null
+  reference attenuation on MCAR). None clears 0.005 alone; nobody may submit their sum as a "new idea" without a
+  null that removes each part.
+
+**Stuck queens** (last two ideas failed ≤ 0.99-and-beat-null by the bar): **bio** (techhyper → plmemb; no bio idea has
+ever passed), **rep** (mnarjoint → lwkrige), **mod** (subthr → linerna). **abd is not stuck** by the rule (cshrink
+passed, mllr failed); one more failure makes her stuck.
+
+**Dead ends added this round (no queen may repeat):** shared affine/MLLR transforms of Vref and any scalar or
+per-direction re-weighting of the reference subspace learned from the target; full-rank Ledoit–Wolf blends of the
+pairwise-complete or base-completed S without structural localisation (δ grid tuning is saturated at 0.99);
+technology-matched unadapted Σ_ref; within-cell-line scRNA programmes (any atlas) as residual predictors; protein
+language-model or other protein-embedding kernels on Vref rows. Still closed: ψ / shrinkage hyperpriors, missingness
+channels in the anchored projection, forced photometry, protein-specific shrinkage targets, CORUM graph penalty on V
+(Phase A), dataset or cell weighting of the reference fit, HPA tissue scRNA SVD factors, target-only precision
+inversion (dca).
+
+**Best idea so far:** unchanged, `cshrink:impute` (data-only, selected-ψ shrink-to-constant): fast 0.9554 / 0.9533
+(null 0.9637), **full 0.9609 / 0.9610** (null 0.9716; MCAR 0.9714, MNAR 0.9504; 26/30; worst woo2025_PC3 MCAR 1.0006).
+`cshrink_inf` ties on full (0.9607). Best fast number of the round: `lwkrige` v2 0.9522 (not promoted, margin < 0.005).
+No holdout is touched; the H15 champion stands.
+
+**Rule for round 6:** base is still `cshrink:impute`; `taperkrige` is also credited against `lwkrige` v2. Same report
+fields (cand_stack, cand_solo, cand_raw per mask, null, `<id>_base` equal to cshrink within 0.001 by unit check),
+same 50/50 inner mask (rng seed + 31337), same bars (fast cand_stack ≤ 0.99 and ≥ 0.005 below both the null and the
+base; MCAR cand_raw no worse than the base by > 0.005). Report TMT (leduc2022, gregoire2023_mixCTRL, px063590_ADbrain)
+and DIA subgroups on fast, and woo2025_PC3 / williams2020_tmt / schoof2021 on full.
+
+### Directive · bio (stuck → curated biology moved into the in-domain covariance): `taperkrige`
+- **Why:** lwkrige proved the target's own covariance carries information but its 30-cell estimate is too noisy to
+  weight above 1%. Ensemble Kalman filtering faced exactly this (ensembles of ~30–100 members, spurious long-range
+  correlations) and solved it with covariance localisation: a Schur (elementwise) product of the sample covariance
+  with a PSD taper that keeps plausible correlations and kills the rest (Houtekamer & Mitchell 2001; Gaspari & Cohn
+  1999; verify both before citing). Curated biology has failed as a prior on V and on shrinkage targets; here it only
+  decides *which in-domain correlations to trust*, which is new. This is also Amit's complexes seed in a new place.
+- **Build:** `phasec/taperkrige.py`, importing rep's `lwkrige.krige_correct` / `lw_run` (do not edit rep's file). T =
+  (1 − a)·I + a·K, K a PSD diffusion (heat) kernel on the union graph of `data/derived/string_v12.5_9606_uniprot.tsv.gz`
+  (already in the repo, no download) and HPA compartment co-membership (`data/cache/phasec/seqprior/` subcellular
+  file), normalised to unit diagonal. Σ_t = (1 − δ)(T ∘ S_v2) + δ·c·(V_ad V_adᵀ + 5I), δ ∈ {0.5, 0.7, 0.85, 0.95,
+  0.99, 1} and the kernel time t ∈ {0.5, 1, 2} on the inner mask. Diagnose the chosen δ (it must drop below 0.99 for
+  the idea to be working) and the TMT/DIA split.
+- **Null:** the same kernel on a protein-permuted graph (degree sequence preserved). **Data control:** a taper from
+  the k = 20 nearest neighbours in Σ_ref (localisation without curation). Credit only the margin below both and below
+  lwkrige v2 (0.9522). Kill if the real taper's chosen δ is ≥ 0.99 in > 2/3 of calls.
+
+### Directive · abd (not stuck; new analogy): `kronmt`, matrix-variate multi-task GP (genomic G×E BLUP)
+- **Why:** the champion and every round-5 idea treat cells and proteins separately (kNN on cells, low-rank/reference on
+  proteins, then a stack). Multi-environment genomic prediction models genotype × environment with a Kronecker
+  covariance K_G ⊗ K_E and predicts unobserved cells of the table by BLUP; multi-task GPs (Bonilla, Chai & Williams
+  2008; Stegle et al. 2011 GP-KronSum; verify before citing) do the same in ML. It is a new encoding that couples the
+  target's cell–cell similarity with the reference protein covariance in one conditional mean, instead of stacking.
+- **Build:** `phasec/kronmt.py` on the cshrink-standardised target: Y − μ ~ MN(0, K_c ⊗ Σ_p) + σ²I, K_c = RBF on the
+  cshrink U factors (bandwidth = median distance × {0.5, 1, 2}), Σ_p = c·(V_ad V_adᵀ + 5I) blended with S_v2 at
+  δ = 0.99 (import lwkrige); conditional mean of the missing entries by conjugate gradients with Kronecker matvecs
+  (30 × 1,500 block; kNN/cshrink elsewhere); σ² and bandwidth on the inner mask; add as a residual correction with
+  γ on the inner mask.
+- **Null:** K_c built after permuting cells (wrong cell neighbours, same spectrum); second arm Σ_p protein-permuted.
+  Base: γ = 0 (= cshrink). Also report the K_c = I arm (it reduces to the protein-side kriging) so the cell coupling
+  is credited on its own.
+
+### Directive · rep (stuck → new encoding, cell-level transport): `otanalog`, analog forecasting by optimal transport
+- **Why:** the Phase-B ideal reference (other cells of the same dataset) reached −14.5%; every method since transfers
+  *loadings*, never reference *cells*. Meteorology's analog method (Lorenz 1969; verify) predicts by finding past
+  states that match the present one; entropic OT (Cuturi 2013; verify) gives a soft, mass-balanced matching between
+  two cell populations. Matching each target cell to reference cells on co-observed proteins and borrowing their
+  values for the missing proteins is a nonlinear, cell-level route to an in-domain-like reference. This differs from
+  ctprior (marker weights inside fit_loadings) and Phase-B reference selection (whole datasets).
+- **Build:** `phasec/otanalog.py`: embed target and reference cells (`ctx["ref"]()`, per-dataset z-scored) into the
+  adapted factor space by projecting on co-observed proteins; numpy Sinkhorn (POT is not installed; do not pip install)
+  with ε ∈ {0.05, 0.1, 0.5} × median cost, reference subsampled to ≤ 5,000 cells; barycentric reference values,
+  rescaled by cshrink's per-protein location/scale, as a residual correction with γ on the inner mask. Diagnose which
+  reference datasets receive the mass per target (expect same cell line / technology).
+- **Null:** OT on a random cost matrix with the same marginals (mass goes to random reference cells). Base: γ = 0.
+  Kill if the transported mass is spread uniformly over datasets on > 4/6 targets.
+
+### Directive · mod (stuck → new information channel, acquisition metadata): `plexre`, batch random effects
+- **Why:** the weak spot is TMT/carrier (woo2025_PC3 MCAR 1.0009 with cshrink_inf; lwkrige's gain is on TMT). In TMT
+  SCoPE designs, cells of one plex share the MS2 sampling, carrier boost and co-isolation, so the (plex, protein)
+  effect is a strong in-domain signal that low-rank cell factors absorb only partly. Run/plex labels are a data source
+  no Phase-C idea has used (astronomy's per-exposure zero points, solved jointly with object fluxes, is the analogy).
+- **Build:** audit first in the doc: for each dev target (fast and full), recover the per-cell acquisition batch (TMT
+  set / LC-MS run batch) from the scpdata `colData` (`Set`, `Channel`, `Batch`) or PRIDE SDRF already in the cache;
+  ≥ 3 fast-pool targets needed (else screen `--targets` on the TMT dev targets with labels, including the full-pool
+  woo2025_PC3, williams2020_tmt, schoof2021). `phasec/plexre.py`: on the cshrink residual R, estimate b_{batch,j} by
+  EB shrinkage of the observed batch-mate residual means (prior variance τ²_j pooled across proteins, λ on the inner
+  mask) and add it to the missing entries; downloads < 2 GB in `data/cache/phasec/plexre/`.
+- **Null:** batch labels permuted across cells within the target (same batch sizes). Base: λ = ∞ (= cshrink). Report
+  the TMT and DIA subgroups separately; a DIA gain alone does not count as the TMT fix.
+
+**Cross-pollination:** abd's EnKF analogy becomes bio's `taperkrige` (curated biology as a localisation mask on rep's
+kriging); abd's own G×E BLUP couples rep's covariance with the champion's cell neighbours; rep takes the analog-method
+analogy to transport reference cells; mod brings acquisition metadata, the first new information aimed at the TMT
+weak spot. Amit's tissue/technology seed: `otanalog`'s mass diagnostic measures whether matched technology/tissue
+cells are what the target borrows.
+
+**Rules reminder:** `--pool fast --jobs 2`; full pool only after the fast bars; dev data only (never derks2022,
+wu2026, brunner2022, khan2023; no `confirm_v*.py`); every number from `results/phaseC/`; provenance rows (URL, licence,
+SHA-256) in the idea doc.

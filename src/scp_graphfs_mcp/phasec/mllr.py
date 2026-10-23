@@ -277,6 +277,25 @@ def unit_check():
     return out
 
 
+def tmt_diag():
+    """Diagnostic only (no RMSE claim): kappa selection and A spectrum on the TMT/carrier dev targets, seed 100,
+    split recipe nfbase._split. Appends to log_tmtdiag.jsonl."""
+    sys.path.insert(0, str(ROOT / "benchmarks"))
+    import phasec as H  # noqa: F401
+    from scp_graphfs_mcp import phase2 as P
+    from scp_graphfs_mcp.phasec import nfbase as NF
+
+    for t in ("woo2025_PC3", "williams2020_tmt", "schoof2021"):
+        for kind in ("MCAR", "MNAR"):
+            Xs, Xm, mask, names = NF._split(t, kind, 100)
+            V, warm = H.target_models(t, names)
+            b = P._fill(Xm, P.loo_knn(Xm))
+            b = np.where(np.isnan(b), np.nanmean(Xm), b)
+            run(Xm, {"V": V, "warm": warm, "base": b, "seed": 100, "target": t}, "tmtdiag")
+
+
 if __name__ == "__main__":
     if "--unit" in sys.argv:
         unit_check()
+    if "--tmtdiag" in sys.argv:
+        tmt_diag()

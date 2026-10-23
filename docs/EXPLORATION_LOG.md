@@ -693,3 +693,33 @@ credited against the selected-ψ shrink-to-constant base.
   r × r transform of the reference loadings), `lwkrige` (Ledoit–Wolf / kriging blend of target and reference
   covariance, with a technology-matched arm), `linerna` (within-cell-line scRNA co-variation as a new modality) and
   `plmemb` (protein language-model embeddings as a prior on weakly supported loadings).
+
+## 2026-10-23 · Phase C round 5 (dev): only the target's own covariance carries signal; all four ideas dead (`results/phaseC/*.json`)
+**Setup:** as in round 4 (fast = 6 dev targets × 2 masks × 2 seeds; rmse_all mean relative to the H15 champion, all /
+in-complex). Every idea is credited against the `cshrink` base (fast 0.9554 / 0.9533; each `<id>_base` run reproduces
+it exactly).
+
+| id (queen) | idea | cand_stack | null_stack | base / control | cand_solo |
+|---|---|---|---|---|---|
+| `lwkrige` v2 (rep) | Ledoit–Wolf blend of the target's own covariance with the adapted Σ_ref, δ on the inner mask | 0.9522 / 0.9494 | 0.9553 / 0.9531 | base 0.9554; tech-matched Σ_ref 0.9554 | 0.9516 |
+| `plmemb` (bio) | ProtT5 embedding kernel prior on weak / cold Vref rows | 0.9529 / 0.9520 | 0.9539 / 0.9517 | Gaussian embeddings 0.9535; base 0.9554 | 0.9524 |
+| `mllr` (abd) | shared r × r MLLR transform of Vref | 0.9552 / 0.9531 | 0.9538 / 0.9528 | base 0.9554; diagonal 0.9550 | 0.9546 |
+| `linerna` v2 (mod), 4 targets | within-cell-line scRNA programmes on the cshrink residual | 0.9668 / 0.9686 | 0.9661 / 0.9682 (mismatched line) | base 0.9668 / 0.9688 | 0.9668 |
+| `cshrink_inf` (abd), **full** | ψ = ∞ housekeeping | 0.9607 / 0.9606 | 0.9631 (old-grid ψ) | selected ψ 0.9609 | 0.9620 |
+
+**Read:**
+- lwkrige v2 beats its cell-permuted null by 0.0031 and the base by 0.0032 (bar 0.005); δ = 0.99 was chosen in 40/48
+  calls, and forced δ = 0.98 is 0.9524 vs null 0.9598. The gain is on TMT (leduc2022, gregoire2023_mixCTRL,
+  px063590_ADbrain: 0.9678 → 0.9627, null 0.9676) more than DIA (0.9429 → 0.9417). The v1 pairwise-complete S was
+  indefinite and never used (0.9554).
+- plmemb: embeddings predict pool loadings (LOO R² 0.057–0.115 vs ≈ −0.14 permuted, `plmemb_diag.json`), but Gaussian
+  embeddings reproduce most of the gain (0.9535 vs 0.9529); the real-over-null part is weiss2026_liver only.
+- mllr: the permuted null wins (MCAR on gregoire2023_mixCTRL 0.9542 vs 0.9668), i.e. attenuating the reference helps
+  some targets; A itself stays near I.
+- linerna: the matched line loses to a mismatched line (0.9668 vs 0.9661); inner-mask correlation of the RNA-programme
+  prediction with the held-out residual is ≈ 0.01.
+- cshrink_inf on the full pool (MCAR 0.9704, MNAR 0.9509, 26/30 ≤ 0.99, worst woo2025_PC3 MCAR 1.0009) ties selected
+  ψ; the TMT/carrier MCAR weak spot remains. The H15 champion stands; no holdout touched.
+- Round 6 (directives in `docs/phaseC/KING_LOG.md`): `taperkrige` (curated-biology covariance localisation of the
+  in-domain covariance), `kronmt` (Kronecker cell × protein GP), `otanalog` (optimal-transport analog reference cells)
+  and `plexre` (TMT plex / batch random effects).
