@@ -1,0 +1,188 @@
+{
+ "sadiku2025": {
+  "cells": 314,
+  "proteins": 3039,
+  "observed_entries": 311178,
+  "frac_observed_with_source_evidence": 1.0,
+  "source": "Spectronaut PG.NrOfStrippedSequencesUsedForQuantification per run",
+  "N_quantiles_p10_p25_p50_p75_p90": [
+   1.0,
+   1.0,
+   2.0,
+   4.0,
+   8.0
+  ],
+  "N_mean": 3.5752945259626325,
+  "frac_N_eq_1": 0.39382925528154306,
+  "spearman_N_value_pooled": 0.4006599846944831,
+  "spearman_within_cell_median": 0.40233767418352573,
+  "spearman_within_protein_median": 0.20652731006430616,
+  "frac_var_logN_between_proteins": 0.8057225969233593,
+  "unit_check_W_ones_MNAR_seed100": {
+   "array_equal": true,
+   "max_abs_diff": 0.0
+  },
+  "W_alpha05_split_MNAR_seed100": {
+   "min": 0.5708271403938263,
+   "max": 4.006679617917055,
+   "p10_p50_p90": [
+    0.5897455414771914,
+    0.8495027711991296,
+    1.701808199307328
+   ]
+  },
+  "N_median_masked_vs_kept_MNAR_seed100": [
+   2.0,
+   2.0
+  ]
+ },
+ "weiss2026_liver": {
+  "cells": 763,
+  "proteins": 4520,
+  "observed_entries": 1553260,
+  "frac_observed_with_source_evidence": 1.0,
+  "source": "DIA-NN report.pr_matrix.tsv: non-NaN precursors per run and Protein.Group",
+  "N_quantiles_p10_p25_p50_p75_p90": [
+   1.0,
+   1.0,
+   2.0,
+   4.0,
+   8.0
+  ],
+  "N_mean": 3.544905553481066,
+  "frac_N_eq_1": 0.3907059989956607,
+  "spearman_N_value_pooled": 0.632288146561583,
+  "spearman_within_cell_median": 0.63825946017044,
+  "spearman_within_protein_median": 0.4421517008490019,
+  "frac_var_logN_between_proteins": 0.7761611044879554,
+  "unit_check_W_ones_MNAR_seed100": {
+   "array_equal": true,
+   "max_abs_diff": 0.0
+  },
+  "W_alpha05_split_MNAR_seed100": {
+   "min": 0.5666103059109496,
+   "max": 4.011589714964372,
+   "p10_p50_p90": [
+    0.5800456026945964,
+    0.8350091476002438,
+    1.6429048144519895
+   ]
+  },
+  "N_median_masked_vs_kept_MNAR_seed100": [
+   2.0,
+   2.0
+  ]
+ },
+ "petrosius2023": {
+  "cells": 215,
+  "proteins": 2813,
+  "observed_entries": 358868,
+  "frac_observed_with_source_evidence": 1.0,
+  "source": "Spectronaut PEPQuant: nunique EG.PrecursorId, EG.Qvalue<=0.01, PEP.Quantity>0",
+  "N_quantiles_p10_p25_p50_p75_p90": [
+   1.0,
+   1.0,
+   2.0,
+   3.0,
+   6.0
+  ],
+  "N_mean": 2.8607900397917896,
+  "frac_N_eq_1": 0.4227515409565634,
+  "spearman_N_value_pooled": 0.42572279896530374,
+  "spearman_within_cell_median": 0.45169514666485533,
+  "spearman_within_protein_median": 0.35390918137074445,
+  "frac_var_logN_between_proteins": 0.7896831653156594,
+  "unit_check_W_ones_MNAR_seed100": {
+   "array_equal": true,
+   "max_abs_diff": 0.0
+  },
+  "W_alpha05_split_MNAR_seed100": {
+   "min": 0.6165638003538503,
+   "max": 4.014702111312812,
+   "p10_p50_p90": [
+    0.6347611402669959,
+    0.9072521044729274,
+    1.5774881658875275
+   ]
+  },
+  "N_median_masked_vs_kept_MNAR_seed100": [
+   2.0,
+   2.0
+  ]
+ },
+ "gregoire2023_mixCTRL": {
+  "cells": 119,
+  "proteins": 1878,
+  "observed_entries": 89833,
+  "frac_observed_with_source_evidence": 1.0,
+  "source": "scpdata peptides_<batch>_norm_log: non-NaN peptides per protein group",
+  "N_quantiles_p10_p25_p50_p75_p90": [
+   1.0,
+   1.0,
+   2.0,
+   3.0,
+   6.0
+  ],
+  "N_mean": 2.758017654982022,
+  "frac_N_eq_1": 0.49081072657041397,
+  "spearman_N_value_pooled": 0.0028845435259087643,
+  "spearman_within_cell_median": -0.009765242233766798,
+  "spearman_within_protein_median": -0.03158888999667889,
+  "frac_var_logN_between_proteins": 0.7899794490802333,
+  "unit_check_W_ones_MNAR_seed100": {
+   "array_equal": true,
+   "max_abs_diff": 0.0
+  },
+  "W_alpha05_split_MNAR_seed100": {
+   "min": 0.6092587978801531,
+   "max": 4.00146664556037,
+   "p10_p50_p90": [
+    0.6436869380082764,
+    0.8616220549572409,
+    1.6301806776120187
+   ]
+  },
+  "N_median_masked_vs_kept_MNAR_seed100": [
+   2.0,
+   2.0
+  ]
+ },
+ "leduc2022": {
+  "cells": 1543,
+  "proteins": 2844,
+  "observed_entries": 1495933,
+  "frac_observed_with_source_evidence": 0.9840968813442849,
+  "source": "scpdata peptides_log: non-NaN peptides per Leading.razor.protein.id",
+  "N_quantiles_p10_p25_p50_p75_p90": [
+   1.0,
+   1.0,
+   2.0,
+   3.0,
+   5.0
+  ],
+  "N_mean": 2.584022813855968,
+  "frac_N_eq_1": 0.4832148231237629,
+  "spearman_N_value_pooled": 0.004890431368192444,
+  "spearman_within_cell_median": 0.0022490318013440682,
+  "spearman_within_protein_median": 0.0040654795136031594,
+  "frac_var_logN_between_proteins": 0.7844775619137715,
+  "unit_check_W_ones_MNAR_seed100": {
+   "array_equal": true,
+   "max_abs_diff": 0.0
+  },
+  "W_alpha05_split_MNAR_seed100": {
+   "min": 0.6372491850300983,
+   "max": 3.8564929111369364,
+   "p10_p50_p90": [
+    0.6609920999833132,
+    0.901206440080767,
+    1.5781733212195526
+   ]
+  },
+  "N_median_masked_vs_kept_MNAR_seed100": [
+   2.0,
+   2.0
+  ]
+ },
+ "px063590_ADbrain": "not aligned (size): PSM tables 1.22 GB + 0.94 GB = 2.16 GB exceed the 2 GB cap"
+}
