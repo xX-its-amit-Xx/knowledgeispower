@@ -1,0 +1,39 @@
+{
+ "petrosius2023": {
+  "max_abs_base_vs_tgtshrink_null": 0.0,
+  "pass_base": true,
+  "max_abs_mj_w0_vs_mb": 0.0,
+  "pass_mj": true
+ },
+ "leduc2022": {
+  "max_abs_base_vs_tgtshrink_null": 0.0,
+  "pass_base": true,
+  "max_abs_mj_w0_vs_mb": 0.0,
+  "pass_mj": true
+ },
+ "weiss2026_liver": {
+  "max_abs_base_vs_tgtshrink_null": 0.0,
+  "pass_base": true,
+  "max_abs_mj_w0_vs_mb": 0.0,
+  "pass_mj": true
+ },
+ "gregoire2023_mixCTRL": {
+  "max_abs_base_vs_tgtshrink_null": 0.0,
+  "pass_base": true,
+  "max_abs_mj_w0_vs_mb": 0.0,
+  "pass_mj": true
+ },
+ "px063590_ADbrain": {
+  "max_abs_base_vs_tgtshrink_null": 0.0,
+  "pass_base": true,
+  "max_abs_mj_w0_vs_mb": 0.0,
+  "pass_mj": true
+ },
+ "sadiku2025": {
+  "max_abs_base_vs_tgtshrink_null": 0.0,
+  "pass_base": true,
+  "max_abs_mj_w0_vs_mb": 0.0,
+  "pass_mj": true
+ },
+ "all_pass": true
+}
