@@ -30,6 +30,7 @@ def _z(X):
 
 # Amendment 11: extra scpdata datasets built by scripts/corpus_ext/ (whatever built successfully; see PROVENANCE).
 EXCLUDED_FROM_CORPUS = HOLDOUTS | {"leduc2022_plexDIA", "specht2019v2"}
+NON_HUMAN = {"woo2022"}  # woo2022_macrophage is mouse: 0 accessions overlap human datasets (found Oct 23); never contributed
 AMENDMENT13_HOLDOUT = "brunner2022"  # reference-only until Amendment 13; never in a reference from then on
 PHASE_B_HOLDOUTS = {"brunner2022", "wu2026", "derks2022"}  # Amendment 15: never in any Phase-B reference
 
@@ -38,10 +39,11 @@ def extended_corpus() -> list[str]:
     from .external import CORPUS_DIR
 
     ext = sorted(f.stem for f in CORPUS_DIR.glob("*.npz") if f.stem not in CORPUS)
+    ext = [e for e in ext if not e.endswith("_labels")]
     bad = set(ext) & EXCLUDED_FROM_CORPUS
     if bad:
         raise ValueError(f"excluded datasets present in the corpus dir: {bad}")
-    return list(CORPUS) + ext
+    return [d for d in list(CORPUS) + ext if d not in NON_HUMAN]
 
 
 def corpus_reference(var_names, exclude: tuple[str, ...], datasets: list[str] | None = None) -> np.ndarray:

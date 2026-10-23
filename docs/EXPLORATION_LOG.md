@@ -533,3 +533,29 @@ Scores are relative to the kNN + low-rank stack, mean of 3 targets × 2 masks; s
 - The reference accounts for about 2.3 points of that (vs. scrambled or no reference).
 - λ_v and `extra` were tuned on these 3 dev targets. Next: check that this generalises across the full LODO dev pool
   before anything goes near a holdout.
+
+## 2026-10-23 · Phase B dev: adapted transfer generalises across the LODO dev pool (`results/phaseB/dev/dev_lodo16.json`)
+**Setup:**
+- 15 dev targets: the 3 originals plus 12 corpus datasets with ≥ 100 cells.
+- woo2022 was excluded: it turned out to be **mouse**, with 0 accessions shared with the human datasets. Its reference
+  rows were always empty after alignment, so it never contributed. It is now in `transfer.NON_HUMAN`.
+- Single-cell reference, leave-target-out. Settings: λ_v = 100, 10 extra factors.
+
+Mean relative to the kNN + low-rank stack, 15 targets × 2 masks:
+
+| Method | All entries | In-complex |
+|---|---|---|
+| Phase-A `stack3_plain` | 0.962 | 0.953 |
+| **adapted** | **0.936** | **0.927** |
+| adapted, scrambled reference | 0.965 | 0.963 |
+| adapted, no reference | 0.975 | 0.973 |
+
+**Per target:**
+- The adapted method beats the best data-only method by ≥ 1% on 14/15 targets.
+- It beats both controls by ≥ 1% on 9/15.
+- Best: weiss2026 liver (0.853 / 0.804), amrute2026 aorta (0.90 / 0.89), sadiku2025 neutrophils, Petrosius, guise2024
+  neurons.
+- Weakest: gregoire2023 (≈ 0.99–1.00).
+
+**Gate:** this passes the Amendment-15 dev gate (≥ 1% mean gain over the current best, and beats its controls).
+`PREREGISTRATION_v8.md` commits the single wu2026 confirmation.
