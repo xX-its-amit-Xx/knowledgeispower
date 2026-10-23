@@ -608,3 +608,31 @@ below the null. Charter and per-idea docs: `docs/phaseC/`.
 - Round 2 (king's directives in `docs/phaseC/KING_LOG.md`) moves to cell-level marker weighting (`ctprior`), a
   nonparanormal encoding (`copula`), peptide-level precision weights (`pepev`) and Netflix-style shrunken target
   baselines (`nfbase`).
+
+## 2026-10-23 · Phase C round 2 (dev, fast pool): four more ideas dead; the target's standardisation is the lead (`results/phaseC/*_fast.json`)
+**Setup:** as in round 1 (`benchmarks/phasec.py --pool fast`, 6 dev targets × 2 masks × 2 seeds; rmse_all mean
+relative to the H15 champion, all / in-complex; full-pool bars: cand_stack ≤ 0.99 and ≥ 0.005 below the null).
+
+| id (queen) | idea | cand_stack | null_stack | cand_solo |
+|---|---|---|---|---|
+| `ctprior` (bio) | HPA-marker cell-type soft cell weights in `fit_loadings` | 0.9990 / 0.9986 | 0.9990 / 0.9987 | 0.9988 |
+| `copula` (rep) | nonparanormal encoding of reference and target | 1.0005 / 1.0011 | 1.0004 / 1.0004 | 1.0193 |
+| `pepev` (mod) | precursor counts as U-step precision weights | 0.9996 / 0.9987 | 0.9998 / 0.9996 | 0.9988 |
+| `pepev_v2` (mod) | protein-level precursor-count weights | 0.9969 / 0.9967 | 1.0003 / 1.0002 | 0.9969 |
+| `nfbase` (abd), ψ = 1 | shrink the target's mean/sd toward reference tech-group baselines | 0.9868 / 0.9859 | 0.9867 / 0.9863 | 0.9864 |
+| `nfbase_psi4` (abd) | the same, ψ = 4 | 0.9663 / 0.9647 | 0.9691 / 0.9688 | 0.9663 |
+
+**Read:**
+- No idea clears both bars; nothing went to the full pool; the champion stands.
+- Re-weighting or re-encoding the reference is closed: ctprior's margin over its null is 0.0000; copula's
+  reference-side-only variant is 0.9980 vs null 0.9991; the target-side quantile decode hurts (tgtonly cand_raw 1.0284).
+- pepev's weights help MCAR and hurt MNAR (weiss2026_liver 0.9759 / 1.0121): in DIA, precursor counts track the value
+  within protein (`pepev_diag.json`).
+- **The lead is data-only.** nfbase's protein-permuted null at ψ = 4 (James–Stein shrinkage of the target's own
+  30-cell per-protein mean and log-sd toward a calibrated constant) is 0.9691, ≤ 0.99 on 12/12 splits. Post hoc:
+  location only 0.9920, scale only 0.9832, joint 0.9663. Protein-specific reference baselines add only on DIA MCAR
+  (weiss2026_liver 0.9490 vs null 0.9645).
+- Round 3 (directives in `docs/phaseC/KING_LOG.md`): `tgtshrink` (data-only champion revision, ψ on the inner mask,
+  full pool if it holds), `selmnar` (probit selection model for the missing entries), `seqprior` (sequence
+  detectability features as shrinkage targets) and `varprior` (half-life / complex-buffering prior on log-sd). The
+  last two must beat shrink-to-constant at the same ψ.

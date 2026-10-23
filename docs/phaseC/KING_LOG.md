@@ -238,3 +238,134 @@ source abd's next analogy (extreme deconvolution) needs; bio reuses mod's HPA do
 
 **Rules reminder:** `--pool fast --jobs 2`; the full pool only at cand_stack ≤ 0.99 and ≥ 0.005 below the null; dev
 data only; every number from `results/phaseC/<id>_fast.json`; provenance rows in the idea doc.
+
+## Round 2 · 2026-10-23 · review and directives for round 3
+
+**Verification.** The king re-read every number in the four worker reports from `results/phaseC/*_fast.json` and
+`pepev_diag.json`: summary means, in-complex means, per-target/mask values, stack weights and splits ≤ 0.99. All
+matched. One gap was filled: the copula worker recorded `copula_tgtonly`'s stack weight as "not recorded"; the JSON
+gives 0.1458 (`mean_cand_weight_in_stack`).
+
+**What each queen tried** (fast pool, rmse_all mean relative to the champion, all / in-complex; bars are
+cand_stack ≤ 0.99 *and* a margin ≥ 0.005 below the null):
+
+| queen | idea | cand_stack | null_stack | cand_solo | verdict |
+|---|---|---|---|---|---|
+| bio | `ctprior` (HPA-marker cell-type soft cell weights) | 0.9990 / 0.9986 | 0.9990 / 0.9987 | 0.9988 | dead (margin 0.0000; τ = ½ median 0.9980 vs null 0.9982) |
+| rep | `copula` (nonparanormal encoding) | 1.0005 / 1.0011 | 1.0004 / 1.0004 | 1.0193 | dead (reference-side-only 0.9980 vs null 0.9991) |
+| mod | `pepev` (precursor counts as U-step precision weights) | 0.9996 / 0.9987 | 0.9998 / 0.9996 | 0.9988 | dead (v2 protein-level weights 0.9969 vs null 1.0003, margin 0.0034) |
+| abd | `nfbase` (Netflix baselines for the target mean/sd), ψ = 1 | 0.9868 / 0.9859 | 0.9867 / 0.9863 | 0.9864 | dead as a prior; ψ = 4: **0.9663 / 0.9647** vs null 0.9691 / 0.9688, 12/12 splits ≤ 0.99 |
+
+**What the round taught us:**
+- **The prior on V is closed.** Five ways of re-weighting or re-encoding the reference (rounds 1–2) all land within
+  0.5% of the champion and within 0.0040 of their nulls. ctprior's weight shifts are the same on every target
+  (schoof2021 up, leduc2022/specht2021 down), which is per-dataset score scaling, not cell identity.
+- **The target's standardisation is where the error is.** nfbase's protein-permuted null (shrink the target's own
+  30-cell mean and log-sd toward a calibrated constant, ψ = 4) is 0.9691, ≤ 0.99 on all 12 splits: the largest Phase-C
+  effect so far, and data-only. It is super-additive (post-hoc meanonly_psi4 0.9920, sdonly_psi4 0.9832, joint 0.9663);
+  scale is the bigger half. Protein-specific *reference* baselines add only on DIA MCAR (weiss2026_liver 0.9490 vs null
+  0.9645, petrosius2023 0.9751 vs 0.9827, sadiku2025 0.9767 vs 0.9815) and nothing on TMT.
+- **Missingness is information we have not modelled.** pepev's precursor counts track the value within protein in DIA
+  (Spearman 0.21–0.44), so they help MCAR and hurt MNAR (weiss2026_liver 0.9759 / 1.0121). Nobody has modelled *why* an
+  entry is missing. Also, the stack is fitted on a random inner mask, so MNAR-specific wins get diluted (pepev_v2,
+  sadiku2025 MNAR: cand_raw 0.9676, cand_stack 0.9959). Workers should report cand_raw by mask too.
+- Marginal *shape* is not the platform effect: TMT is the most Gaussian platform (copula_diag), and the target-side
+  quantile decode hurts (tgtonly cand_raw 1.0284).
+
+**Stuck queens: all four** by the charter's rule (two consecutive ideas without cand_stack ≤ 0.99 *and* a null margin).
+- bio: ttprior → ctprior. Two tissue-aware V priors died; tissue at dataset and cell-type resolution are both null.
+- rep: ebshrink → copula. Both re-parameterised the same reference; pivot to the missingness mechanism.
+- mod: scrnaprior → pepev. Pivot from per-entry weights to protein-intrinsic information.
+- abd: dca → nfbase. Formally stuck (nfbase failed its null), but her machinery found the lead, so she gets to turn
+  it into a champion revision.
+
+**Dead ends added this round (no queen may repeat):** soft per-cell (marker-score) re-weighting of the reference;
+nonparanormal/rank-Gaussian encoding on either side (incl. per-protein empirical-quantile decoding of the target);
+precursor/PSM counts as WLS precision weights on U or V (per entry or per protein); technology-group × protein
+hierarchical baselines from the reference (tech term = flat = technull).
+
+**Best idea so far:** the *machinery* of `nfbase` at ψ = 4: cand_stack 0.9663 / 0.9647, cand_solo 0.9663, 12/12
+splits ≤ 0.99. Its biological content is not significant (null 0.9691 / 0.9688; margin 0.0028 / 0.0041), so it is
+a data-only fix to the champion's standardisation, not a prior. The champion stands until `tgtshrink` passes the full
+pool. **Rule for round 3:** bio and mod build on nfbase's `adapt_project_mb` (injected mu/sd) and must beat a
+*shrink-to-constant* baseline at the same ψ, not just the champion, so the data-only effect is not credited to them.
+
+### Directive · abd: `tgtshrink`, the champion's standardisation done properly (her round-2 lead)
+- **Why:** her own null is the biggest effect in Phase C. Make it a clean, data-only champion revision and find out
+  whether the ψ = 4 effect holds across the 15 LODO targets.
+- **Build:** `phasec/tgtshrink.py` on top of `nfbase.adapt_project_mb`.
+  - Per protein j in the target: m_j, log s_j from observed entries, n_j observed.
+  - log-sd: shrink toward a smooth trend in (m_j, n_j / n_cells), fitted across the target's proteins (limma-trend:
+    Smyth 2004, *Stat. Appl. Genet. Mol. Biol.* 3:3; a low-df spline is enough). Mean: shrink toward a trend in
+    n_j / n_cells (under MNAR, sparsely observed proteins have upward-biased means).
+  - ψ (noise-variance inflation) chosen per target from {1, 2, 4, 8, 16} on an *inner* mask of the masked matrix, never
+    on the evaluation mask. Report fixed ψ = 4 alongside.
+  - Unit checks: ψ = 0 reproduces the champion; trend = constant at ψ = 4 reproduces `nfbase_psi4`'s null (0.9691).
+- **Null:** the same pipeline with the trend covariates (m_j, n_j) permuted across proteins (equivalent to shrinking
+  to a constant).
+- **Pool:** fast, then **full** if cand_stack ≤ 0.99. Bar for adoption: a full-pool win vs the champion on both masks;
+  the trend part counts only if it beats its null by ≥ 0.005. A win means a `PREREGISTRATION_v9.md` and asking Amit.
+- **Next analogy queued:** Heckman selection correction (econometrics; Heckman 1979, *Econometrica* 47:153–161),
+  handed to rep this round.
+
+### Directive · rep: `selmnar`, a selection model for the missing entries (pivot: from encoding the observed values to encoding the missingness)
+- **Why:** abd's Heckman analogy plus pepev's finding. In DIA targets a value is missing *because* it is low; the
+  champion treats every missing entry as uninformative. Nothing in Phases A–C has modelled the missingness mechanism.
+- **Build:** `phasec/selmnar.py`, a local copy of `adapt_project` with an EM U-step.
+  - Per protein a probit detection curve P(observed | x) = Φ((x − c_j) / σ_d), with c_j shrunk toward a per-cell
+    detection threshold; fit from the observed-value distribution and the observed fraction.
+  - E-step: for each missing entry, combine the current low-rank prediction (Gaussian) with the probit selection
+    term; use the posterior mean of that tilted Gaussian as the pseudo-observation. M-step: the champion's ridge U-step.
+    3–5 EM iterations.
+  - Unit check: σ_d → ∞ (no selection) reproduces the champion.
+- **Null:** the same EM with the missing-indicator pattern permuted within each cell (the same counts of missing
+  entries per cell, the wrong entries).
+- **Report** cand_raw and cand_stack *per mask*: the expected signature is a gain on MNAR and a smaller loss on MCAR.
+  If MCAR is hurt, a variant that fits σ_d per target on the inner mask is allowed (preregister it in the doc first).
+
+### Directive · mod: `seqprior`, protein-intrinsic detectability features as a prior on location, scale and detection (new modality)
+- **Why:** nfbase found protein-specific location/scale information only where the reference covers the protein,
+  and only for DIA. Detectability is a property of the sequence (tryptic peptide count, length, hydrophobicity), so it
+  generalises to every target protein, and it is exactly what drives MNAR. This is Amit's synthetic-features seed.
+- **Build:** `phasec/seqprior.py`.
+  - Data (< 100 MB): UniProt human reviewed proteome FASTA (rest.uniprot.org stream) and HPA subcellular location
+    (`subcellular_location.tsv.zip`). Record URL, licence and SHA-256 for each.
+  - Features per protein: length, number of unique tryptic peptides of 7–30 aa, MW, GRAVY, pI, HPA main location
+    one-hot.
+  - A ridge or gradient-boosted sub-model, trained LODO on the *reference* datasets' per-protein relative location,
+    log-sd and observed fraction (one model per acquisition group; reuse nfbase's baseline tables), predicts those three
+    for the target.
+  - Use the predictions as protein-specific shrinkage targets in `nfbase.adapt_project_mb` at ψ = 4.
+- **Null:** feature rows permuted across proteins before training. **Required baseline:** the same pipeline with
+  shrink-to-constant (nfbase_psi4's null, 0.9691). Credit only the margin below both.
+
+### Directive · bio: `varprior`, protein turnover and complex buffering as a prior on cell-to-cell variability (pivot: tissue → protein dynamics)
+- **Why:** both tissue-aware V priors died. The scale half of the standardisation fix is the larger half
+  (sdonly_psi4 0.9832), and biology predicts per-protein variability: long-lived proteins average out bursts, and
+  complex subunits are buffered by stoichiometric degradation. This replaces the tissue line with the "half-life"
+  synthetic feature Amit listed.
+- **Build:** `phasec/varprior.py`.
+  - Data: measured half-lives from Mathieson et al. 2018, *Nat. Commun.* 9:689 ("Systematic analysis of protein turnover
+    in primary cells"; use the supplementary table, record URL/licence/SHA-256), plus CORUM complex membership already
+    cached for the project.
+  - Fit a log-sd model on the reference: per-protein log-sd (per dataset, relative to the dataset median) ~ log
+    half-life + in-complex + complex size + observed fraction, LODO.
+  - Its prediction is the log-sd shrinkage target for the target in `nfbase.adapt_project_mb` (ψ = 4; location shrunk
+    to a constant as in nfbase's null, so only the scale prior differs).
+- **Null:** half-life and complex covariates permuted across proteins (observed fraction kept). **Required baseline:**
+  shrink-to-constant at ψ = 4. Credit only the margin below both.
+- **Coordinate with mod:** bio owns *scale from dynamics/complexes*; mod owns *location and detection from sequence*.
+  If both pass, the king will test them together.
+
+**Cross-pollination:** abd's Netflix analogy found the lead (the standardisation step); her queued Heckman analogy
+becomes rep's selection model; pepev's MNAR finding motivates both `selmnar` and mod's detectability features; bio's
+turnover prior and mod's sequence prior split the shrinkage target into scale vs location/detection, so the two do not
+duplicate each other.
+
+**Housekeeping flag:** `transfer.extended_corpus()` returns holdout names (brunner2022, wu2026) and relies on callers
+filtering with `PHASE_B_HOLDOUTS` (as `explore_phaseb.reference_datasets` does). Workers must use
+`explore_phaseb.reference_datasets`, never `extended_corpus()` directly.
+
+**Rules reminder:** `--pool fast --jobs 2`; the full pool only at cand_stack ≤ 0.99 and ≥ 0.005 below the null (for
+`tgtshrink`, ≤ 0.99 vs the champion); dev data only; every number from `results/phaseC/<id>_fast.json`; provenance rows
+in the idea doc.
