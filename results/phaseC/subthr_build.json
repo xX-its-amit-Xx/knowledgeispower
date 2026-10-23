@@ -1,0 +1,865 @@
+{
+ "leduc2022": {
+  "n_psm_all_batches": 822823,
+  "n_psm_qval_le_0.1": 822823,
+  "n_psm_subthr_0.01_0.1": 91102,
+  "n_psm_subthr_not_rev_con": 48110,
+  "n_batches_with_target_cells": 132,
+  "n_subthr_psms_in_names": 39718,
+  "passing_psm_scale_check": {
+   "n_pairs": 4746748,
+   "spearman_dev_offset_corrected_vs_X_within_batch_dev": 0.47399752064760203,
+   "spearman_dev_raw_vs_X_within_batch_dev": 0.386009192961496,
+   "sd_dev_offset_corrected": 0.6042382655982221,
+   "sd_dev_raw": 0.7482065260954686,
+   "sd_X_within_batch_dev": 0.42811679977202527,
+   "mad_ratio_dev_over_X": 1.554661058050761
+  },
+  "cell_offset_quantiles_p10_p50_p90": [
+   -0.5461459159048931,
+   -0.009045709197145868,
+   0.4984656104770092
+  ],
+  "D_quantiles_p10_p50_p90": [
+   -0.7868143349684509,
+   -0.020748648942397807,
+   0.6304113957236597
+  ],
+  "P_quantiles_p10_p50_p90": [
+   0.0,
+   0.0,
+   0.62338
+  ],
+  "n_evidence": 78749,
+  "n_evidence_P_gt0": 38979,
+  "frac_X_nan_covered": 0.027226564890457928,
+  "frac_X_nan_covered_P_gt0": 0.013476542849625513,
+  "sum_P": 14899.928037316036,
+  "n_cells": 1543,
+  "n_proteins": 2844
+ },
+ "sadiku2025": {
+  "frac_entries_with_PEP": 1.0,
+  "max_PEP_observed": 0.1415836662054062,
+  "PEP_quantiles_missing_p1_p10_p50": [
+   0.0103164371103048,
+   0.16068036556243892,
+   0.8141189217567444
+  ],
+  "frac_missing_PEP_lt_0.05_0.15_0.5": [
+   0.03264662524025453,
+   0.09292796407222875,
+   0.29506988374479837
+  ],
+  "spearman_PEP_value_within_protein_median": -0.21146502957717872,
+  "n_evidence": 643068,
+  "n_evidence_P_gt0": 189750,
+  "frac_X_nan_covered": 1.0,
+  "frac_X_nan_covered_P_gt0": 0.29506988374479837,
+  "sum_P": 97644.61210202001,
+  "n_cells": 314,
+  "n_proteins": 3039
+ },
+ "gregoire2023_mixCTRL": {
+  "assays": [
+   "CBIO680_1",
+   "CBIO680_3",
+   "CBIO680_4",
+   "CBIO681_2",
+   "CBIO681_3",
+   "CBIO681_4",
+   "CBIO681_5",
+   "CBIO681_6",
+   "CBIO703_2",
+   "CBIO703_3",
+   "CBIO703_4",
+   "CBIO703_5",
+   "...",
+   "proteins_CBIO703_norm_log",
+   "proteins_CBIO715_norm_log",
+   "proteins_CBIO725_norm_log",
+   "proteins_CBIO754_norm_log",
+   "proteins_GIGA_norm_log",
+   "proteins_CBIO680_batchC",
+   "proteins_CBIO681_batchC",
+   "proteins_CBIO703_batchC",
+   "proteins_CBIO715_batchC",
+   "proteins_CBIO725_batchC",
+   "proteins_CBIO754_batchC",
+   "proteins_GIGA_batchC"
+  ],
+  "n_assays": 119,
+  "psm_assays": [
+   "CBIO680_1",
+   "CBIO680_3",
+   "CBIO680_4",
+   "CBIO681_2",
+   "CBIO681_3",
+   "..."
+  ],
+  "per_psm_assay": {
+   "CBIO680_1": {
+    "n_psm": 1862,
+    "n_protein_fdr_gt_0.01": 21,
+    "batch": [
+     "CBIO680"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "CBIO680_3": {
+    "n_psm": 1941,
+    "n_protein_fdr_gt_0.01": 21,
+    "batch": [
+     "CBIO680"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "CBIO680_4": {
+    "n_psm": 1948,
+    "n_protein_fdr_gt_0.01": 16,
+    "batch": [
+     "CBIO680"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "CBIO681_2": {
+    "n_psm": 3091,
+    "n_protein_fdr_gt_0.01": 58,
+    "batch": [
+     "CBIO681"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "CBIO681_3": {
+    "n_psm": 2368,
+    "n_protein_fdr_gt_0.01": 53,
+    "batch": [
+     "CBIO681"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "CBIO681_4": {
+    "n_psm": 3205,
+    "n_protein_fdr_gt_0.01": 58,
+    "batch": [
+     "CBIO681"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "CBIO681_5": {
+    "n_psm": 2846,
+    "n_protein_fdr_gt_0.01": 55,
+    "batch": [
+     "CBIO681"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "CBIO681_6": {
+    "n_psm": 3055,
+    "n_protein_fdr_gt_0.01": 59,
+    "batch": [
+     "CBIO681"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "CBIO703_2": {
+    "n_psm": 3569,
+    "n_protein_fdr_gt_0.01": 76,
+    "batch": [
+     "CBIO703"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "CBIO703_3": {
+    "n_psm": 4012,
+    "n_protein_fdr_gt_0.01": 75,
+    "batch": [
+     "CBIO703"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "CBIO703_4": {
+    "n_psm": 4046,
+    "n_protein_fdr_gt_0.01": 87,
+    "batch": [
+     "CBIO703"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "CBIO703_5": {
+    "n_psm": 3841,
+    "n_protein_fdr_gt_0.01": 82,
+    "batch": [
+     "CBIO703"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "CBIO703_6": {
+    "n_psm": 4153,
+    "n_protein_fdr_gt_0.01": 106,
+    "batch": [
+     "CBIO703"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "CBIO715_2": {
+    "n_psm": 3480,
+    "n_protein_fdr_gt_0.01": 76,
+    "batch": [
+     "CBIO715"
+    ],
+    "evidence_entries_upper_bound": 1,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "CBIO715_3": {
+    "n_psm": 3661,
+    "n_protein_fdr_gt_0.01": 84,
+    "batch": [
+     "CBIO715"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "CBIO715_4": {
+    "n_psm": 3462,
+    "n_protein_fdr_gt_0.01": 79,
+    "batch": [
+     "CBIO715"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "CBIO715_5": {
+    "n_psm": 3579,
+    "n_protein_fdr_gt_0.01": 71,
+    "batch": [
+     "CBIO715"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "CBIO715_6": {
+    "n_psm": 3942,
+    "n_protein_fdr_gt_0.01": 66,
+    "batch": [
+     "CBIO715"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "CBIO715_7": {
+    "n_psm": 3847,
+    "n_protein_fdr_gt_0.01": 76,
+    "batch": [
+     "CBIO715"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "CBIO715_8": {
+    "n_psm": 4935,
+    "n_protein_fdr_gt_0.01": 106,
+    "batch": [
+     "CBIO715"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "CBIO725_10": {
+    "n_psm": 3169,
+    "n_protein_fdr_gt_0.01": 72,
+    "batch": [
+     "CBIO725"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "CBIO725_11": {
+    "n_psm": 3133,
+    "n_protein_fdr_gt_0.01": 55,
+    "batch": [
+     "CBIO725"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "CBIO725_2": {
+    "n_psm": 3502,
+    "n_protein_fdr_gt_0.01": 73,
+    "batch": [
+     "CBIO725"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "CBIO725_3": {
+    "n_psm": 3208,
+    "n_protein_fdr_gt_0.01": 70,
+    "batch": [
+     "CBIO725"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "CBIO725_4": {
+    "n_psm": 3062,
+    "n_protein_fdr_gt_0.01": 68,
+    "batch": [
+     "CBIO725"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "CBIO725_5": {
+    "n_psm": 2711,
+    "n_protein_fdr_gt_0.01": 51,
+    "batch": [
+     "CBIO725"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "CBIO725_6": {
+    "n_psm": 2862,
+    "n_protein_fdr_gt_0.01": 68,
+    "batch": [
+     "CBIO725"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "CBIO725_7": {
+    "n_psm": 2076,
+    "n_protein_fdr_gt_0.01": 42,
+    "batch": [
+     "CBIO725"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "CBIO725_8": {
+    "n_psm": 2471,
+    "n_protein_fdr_gt_0.01": 62,
+    "batch": [
+     "CBIO725"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "CBIO725_9": {
+    "n_psm": 2813,
+    "n_protein_fdr_gt_0.01": 68,
+    "batch": [
+     "CBIO725"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "CBIO754_11": {
+    "n_psm": 6366,
+    "n_protein_fdr_gt_0.01": 181,
+    "batch": [
+     "CBIO754"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "CBIO754_13": {
+    "n_psm": 3357,
+    "n_protein_fdr_gt_0.01": 60,
+    "batch": [
+     "CBIO754"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "CBIO754_14": {
+    "n_psm": 5777,
+    "n_protein_fdr_gt_0.01": 164,
+    "batch": [
+     "CBIO754"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "CBIO754_15": {
+    "n_psm": 5811,
+    "n_protein_fdr_gt_0.01": 146,
+    "batch": [
+     "CBIO754"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "CBIO754_16": {
+    "n_psm": 5721,
+    "n_protein_fdr_gt_0.01": 145,
+    "batch": [
+     "CBIO754"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "CBIO754_17": {
+    "n_psm": 5774,
+    "n_protein_fdr_gt_0.01": 144,
+    "batch": [
+     "CBIO754"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "GIGA_1247": {
+    "n_psm": 35347,
+    "n_protein_fdr_gt_0.01": 1649,
+    "batch": [
+     "GIGA"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "GIGA_1248": {
+    "n_psm": 41120,
+    "n_protein_fdr_gt_0.01": 1833,
+    "batch": [
+     "GIGA"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "GIGA_1249": {
+    "n_psm": 25236,
+    "n_protein_fdr_gt_0.01": 1138,
+    "batch": [
+     "GIGA"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "GIGA_1250": {
+    "n_psm": 31330,
+    "n_protein_fdr_gt_0.01": 1488,
+    "batch": [
+     "GIGA"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "GIGA_1251": {
+    "n_psm": 23046,
+    "n_protein_fdr_gt_0.01": 853,
+    "batch": [
+     "GIGA"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "GIGA_1252": {
+    "n_psm": 16299,
+    "n_protein_fdr_gt_0.01": 754,
+    "batch": [
+     "GIGA"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "peptide_CBIO680_1": {
+    "n_psm": 1411,
+    "n_protein_fdr_gt_0.01": 17,
+    "batch": [
+     "CBIO680"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "peptide_CBIO680_3": {
+    "n_psm": 1470,
+    "n_protein_fdr_gt_0.01": 16,
+    "batch": [
+     "CBIO680"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "peptide_CBIO680_4": {
+    "n_psm": 1494,
+    "n_protein_fdr_gt_0.01": 12,
+    "batch": [
+     "CBIO680"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "peptide_CBIO681_2": {
+    "n_psm": 2601,
+    "n_protein_fdr_gt_0.01": 54,
+    "batch": [
+     "CBIO681"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "peptide_CBIO681_3": {
+    "n_psm": 2006,
+    "n_protein_fdr_gt_0.01": 44,
+    "batch": [
+     "CBIO681"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "peptide_CBIO681_4": {
+    "n_psm": 2666,
+    "n_protein_fdr_gt_0.01": 49,
+    "batch": [
+     "CBIO681"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "peptide_CBIO681_5": {
+    "n_psm": 2384,
+    "n_protein_fdr_gt_0.01": 49,
+    "batch": [
+     "CBIO681"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "peptide_CBIO681_6": {
+    "n_psm": 2510,
+    "n_protein_fdr_gt_0.01": 53,
+    "batch": [
+     "CBIO681"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "peptide_CBIO703_2": {
+    "n_psm": 2928,
+    "n_protein_fdr_gt_0.01": 63,
+    "batch": [
+     "CBIO703"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "peptide_CBIO703_3": {
+    "n_psm": 3325,
+    "n_protein_fdr_gt_0.01": 64,
+    "batch": [
+     "CBIO703"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "peptide_CBIO703_4": {
+    "n_psm": 3356,
+    "n_protein_fdr_gt_0.01": 75,
+    "batch": [
+     "CBIO703"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "peptide_CBIO703_5": {
+    "n_psm": 3086,
+    "n_protein_fdr_gt_0.01": 74,
+    "batch": [
+     "CBIO703"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "peptide_CBIO703_6": {
+    "n_psm": 3470,
+    "n_protein_fdr_gt_0.01": 92,
+    "batch": [
+     "CBIO703"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "peptide_CBIO715_2": {
+    "n_psm": 2584,
+    "n_protein_fdr_gt_0.01": 62,
+    "batch": [
+     "CBIO715"
+    ],
+    "evidence_entries_upper_bound": 1,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "peptide_CBIO715_3": {
+    "n_psm": 2836,
+    "n_protein_fdr_gt_0.01": 71,
+    "batch": [
+     "CBIO715"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "peptide_CBIO715_4": {
+    "n_psm": 2679,
+    "n_protein_fdr_gt_0.01": 68,
+    "batch": [
+     "CBIO715"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "peptide_CBIO715_5": {
+    "n_psm": 2747,
+    "n_protein_fdr_gt_0.01": 58,
+    "batch": [
+     "CBIO715"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "peptide_CBIO715_6": {
+    "n_psm": 3030,
+    "n_protein_fdr_gt_0.01": 61,
+    "batch": [
+     "CBIO715"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "peptide_CBIO715_7": {
+    "n_psm": 2919,
+    "n_protein_fdr_gt_0.01": 62,
+    "batch": [
+     "CBIO715"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "peptide_CBIO715_8": {
+    "n_psm": 3761,
+    "n_protein_fdr_gt_0.01": 92,
+    "batch": [
+     "CBIO715"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "peptide_CBIO725_10": {
+    "n_psm": 2488,
+    "n_protein_fdr_gt_0.01": 60,
+    "batch": [
+     "CBIO725"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "peptide_CBIO725_11": {
+    "n_psm": 2377,
+    "n_protein_fdr_gt_0.01": 43,
+    "batch": [
+     "CBIO725"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "peptide_CBIO725_2": {
+    "n_psm": 2505,
+    "n_protein_fdr_gt_0.01": 59,
+    "batch": [
+     "CBIO725"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "peptide_CBIO725_3": {
+    "n_psm": 2426,
+    "n_protein_fdr_gt_0.01": 56,
+    "batch": [
+     "CBIO725"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "peptide_CBIO725_4": {
+    "n_psm": 2360,
+    "n_protein_fdr_gt_0.01": 56,
+    "batch": [
+     "CBIO725"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "peptide_CBIO725_5": {
+    "n_psm": 2097,
+    "n_protein_fdr_gt_0.01": 42,
+    "batch": [
+     "CBIO725"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "peptide_CBIO725_6": {
+    "n_psm": 2220,
+    "n_protein_fdr_gt_0.01": 55,
+    "batch": [
+     "CBIO725"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "peptide_CBIO725_7": {
+    "n_psm": 1649,
+    "n_protein_fdr_gt_0.01": 37,
+    "batch": [
+     "CBIO725"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "peptide_CBIO725_8": {
+    "n_psm": 1912,
+    "n_protein_fdr_gt_0.01": 53,
+    "batch": [
+     "CBIO725"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "peptide_CBIO725_9": {
+    "n_psm": 2220,
+    "n_protein_fdr_gt_0.01": 56,
+    "batch": [
+     "CBIO725"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "peptide_CBIO754_11": {
+    "n_psm": 5166,
+    "n_protein_fdr_gt_0.01": 153,
+    "batch": [
+     "CBIO754"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "peptide_CBIO754_13": {
+    "n_psm": 2737,
+    "n_protein_fdr_gt_0.01": 52,
+    "batch": [
+     "CBIO754"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "peptide_CBIO754_14": {
+    "n_psm": 4788,
+    "n_protein_fdr_gt_0.01": 139,
+    "batch": [
+     "CBIO754"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "peptide_CBIO754_15": {
+    "n_psm": 4815,
+    "n_protein_fdr_gt_0.01": 126,
+    "batch": [
+     "CBIO754"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "peptide_CBIO754_16": {
+    "n_psm": 4726,
+    "n_protein_fdr_gt_0.01": 119,
+    "batch": [
+     "CBIO754"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "peptide_CBIO754_17": {
+    "n_psm": 4804,
+    "n_protein_fdr_gt_0.01": 121,
+    "batch": [
+     "CBIO754"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "peptide_GIGA_1247": {
+    "n_psm": 4042,
+    "n_protein_fdr_gt_0.01": 301,
+    "batch": [
+     "GIGA"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "peptide_GIGA_1248": {
+    "n_psm": 4295,
+    "n_protein_fdr_gt_0.01": 341,
+    "batch": [
+     "GIGA"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "peptide_GIGA_1249": {
+    "n_psm": 3872,
+    "n_protein_fdr_gt_0.01": 271,
+    "batch": [
+     "GIGA"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "peptide_GIGA_1250": {
+    "n_psm": 4250,
+    "n_protein_fdr_gt_0.01": 328,
+    "batch": [
+     "GIGA"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "peptide_GIGA_1251": {
+    "n_psm": 3390,
+    "n_protein_fdr_gt_0.01": 212,
+    "batch": [
+     "GIGA"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   },
+   "peptide_GIGA_1252": {
+    "n_psm": 2932,
+    "n_protein_fdr_gt_0.01": 167,
+    "batch": [
+     "GIGA"
+    ],
+    "evidence_entries_upper_bound": 0,
+    "entries_at_proteins_absent_from_batch_assay_in_names": 0
+   }
+  },
+  "n_psm_protein_fdr_gt_0.01": 14492,
+  "n_evidence_entries_upper_bound": 2,
+  "n_entries_at_proteins_absent_from_batch_assay_in_names": 0,
+  "n_cells_corpus": 119,
+  "evidence_per_30cell_split_upper_bound": 0.5042016806722689,
+  "include": false
+ }
+}

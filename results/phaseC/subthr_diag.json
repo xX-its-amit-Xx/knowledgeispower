@@ -1,0 +1,80 @@
+{
+ "unit_check_kappa0_vs_tgtshrink_impute_null": {
+  "leduc2022": {
+   "max_abs_diff": 0.0,
+   "pass": true
+  },
+  "sadiku2025": {
+   "max_abs_diff": 0.0,
+   "pass": true
+  }
+ },
+ "weighted_code_pi0_vs_unweighted": {
+  "leduc2022": {
+   "stats_xbar_max_abs_diff": 0.0,
+   "projection_pi_1e-12_max_abs_diff": 5.400124791776761e-13
+  },
+  "sadiku2025": {
+   "stats_xbar_max_abs_diff": 0.0,
+   "projection_pi_1e-12_max_abs_diff": 1.1271845679061698e-09
+  }
+ },
+ "evidence_per_split": {
+  "leduc2022_MCAR_100": {
+   "n_evidence_P_gt0": 605,
+   "n_missing_usable": 47661,
+   "n_natural_missing_usable": 45521,
+   "sum_P": 235.51737605453582,
+   "cells_with_evidence": 30
+  },
+  "leduc2022_MCAR_101": {
+   "n_evidence_P_gt0": 623,
+   "n_missing_usable": 44875,
+   "n_natural_missing_usable": 42611,
+   "sum_P": 231.9270359468632,
+   "cells_with_evidence": 30
+  },
+  "leduc2022_MNAR_100": {
+   "n_evidence_P_gt0": 605,
+   "n_missing_usable": 47661,
+   "n_natural_missing_usable": 45521,
+   "sum_P": 235.51737605453582,
+   "cells_with_evidence": 30
+  },
+  "leduc2022_MNAR_101": {
+   "n_evidence_P_gt0": 623,
+   "n_missing_usable": 44875,
+   "n_natural_missing_usable": 42611,
+   "sum_P": 231.9270359468632,
+   "cells_with_evidence": 30
+  },
+  "sadiku2025_MCAR_100": {
+   "n_evidence_P_gt0": 16094,
+   "n_missing_usable": 49038,
+   "n_natural_missing_usable": 47021,
+   "sum_P": 8400.098541736603,
+   "cells_with_evidence": 30
+  },
+  "sadiku2025_MCAR_101": {
+   "n_evidence_P_gt0": 14843,
+   "n_missing_usable": 52447,
+   "n_natural_missing_usable": 50388,
+   "sum_P": 7977.93045091629,
+   "cells_with_evidence": 30
+  },
+  "sadiku2025_MNAR_100": {
+   "n_evidence_P_gt0": 16094,
+   "n_missing_usable": 49038,
+   "n_natural_missing_usable": 47021,
+   "sum_P": 8400.098541736603,
+   "cells_with_evidence": 30
+  },
+  "sadiku2025_MNAR_101": {
+   "n_evidence_P_gt0": 14843,
+   "n_missing_usable": 52447,
+   "n_natural_missing_usable": 50388,
+   "sum_P": 7977.93045091629,
+   "cells_with_evidence": 30
+  }
+ }
+}

@@ -133,6 +133,10 @@ def _select_psi(M, ctx):
     return res
 
 
+def _sig(M):
+    return hashlib.sha1(np.packbits(np.isnan(M)).tobytes()).hexdigest()[:16]
+
+
 def _log(variant, rec):
     CACHE.mkdir(parents=True, exist_ok=True)
     with open(CACHE / f"log_{variant}.jsonl", "a") as fh:
@@ -169,6 +173,7 @@ def _run(M, ctx, null=False, w_grid=W_GRID, fixed_w=None, variant="main"):
     else:
         du = 0.0
     _log(variant, {"target": ctx.get("target"), "seed": seed, "n_missing": int(np.isnan(M).sum()),
+                   "nan_sig": _sig(M),
                    "null": bool(null), "chosen_psi": psi, "chosen_w": w,
                    "psi_scores": {str(k): float(v) for k, v in S["scores"].items()},
                    "w_scores": {str(k): v for k, v in wscores.items()}, "rel_dU": du})
@@ -241,12 +246,13 @@ def unit_check():
 # ---------------------------------------------------------------------------------------------------------------
 # reporting: per-mask means of per_target_mask rows + chosen-w distribution per mask from the logs
 def _n_missing_map():
-    """(target, seed, n_missing) -> 'MCAR'/'MNAR' x 'eval'/'inner', rebuilt exactly as the harness builds inputs."""
+    """NaN-pattern signature -> 'MCAR'/'MNAR' x 'eval'/'inner', rebuilt exactly as the harness builds its inputs
+    (n_missing alone is ambiguous: MCAR and MNAR hide the same number of entries)."""
     from scp_graphfs_mcp.phasec import nfbase as NF
 
-    f = CACHE / "nmiss_map.json"
+    f = CACHE / "nansig_map.json"
     if f.exists():
-        return {tuple(json.loads(k)): v for k, v in json.loads(f.read_text()).items()}
+        return json.loads(f.read_text())
     mp = {}
     for t in NF.FAST:
         for kind in ("MCAR", "MNAR"):
@@ -255,11 +261,13 @@ def _n_missing_map():
                 eligible = ((~np.isnan(Xs)).mean(0) >= 0.5) & ~np.isnan(Xs).all(0)
                 rng = np.random.default_rng(seed + 7919)
                 c = np.argwhere(~np.isnan(Xm) & eligible[None, :])
-                n_inner = int(np.isnan(Xm).sum()) + max(1, int(0.1 * len(c)))
-                mp[(t, seed, int(np.isnan(Xm).sum()))] = f"{kind}/eval"
-                mp[(t, seed, n_inner)] = f"{kind}/inner"
+                pick = c[rng.choice(len(c), max(1, int(0.1 * len(c))), replace=False)]
+                Xi = Xm.copy()
+                Xi[pick[:, 0], pick[:, 1]] = np.nan
+                mp[_sig(Xm)] = f"{kind}/eval"
+                mp[_sig(Xi)] = f"{kind}/inner"
     CACHE.mkdir(parents=True, exist_ok=True)
-    f.write_text(json.dumps({json.dumps(list(k)): v for k, v in mp.items()}))
+    f.write_text(json.dumps(mp))
     return mp
 
 
@@ -292,13 +300,13 @@ def report(ids):
         cnt, du, seen = {}, {}, set()
         for line in f.read_text().splitlines():
             rec = json.loads(line)
-            sig = (rec["target"], rec["seed"], rec["n_missing"])
+            sig = rec.get("nan_sig")
             if sig in seen:  # deterministic duplicates (e.g. impute_base as cand and null, impute_null in two runs)
                 continue
             seen.add(sig)
-            if rec["target"] not in {k[0] for k in mp}:
+            if "nan_sig" not in rec:
                 continue
-            key = mp.get((rec["target"], rec["seed"], rec["n_missing"]), "unknown")
+            key = mp.get(rec["nan_sig"], "unknown")
             cnt.setdefault(key, {}).setdefault(str(rec["chosen_w"]), 0)
             cnt[key][str(rec["chosen_w"])] += 1
             du.setdefault(key, []).append(rec["rel_dU"])
