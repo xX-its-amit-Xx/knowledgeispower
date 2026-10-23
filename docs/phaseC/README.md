@@ -67,3 +67,12 @@ python benchmarks/phasec.py --cand scp_graphfs_mcp.phasec.<id>:impute --null scp
 2. Read the latest entry in `KING_LOG.md` (current directives per queen).
 3. Read `ideas/*.md`.
 4. Continue the round loop, or run one queen's next idea by hand with the harness above.
+
+## Run history
+- **Rounds 1–3:** 28 agents, Oct 23. Every biological-prior idea failed its null control. The lead is a data-only
+  improvement: selected-ψ shrinkage of the target's per-protein mean and log-sd, at full-pool 0.9650 vs the champion.
+  Details are in `KING_LOG.md`.
+- **Rounds 4–6:** launched from the king's round-3 directives (`techhyper`, `mnarjoint`, `subthr`, `cshrink`). From
+  round 4 on, every idea is credited against the `cshrink` base, not the bare champion.
+- **To continue in a new session:** take the latest `KING_LOG.md` directives as each queen's next task and follow the
+  same queen → worker → king loop.
