@@ -279,6 +279,7 @@ def gcn(Xm, ctx, hidden=64, epochs=400, lr=1e-2, hide=0.15):
     hidden observed entries (hidden from the input, scored in the loss)."""
     import torch
 
+    torch.set_num_threads(1)
     torch.manual_seed(ctx["seed"])
     obs, mu, sd, ok = _stats(Xm)
     Z = np.where(obs, (Xm - mu) / sd, 0.0).T.astype(np.float32)  # p x n

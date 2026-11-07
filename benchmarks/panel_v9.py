@@ -18,9 +18,13 @@ and the reference methods:
 from __future__ import annotations
 
 import json
+import os
 import sys
 import time
 import warnings
+
+for _v in ("OMP_NUM_THREADS", "MKL_NUM_THREADS", "OPENBLAS_NUM_THREADS"):  # one thread per worker process
+    os.environ.setdefault(_v, "1")
 from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
 
@@ -115,6 +119,11 @@ def _dev_split(args):
     from phasec import target_models
 
     tname, kind, seed, methods = args
+    cache = ROOT / "results" / "v9" / "dev_splits" / f"{tname}_{kind}_{seed}.json"
+    if cache.exists():  # resumable: a finished split is never recomputed
+        d = json.loads(cache.read_text())
+        if set(methods) <= set(d["methods"]):
+            return d["rows"], d["timing"]
     X, names, labels = load_target(tname)
     V, warm = target_models(tname, names)
     se, sel, wts, secs = evaluate_split(X, names, labels, V, warm, kind, seed, tname, methods)
@@ -123,7 +132,12 @@ def _dev_split(args):
             for m, v in se.items()]
     print(f"[{time.strftime('%H:%M:%S')}] {tname} {kind} {seed} " +
           " ".join(f"{k}={v:.0f}s" for k, v in secs.items()), flush=True)
-    return rows, {"target": tname, "mask": kind, "seed": seed, "seconds": secs}
+    timing = {"target": tname, "mask": kind, "seed": seed, "seconds": secs}
+    cache.parent.mkdir(parents=True, exist_ok=True)
+    tmp = cache.with_suffix(f".tmp{os.getpid()}")
+    tmp.write_text(json.dumps({"methods": methods, "rows": rows, "timing": timing}))
+    os.replace(tmp, cache)
+    return rows, timing
 
 
 def summarize(rows):
