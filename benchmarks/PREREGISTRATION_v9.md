@@ -1,4 +1,4 @@
-# Preregistration v9: the H15 champion and its revision against a broad comparator panel, on new holdouts
+# Preregistration v9 (FINAL, committed before any v9 holdout run): the H15 champion and its revision against a broad comparator panel, on new holdouts
 
 Committed **before** any v9 holdout is imputed or scored. Amit asked for this on 2026-11-07:
 - redo the earlier validation;
@@ -121,3 +121,15 @@ below 0 **and** ΔRMSE ≤ −1% of the comparator's RMSE (the SESOI).
 - The claim most likely to survive is H18: the revision is 4.5% better than the champion on dev and better than
   `gcn_nograph+stack` on every dev split.
 - Any failure will be reported as such, not reinterpreted.
+
+## 5. Run order and integrity
+
+- **Mechanics check (dev only).**
+  - `confirm_v9.py --dry-run-dev` ran on weiss2026_liver (dev, seeds 100–101): `results/v9/dryrun_dev_weiss2026_liver.json`.
+  - It confirmed the mechanics: H16 12/20, H17 4/4, H18 10/12.
+  - It is not evidence about holdouts.
+- **Order:** the primary holdouts run first, in the order of §2, then the secondary ones. Each runs once.
+- **Interrupted runs:** a run interrupted before writing its result (for example by a container restart) wrote nothing
+  and produced no scores, so it may be restarted. Every restart is noted in the results log.
+- **Code is frozen.** The only change allowed after this commit is a fix for a crash. It must be logged, must not change
+  the numbers of any holdout already run, and the affected holdout is rerun from scratch.
