@@ -1,7 +1,7 @@
 {
- "rule": "lowest mean dev RMSE (all entries) relative to the champion, Phase-C fast pool, results/v9/dev_panel_dev_fast.json; graph = STRING-based methods (grmf_datagraph is a control, excluded); data-only = the rest",
- "best_panel": "mice+stack",
- "best_panel_dev_rel": 1.0275,
+ "rule": "lowest mean dev RMSE (all entries) relative to the champion on the Phase-C fast pool (results/v9/dev_panel_dev_fast.json + dev_panel_devctl_fast.json). Graph = methods using STRING (gcn, grmf_string, rwr_resid, imc_embed); data-only = methods using no prior and no reference, INCLUDING gcn_nograph (the GCN with no edges = a protein-wise masked MLP), added after the GCN controls showed it is the strongest data-only method. grmf_datagraph and gcn_null are controls and excluded. Amended 2026-11-07 before any v9 holdout was run; the first version selected mice+stack.",
+ "best_panel": "gcn_nograph+stack",
+ "best_panel_dev_rel": 0.9917,
  "best_graph": "gcn+stack",
  "best_graph_dev_rel": 1.0143,
  "all_dev_rel_to_champion": {
@@ -38,6 +38,10 @@
   "rwr_resid+stack": 1.0441,
   "softimpute": 1.0707,
   "softimpute+stack": 1.0606,
-  "stack_lowrank": 1.0773
+  "stack_lowrank": 1.0773,
+  "gcn_null": 1.0959,
+  "gcn_null+stack": 1.0487,
+  "gcn_nograph": 0.9929,
+  "gcn_nograph+stack": 0.9917
  }
 }

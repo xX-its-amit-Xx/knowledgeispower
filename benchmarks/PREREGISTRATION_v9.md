@@ -31,8 +31,15 @@ Committed **before** any v9 holdout is imputed or scored. Amit asked for this on
 - Dev results are in `results/v9/dev_panel_dev_fast.json` and `dev_panel_devctl_fast.json`.
 - The two strongest competitors, chosen by **mean dev RMSE (all entries) relative to the champion**, are frozen in
   `results/v9/v9_selection.json`:
-  - best data-only = `mice+stack` (1.0275);
+  - best data-only = `gcn_nograph+stack` (**0.9917**: it beats the champion on dev);
   - best graph prior = `gcn+stack` (1.0143).
+- **Amendment made before any holdout was run.** The first draft of this file named `mice+stack` (1.0275).
+  - The GCN controls then showed that the same network with **no edges** beats it with STRING: 0.993 vs 1.042 raw,
+    with no edges better on 11/12 dev splits.
+  - The no-edge network is a protein-wise masked MLP across the subsample's cells. It uses no prior and no reference,
+    so it is a data-only method.
+  - STRING beats a degree-preserving shuffled STRING (1.042 vs 1.096), but loses to no graph.
+  - Selection now includes it.
 
 ## 1. Methods under test (frozen)
 
@@ -89,12 +96,16 @@ below 0 **and** ΔRMSE ≤ −1% of the comparator's RMSE (the SESOI).
   - `stack_lowrank`, the best data-only stack;
   - `champion@null`, reference loadings permuted across proteins;
   - `champion@noref`, no reference;
-  - `mice+stack`;
+  - `gcn_nograph+stack`;
   - `gcn+stack`.
 - That is 5 comparators × 2 endpoints × 2 masks = **20 tests per holdout**.
 - A holdout confirms H16 if all 20 pass.
 - A project confirms if its single set confirms; for px061710, if ≥ 2 of its 3 sets confirm.
 - **H16 is confirmed if ≥ 2 of the 3 primary projects confirm.**
+
+**H18 (the revision beats the strongest typical methods).**
+- Test `revised` against `stack_lowrank`, `gcn_nograph+stack` and `gcn+stack`: 3 × 2 × 2 = **12 tests per holdout**.
+- The project rules are the same as for H16. **H18 is confirmed if ≥ 2 of the 3 primary projects confirm.**
 
 **H17 (the revision adds to the champion).**
 - Test `revised` against `champion`: 4 tests per holdout.
@@ -102,9 +113,11 @@ below 0 **and** ΔRMSE ≤ −1% of the comparator's RMSE (the SESOI).
 
 **Reported for every holdout, without a verdict:**
 - the champion against every panel method, raw and stacked, with CIs;
-- `revised` against `mice+stack` and `gcn+stack`;
 - the GCN graph controls: does STRING beat the shuffled graph and no graph?
 
-**Prediction, written now:** the dev margin of the champion over `gcn+stack` is only 1.4%, and GCN beat the champion on
-one dev target (weiss2026_liver, MNAR 0.971). So the H16 test against `gcn+stack` is the most likely to fail. If it
-fails, that will be reported as such, not reinterpreted.
+**Prediction, written now:**
+- **H16 is expected to fail** against `gcn_nograph+stack`, which already beats the champion on dev (0.9917).
+- H16 against `gcn+stack` is marginal: the dev margin is only 1.4%.
+- The claim most likely to survive is H18: the revision is 4.5% better than the champion on dev and better than
+  `gcn_nograph+stack` on every dev split.
+- Any failure will be reported as such, not reinterpreted.

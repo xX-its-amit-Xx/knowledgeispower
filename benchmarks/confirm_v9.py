@@ -128,14 +128,16 @@ def main():
                               "seconds": [r[5] for r in rr]}
     pp = [t["pass"] for k in out["masks"].values() for t in k["primary"]]
     rp = [t["pass"] for k in out["masks"].values() for t in k["revision"]]
+    hp = [t["pass"] for k in out["masks"].values() for t in k["revised_vs_competitors"]]
+    out["H18_confirmed"], out["H18_passes"] = bool(all(hp)), f"{sum(hp)}/{len(hp)}"
     out["H16_confirmed"], out["H16_passes"] = bool(all(pp)), f"{sum(pp)}/{len(pp)}"
     out["H17_confirmed"], out["H17_passes"] = bool(all(rp)), f"{sum(rp)}/{len(rp)}"
     out["runtime_seconds"] = round(time.time() - t0, 1)
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(out, indent=1) + "\n")
-    print(json.dumps({k: out[k] for k in ("dataset", "H16_passes", "H17_passes", "runtime_seconds")}))
+    print(json.dumps({k: out[k] for k in ("dataset", "H16_passes", "H17_passes", "H18_passes", "runtime_seconds")}))
     for kind, v in out["masks"].items():
-        for t in v["primary"] + v["revision"]:
+        for t in v["primary"] + v["revision"] + v["revised_vs_competitors"]:
             print(kind, t["method"], "vs", t["vs"], t["endpoint"], f"{t['pct_of_ref_rmse']:+.2f}%",
                   [round(x, 4) for x in t["ci95"]], "PASS" if t["pass"] else "fail")
 
