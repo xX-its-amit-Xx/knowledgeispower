@@ -11,7 +11,7 @@ Data-only:
   knn                          the benchmark's kNN (phase2.loo_knn), for reference
   softimpute                   nuclear-norm soft-thresholded SVD (Mazumder, Hastie & Tibshirani 2010)
   itersvd                      rank-k iterative hard SVD (Troyanskaya et al. 2001)
-  ppca, bpca                   probabilistic PCA by EM with missing data; bpca adds ARD on the loadings (Bishop 1999),
+  bpca (ppca kept, unused)     probabilistic PCA by EM with missing data; bpca adds ARD on the loadings (Bishop 1999),
                                the model behind pcaMethods' BPCA (Oba et al. 2003)
   mice                         chained equations, BayesianRidge, 50 nearest features (sklearn IterativeImputer)
   missforest                   chained equations with random forests (missForest, Stekhoven & Buehlmann 2012)
@@ -120,11 +120,12 @@ def softimpute(Xm, ctx, shrink=None, iters=200, tol=1e-5):
     return _keep_obs(Xm, mu + sd * L, ctx)
 
 
-def itersvd(Xm, ctx, rank=10, iters=100, tol=1e-5):
+def itersvd(Xm, ctx, rank=None, iters=100, tol=1e-5):
+    """rank defaults to 20% of cells (Troyanskaya et al.'s eigengene heuristic)."""
     obs, mu, sd, _ = _stats(Xm)
     Z = np.where(obs, (Xm - mu) / sd, 0.0)
     Zf = Z.copy()
-    k = min(rank, min(Z.shape) - 1)
+    k = min(rank or max(2, Xm.shape[0] // 5), min(Z.shape) - 1)
     prev = np.zeros_like(Z)
     for _ in range(iters):
         U, s, Vt = np.linalg.svd(Zf, full_matrices=False)
@@ -166,14 +167,16 @@ def _ppca(Xm, ctx, rank=10, iters=200, ard=False, tol=1e-6):
         err = 0.0
         for j in range(p):
             c = obs[:, j]
-            if not c.any():
+            if c.sum() <= k:  # too few cells to identify W_j: mean only (avoids singular solves)
+                W[j] = 0.0
+                m[j] = Z[c, j].mean() if c.any() else 0.0
                 continue
             Xc = Ex[c]
             A = Xc.T @ Xc + Sx[c].sum(0)
             if ard:
                 A = A + s2 * np.diag(alpha)
             b = Xc.T @ (Z[c, j] - m[j])
-            W[j] = np.linalg.solve(A + 1e-8 * np.eye(k), b)
+            W[j] = np.linalg.solve(A + 1e-3 * s2 * np.eye(k), b)
             m[j] = np.mean(Z[c, j] - Xc @ W[j])
         resid = np.where(obs, Z - m - Ex @ W.T, 0.0)
         tr = sum(np.einsum("ij,jk,ik->", W[obs[i]], Sx[i], W[obs[i]]) for i in range(n))
@@ -214,15 +217,16 @@ def _iterative(Xm, ctx, estimator, max_iter, n_near=50):
 def mice(Xm, ctx):
     from sklearn.linear_model import BayesianRidge
 
-    return _iterative(Xm, ctx, BayesianRidge(), max_iter=10)
+    return _iterative(Xm, ctx, BayesianRidge(), max_iter=5)
 
 
 def missforest(Xm, ctx):
     from sklearn.ensemble import RandomForestRegressor
 
-    rf = RandomForestRegressor(n_estimators=30, max_features=0.33, min_samples_leaf=1, random_state=ctx["seed"],
+    # reduced from missForest's defaults (100 trees, <= 10 iterations) for runtime: ~6 min -> ~1 min per call
+    rf = RandomForestRegressor(n_estimators=10, max_features=0.33, min_samples_leaf=1, random_state=ctx["seed"],
                                n_jobs=1)
-    return _iterative(Xm, ctx, rf, max_iter=5)
+    return _iterative(Xm, ctx, rf, max_iter=3)
 
 
 def dae(Xm, ctx, epochs=300):
@@ -252,8 +256,9 @@ def rwr_resid(Xm, ctx, alpha=0.5, steps=20):
     r_hat = sum_{t>=1} alpha^t (R W^t) / sum_{t>=1} alpha^t (O W^t), self excluded, then Y = base + sd * r_hat."""
     obs, mu, sd, ok = _stats(Xm)
     base = ctx["base"]
-    Rz = np.where(obs, (Xm - base) / sd, 0.0)
-    O = obs.astype(float)
+    loo = P.loo_knn(Xm)  # leave-one-out kNN estimate of every entry (the base equals Xm on observed entries)
+    Rz = np.where(obs & np.isfinite(loo), (Xm - loo) / sd, 0.0)
+    O = (obs & np.isfinite(loo)).astype(float)
     W = _norm_adj(ctx, self_loops=False).T
     num = np.zeros_like(Rz)
     den = np.zeros_like(Rz)
@@ -342,8 +347,10 @@ def imc_embed(Xm, ctx, rank=10, dim=32, lam=5.0, lam_d=10.0, iters=15):
     return _keep_obs(Xm, mu + sd * (U @ V.T), ctx)
 
 
+# ppca (ML, no ARD) is defined but not in the panel: at 30 cells it diverges (RMSE 8-13x the champion on dev split
+# petrosius2023/MCAR/100 even with a variance floor); bpca is the variant used in practice at small n.
 DATA_ONLY = {"mean": mean, "mindet": mindet, "minprob": minprob, "knn": knn, "softimpute": softimpute,
-             "itersvd": itersvd, "ppca": ppca, "bpca": bpca, "mice": mice, "missforest": missforest, "dae": dae}
+             "itersvd": itersvd, "bpca": bpca, "mice": mice, "missforest": missforest, "dae": dae}
 GRAPH = {"grmf_string": grmf_string, "grmf_datagraph": grmf_datagraph, "rwr_resid": rwr_resid, "gcn": gcn,
          "imc_embed": imc_embed}
 ALL = {**DATA_ONLY, **GRAPH}

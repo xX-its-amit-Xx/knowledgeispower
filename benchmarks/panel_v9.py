@@ -43,9 +43,10 @@ ROOT = Path(__file__).resolve().parents[1]
 LAM_V, EXTRA = 100.0, 10
 
 
-def evaluate_split(X, names, labels, V, warm, kind, seed, target, methods, n_cells=30):
+def evaluate_split(X, names, labels, V, warm, kind, seed, target, methods, n_cells=30, Vnull=None):
     """Returns (dict method -> squared errors on masked entries, in-complex mask, dict method -> stack weights,
-    dict method -> seconds)."""
+    dict method -> seconds). With Vnull, also the champion's controls: champion@null (reference loadings permuted
+    across proteins) and champion@noref (zero prior, same free factors)."""
     idx = subsample(X.shape[0], labels, n_cells, seed)
     Xs = X[idx]
     eligible = ((~np.isnan(Xs)).mean(0) >= 0.5) & ~np.isnan(Xs).all(0)
@@ -82,6 +83,9 @@ def evaluate_split(X, names, labels, V, warm, kind, seed, target, methods, n_cel
         cs = CS.run(M, ctx, "v9panel", log=False)
         secs["_core"] = secs.get("_core", 0.0) + time.time() - t0
         row = {"base": b, "lr": lr, "ad": ad, "cs": cs}
+        if Vnull is not None:
+            row["ad_null"] = T.adapt_project(M, Vnull, warm, b, lam_v=LAM_V, extra=EXTRA)
+            row["ad_noref"] = T.adapt_project(M, np.zeros_like(V), np.zeros_like(warm), b, lam_v=LAM_V, extra=EXTRA)
         for m in methods:
             t1 = time.time()
             Y = np.asarray(B.ALL[m](M.copy(), ctx), float)
@@ -96,6 +100,10 @@ def evaluate_split(X, names, labels, V, warm, kind, seed, target, methods, n_cel
     preds["champion"], wts["champion"] = stack([e["base"], e["lr"], e["ad"]], [i["base"], i["lr"], i["ad"]])
     preds["revised"], wts["revised"] = stack([e["base"], e["lr"], e["ad"], e["cs"]],
                                              [i["base"], i["lr"], i["ad"], i["cs"]])
+    if Vnull is not None:
+        for k in ("null", "noref"):
+            preds[f"champion@{k}"], wts[f"champion@{k}"] = stack([e["base"], e["lr"], e[f"ad_{k}"]],
+                                                                 [i["base"], i["lr"], i[f"ad_{k}"]])
     for m in methods:
         preds[f"{m}"] = e[m]
         preds[f"{m}+stack"], wts[f"{m}+stack"] = stack([e["base"], e["lr"], e[m]], [i["base"], i["lr"], i[m]])
