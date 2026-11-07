@@ -57,6 +57,16 @@ def _graph(ctx, kind="string"):
             from .priors import build_prior
 
             ctx[key] = build_prior("string", names)
+        elif kind == "string_null":  # degree-preserving double-edge-swap shuffle of STRING (Phase-A null recipe)
+            from .priors import shuffled_null
+
+            ctx[key] = shuffled_null(_graph(ctx, "string"), seed=0)
+        elif kind == "none":
+            import networkx as nx
+
+            g = nx.Graph()
+            g.add_nodes_from(names)
+            ctx[key] = g
         elif kind == "data":
             n_edges = max(1, _graph(ctx, "string").number_of_edges())
             ctx[key] = P.data_graph(ctx["_Xm_for_graph"], names, n_edges)
@@ -65,10 +75,10 @@ def _graph(ctx, kind="string"):
     return ctx[key]
 
 
-def _norm_adj(ctx, self_loops=True):
-    key = f"_nadj_{self_loops}"
+def _norm_adj(ctx, self_loops=True, kind="string"):
+    key = f"_nadj_{self_loops}_{kind}"
     if key not in ctx:
-        A = adjacency(_graph(ctx), ctx["names"]).astype(float)
+        A = adjacency(_graph(ctx, kind), ctx["names"]).astype(float)
         if self_loops:
             A = A + sp.eye(A.shape[0])
         d = np.asarray(A.sum(1)).ravel()
@@ -273,7 +283,7 @@ def rwr_resid(Xm, ctx, alpha=0.5, steps=20):
     return _keep_obs(Xm, base + sd * shrink * rhat, ctx)
 
 
-def gcn(Xm, ctx, hidden=64, epochs=400, lr=1e-2, hide=0.15):
+def gcn(Xm, ctx, hidden=64, epochs=400, lr=1e-2, hide=0.15, graph="string"):
     """Proteins are nodes; node features are the protein's standardised values across cells plus the observed mask.
     out = A relu(A [Z^T|M^T] W1) W2 (A = sym-normalised STRING with self loops). Trained to reconstruct randomly
     hidden observed entries (hidden from the input, scored in the loss)."""
@@ -284,7 +294,7 @@ def gcn(Xm, ctx, hidden=64, epochs=400, lr=1e-2, hide=0.15):
     obs, mu, sd, ok = _stats(Xm)
     Z = np.where(obs, (Xm - mu) / sd, 0.0).T.astype(np.float32)  # p x n
     O = obs.T.astype(np.float32)
-    A = _norm_adj(ctx, self_loops=True).tocoo()
+    A = _norm_adj(ctx, self_loops=True, kind=graph).tocoo()
     At = torch.sparse_coo_tensor(np.vstack([A.row, A.col]), A.data.astype(np.float32), A.shape).coalesce()
     n = Z.shape[1]
     W1 = torch.nn.Linear(2 * n, hidden)
@@ -350,8 +360,19 @@ def imc_embed(Xm, ctx, rank=10, dim=32, lam=5.0, lam_d=10.0, iters=15):
 
 # ppca (ML, no ARD) is defined but not in the panel: at 30 cells it diverges (RMSE 8-13x the champion on dev split
 # petrosius2023/MCAR/100 even with a variance floor); bpca is the variant used in practice at small n.
+def gcn_null(Xm, ctx):
+    """Control: the same GCN on a degree-preserving shuffle of STRING."""
+    return gcn(Xm, ctx, graph="string_null")
+
+
+def gcn_nograph(Xm, ctx):
+    """Control: the same GCN with no edges (self loops only), i.e. a per-protein MLP across cells."""
+    return gcn(Xm, ctx, graph="none")
+
+
 DATA_ONLY = {"mean": mean, "mindet": mindet, "minprob": minprob, "knn": knn, "softimpute": softimpute,
              "itersvd": itersvd, "bpca": bpca, "mice": mice, "missforest": missforest, "dae": dae}
 GRAPH = {"grmf_string": grmf_string, "grmf_datagraph": grmf_datagraph, "rwr_resid": rwr_resid, "gcn": gcn,
          "imc_embed": imc_embed}
-ALL = {**DATA_ONLY, **GRAPH}
+CONTROLS = {"gcn_null": gcn_null, "gcn_nograph": gcn_nograph}  # descriptive: does GCN's gain come from STRING?
+ALL = {**DATA_ONLY, **GRAPH, **CONTROLS}

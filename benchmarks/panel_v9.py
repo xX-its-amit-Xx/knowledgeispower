@@ -118,8 +118,8 @@ def evaluate_split(X, names, labels, V, warm, kind, seed, target, methods, n_cel
 def _dev_split(args):
     from phasec import target_models
 
-    tname, kind, seed, methods = args
-    cache = ROOT / "results" / "v9" / "dev_splits" / f"{tname}_{kind}_{seed}.json"
+    tname, kind, seed, methods, tag = args
+    cache = ROOT / "results" / "v9" / "dev_splits" / f"{tag}_{tname}_{kind}_{seed}.json"
     if cache.exists():  # resumable: a finished split is never recomputed
         d = json.loads(cache.read_text())
         if set(methods) <= set(d["methods"]):
@@ -169,7 +169,7 @@ def main():
         X, names, _ = load_target(t)
         target_models(t, names)
     t0 = time.time()
-    jl = [(t, k, s, methods) for t in targets for k in ("MCAR", "MNAR") for s in seeds]
+    jl = [(t, k, s, methods, tag) for t in targets for k in ("MCAR", "MNAR") for s in seeds]
     with ProcessPoolExecutor(jobs) as ex:
         res = list(ex.map(_dev_split, jl))
     rows = [r for rs, _ in res for r in rs]

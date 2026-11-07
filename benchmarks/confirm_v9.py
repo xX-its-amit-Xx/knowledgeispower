@@ -118,8 +118,11 @@ def main():
         for comp in ("stack_lowrank", "champion@null", "champion@noref", best_panel, best_graph):
             primary += tests(SE, SEL, "champion", comp)
         revision = tests(SE, SEL, "revised", "champion")
+        revised_vs = [t for c in ("stack_lowrank", best_panel, best_graph) for t in tests(SE, SEL, "revised", c)]
+        gcn_controls = [t for c in ("gcn_null", "gcn_nograph") for t in tests(SE, SEL, "gcn", c)]
         descriptive = {m: tests(SE, SEL, "champion", m) for m in SE if m != "champion"}
         out["masks"][kind] = {"rmse": rmse, "rmse_in_complex": rmse_cx, "primary": primary, "revision": revision,
+                              "revised_vs_competitors": revised_vs, "gcn_string_vs_controls": gcn_controls,
                               "champion_vs_every_method": descriptive,
                               "stack_weights": {m: [r[4].get(m) for r in rr] for m in ("champion", "revised")},
                               "seconds": [r[5] for r in rr]}
