@@ -184,7 +184,7 @@ def main():
     jobs = int(a[a.index("--jobs") + 1]) if "--jobs" in a else 2
     targets = a[a.index("--targets") + 1].split(",") if "--targets" in a else (FAST if pool == "fast" else dev_targets())
     seeds = FAST_SEEDS if pool == "fast" else FULL_SEEDS
-    assert not set(targets) & (T.PHASE_B_HOLDOUTS | T.HOLDOUTS), "holdouts are never Phase-C dev targets"
+    assert not set(targets) & (T.PHASE_B_HOLDOUTS | T.HOLDOUTS | T.V9_HOLDOUTS), "holdouts are never Phase-C dev targets"
     for t in targets:  # build reference caches serially (memory)
         X, names, _ = load_target(t)
         target_models(t, names)

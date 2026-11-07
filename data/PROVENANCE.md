@@ -128,3 +128,10 @@ hash in a new row, and leave the old row in place.
 | File | Built by | From | SHA-256 |
 |---|---|---|---|
 | `data/derived/string_v12.5_9606_uniprot.tsv.gz` | `scripts/build_string_subset.py` | STRING v12.5 links (detailed) + aliases (`Ensembl_HGNC_uniprot_ids` rows), edges with combined ≥ 400 or experimental ≥ 400; 1,050,464 UniProt pairs | `a933a71db0671f11d8ef86e0084ccfb3f375920a834e7cd3f3588914b47f1a78` |
+
+## v9 holdouts (built 2026-11-07; details, URLs and every SHA-256 in `docs/holdout_v9_datasets.md`)
+| Dataset | Source | Licence | Builder |
+|---|---|---|---|
+| karagach2025_S1, karagach2025_S2 | PRIDE PXD058457 (Karagach et al. 2025 MCP, doi:10.1016/j.mcpro.2025.101018) | CC0 | `scripts/holdout_ext/build_karagach2025_S{1,2}.py` |
+| px061710_GSTP1KO, px061710_MDAfix, px061710_RKOfix | PRIDE PXD061710 (publication not linked in PRIDE; title match J Proteome Res 2025, doi:10.1021/acs.jproteome.5c00268) | CC0 | `scripts/holdout_ext/build_px061710_*.py` |
+| px077946_H2O2 | PRIDE PXD077946 (publication not linked in PRIDE; title match bioRxiv preprint) | CC0 | `scripts/holdout_ext/build_px077946_H2O2.py` |

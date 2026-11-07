@@ -33,6 +33,9 @@ EXCLUDED_FROM_CORPUS = HOLDOUTS | {"leduc2022_plexDIA", "specht2019v2"}
 NON_HUMAN = {"woo2022"}  # woo2022_macrophage is mouse: 0 accessions overlap human datasets (found Oct 23); never contributed
 AMENDMENT13_HOLDOUT = "brunner2022"  # reference-only until Amendment 13; never in a reference from then on
 PHASE_B_HOLDOUTS = {"brunner2022", "wu2026", "derks2022"}  # Amendment 15: never in any Phase-B reference
+# v9 validation (Nov 7): never-used projects built by scripts/holdout_ext/ into data/cache/holdout/ (never the corpus dir)
+V9_HOLDOUTS = {"karagach2025_S1", "karagach2025_S2", "px061710_GSTP1KO", "px061710_MDAfix", "px061710_RKOfix",
+               "px077946_H2O2"}
 
 
 def extended_corpus() -> list[str]:
@@ -40,7 +43,7 @@ def extended_corpus() -> list[str]:
 
     ext = sorted(f.stem for f in CORPUS_DIR.glob("*.npz") if f.stem not in CORPUS)
     ext = [e for e in ext if not e.endswith("_labels")]
-    bad = set(ext) & EXCLUDED_FROM_CORPUS
+    bad = set(ext) & (EXCLUDED_FROM_CORPUS | V9_HOLDOUTS)
     if bad:
         raise ValueError(f"excluded datasets present in the corpus dir: {bad}")
     return [d for d in list(CORPUS) + ext if d not in NON_HUMAN]
