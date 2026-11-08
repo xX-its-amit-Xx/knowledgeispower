@@ -2,14 +2,38 @@
 
 *Written 2026-11-08 for Amit and for a skeptical outside reader.*
 
-**Status of the inputs:**
-- The five primary holdout results are final (`results/confirm_v9/*.json`).
-- No secondary holdout has finished. The run log `results/v9/holdout_runs.log` shows khan2023 starting at
-  2026-11-08T06:16:41Z, and no secondary result file exists yet.
-- The post-hoc addendum has finished for derks2022 and six dev targets only (`results/v9/addendum/`).
-- The second post-hoc addendum (Addendum 2, 4 seeds, no CIs) has finished for derks2022 only
-  (`results/v9/addendum2/derks2022.json`, written 2026-11-08T06:51:04Z per `results/v9/addendum2_runs.log`);
-  karagach2025_S1 started at the same time.
+**Status of the inputs** (checked 2026-11-08 at about 11:55 UTC against `ps` and the run logs):
+
+**Final:**
+- **The five primary holdout results** (`results/confirm_v9/*.json`). The last of them, px061710_RKOfix, ended at
+  2026-11-08T06:16:41Z (`results/v9/holdout_runs.log`). Every preregistered verdict in §1 and §5 rests on these files
+  alone.
+- **Addendum 1** (post hoc) on derks2022, karagach2025_S1, px061710_GSTP1KO and px061710_MDAfix, and on the six dev
+  targets (`results/v9/addendum/*.json`). The last of these, MDAfix, was written at 10:05:24 UTC.
+- **Addendum 2** (post hoc, 4 seeds) on all five primary sets (`results/v9/addendum2/*.json`). The log reads
+  `=== addendum2 px061710_RKOfix end 2026-11-08T11:31:52Z`, then `=== ADDENDUM2 ALL DONE`
+  (`results/v9/addendum2_runs.log`).
+- **The matched comparison of the revision and the R imputers** (`results/v9/addendum2/matched_vs_revised.json`), and
+  the regenerated `docs/v9_addendum_results.md`. Both were last rerun at 11:54 UTC, after Addendum 2 finished and
+  after the RKOfix MNAR seeds 9000–9003 were cached; their outputs were byte-identical to the 11:45 run.
+- **The Phase-D dev screen** (`results/phaseD/dev_combos.json`, 24/24 splits, dev only).
+
+**Still running:**
+- **khan2023, the first preregistered secondary holdout:** `confirm_v9.py khan2023 --jobs 3`, which started at
+  2026-11-08T06:16:41Z (`results/v9/holdout_runs.log`). The log has no per-split line yet and there is no
+  `results/confirm_v9/khan2023.json`. `ps` still shows the processes.
+- **Addendum 1 on px061710_RKOfix:** a stand-alone `addendum_v9.py px061710_RKOfix`, started at 09:25:13 UTC.
+  `results/v9/addendum_px061710_RKOfix.log` shows 15 of 20 splits done by 11:53:32 UTC (all 10 MCAR splits, plus
+  MNAR 9000–9004). Until it finishes, RKOfix has no robustness intervals and no 10-split Addendum 1 comparator
+  results. Its 4-split (seeds 9000–9003) Addendum 1 comparators (`bpca_oba`, `gcn_nograph+stack`, `pimms_vae+stack`)
+  appear only in the matched comparison, which therefore already covers RKOfix under both masks (§7.6).
+
+**Not started:**
+- **The secondaries brunner2022, karagach2025_S2 and px077946_H2O2.** They are queued after khan2023 in
+  `scripts/run_v9_holdouts.sh`.
+- **Addendum 1 on any secondary.** The Addendum 1 driver (`scripts/run_v9_addendum.sh`) is no longer in `ps`, and its
+  log, `results/v9/addendum_runs.log`, ends at `=== addendum px061710_MDAfix start 2026-11-08T09:24:47Z`. So it will
+  have to be restarted for the secondaries.
 
 **How to read the numbers:**
 - Every number below is copied from the file named next to it, or the nearest named file above it.
@@ -45,9 +69,9 @@
 
 | Hypothesis, as preregistered | Projects confirming | Verdict | Strict-SESOI reading (post hoc) |
 |---|---|---|---|
-| **H16:** the champion beats `stack_lowrank`, `champion@null`, `champion@noref`, `gcn_nograph+stack` and `gcn+stack` on all 20 tests per holdout | 1 of 3 (karagach2025 only) | **NOT CONFIRMED** | 0 of 3, not confirmed |
-| **H17:** the revision beats the champion on all 4 tests per holdout | 3 of 3 | **CONFIRMED** | 2 of 3 (derks2022 drops out), still confirmed |
-| **H18:** the revision beats `stack_lowrank`, `gcn_nograph+stack` and `gcn+stack` on all 12 tests per holdout | 1 of 3 (karagach2025 only) | **NOT CONFIRMED** | 1 of 3, not confirmed |
+| **H16:** the champion beats `stack_lowrank`, `champion@null`, `champion@noref`, `gcn_nograph+stack` and `gcn+stack` on all 20 tests per holdout | 1 of 3 (karagach2025 only) | **NOT CONFIRMED** | 0 of 3; would not meet the ≥ 2-of-3 bar |
+| **H17:** the revision beats the champion on all 4 tests per holdout | 3 of 3 | **CONFIRMED** | 2 of 3 (derks2022 drops out); would meet the ≥ 2-of-3 bar (post hoc reading, not a verdict) |
+| **H18:** the revision beats `stack_lowrank`, `gcn_nograph+stack` and `gcn+stack` on all 12 tests per holdout | 1 of 3 (karagach2025 only) | **NOT CONFIRMED** | 1 of 3; would not meet the ≥ 2-of-3 bar |
 
 The preregistration applies the 1% SESOI to the point estimate. The strict reading requires the CI's upper bound itself
 to be ≤ −1%. The strict project-level verdicts come from the independent audit in `results/v9/expansion_raw.json`.
@@ -72,11 +96,6 @@ to be ≤ −1%. The strict project-level verdicts come from the independent aud
   is really a protein-wise masked MLP, stacked with kNN and low-rank (`gcn_nograph+stack`). Averaged over masks and sets,
   its RMSE relative to the champion is 0.998 (`docs/v9_results.md`). On all entries the champion was significantly
   *worse* than it in 5 of 10 set × mask cells, including all three px061710 sets under MCAR (§5.2).
-- **Post hoc, a correctly oriented BPCA beats the champion on derks2022 under both masks, and narrowly beats (MCAR) or
-  ties (MNAR) the revision.** Its edge over the revision is below the 1% SESOI in every mask × endpoint cell (§7). The
-  frozen panel's BPCA was broken (§6). BPCA has so far been scored on no other holdout. A second post-hoc run with
-  the pcaMethods reference BPCA (Addendum 2: 4 of the 10 splits, no CIs, revision not scored) points the same way
-  against the champion: 0.947 (MCAR) and 0.934 (MNAR) relative to it (`results/v9/addendum2/derks2022.json`).
 - **The revision improves on the champion in every set and mask (H17 confirmed):** by 1.1–3.4% under MCAR and 1.9–7.0%
   under MNAR, across both endpoints. The direction is consistent on all 5 sets, but the size of the gain in a new project
   is not pinned down (project-level MCAR 95% CI [−4.75, +0.20], §5.4). It does not reliably beat the no-edge MLP under
@@ -86,6 +105,30 @@ to be ≤ −1%. The strict project-level verdicts come from the independent aud
 - **The project's original thesis was not tested in v9.** No v9 method uses CORUM or Complex Portal. Earlier holdouts
   showed curated complex partners beating data-derived partners in some tests, but a curated prior never beat a strong
   data-only or reference-transfer imputer by a meaningful margin (§8).
+
+**Post hoc (§7; exploratory, written after the results were known; no verdict changes):**
+- **Post hoc, on 4 of the 10 splits, pcaMethods BPCA run with package defaults is as good as our best method** (better
+  on derks2022, tied elsewhere within indicative intervals). missForest with defaults is close behind. The comparison
+  is on the 4 splits (seeds 9000–9003) on which both were scored; RMSE relative to the revision, with indicative
+  intervals (`results/v9/addendum2/matched_vs_revised.json`; §7.6).
+  - pcaMethods BPCA has lower RMSE than the revision in 7 of the 10 set × mask cells. The margin is clear only on
+    derks2022 (0.958 MCAR, 0.973 MNAR). Elsewhere BPCA's lead is 1.2% or less (RKOfix MNAR 0.988; GSTP1KO and MDAfix
+    about 1% or less), with intervals that include 1.
+  - The revision is ahead on karagach2025_S1 (1.010 MCAR, 1.008 MNAR) and on px061710_RKOfix MCAR (1.005).
+  - missForest with package defaults is close behind (0.986–1.022). The revision beats it by 1.5% on karagach2025_S1
+    MCAR [1.004, 1.026] and 1.1% on GSTP1KO MCAR [1.006, 1.016], intervals excluding 1.
+  - Against the champion, pcaMethods BPCA has lower RMSE on all 5 sets under both masks (0.929–0.983;
+    `docs/v9_addendum_results.md` §5).
+- **On dev, stacking BPCA into the revision gives 0.991 of the revision,** a gain below the 1% SESOI (Phase D, dev only;
+  §7.7).
+- **The robust intervals leave every project-level verdict unchanged but one.** Under the per-split interval
+  karagach2025's H16 drops to 19/20, which makes H16 0 of 3 projects (§7.2). The robust intervals cover derks2022,
+  karagach2025_S1, GSTP1KO and MDAfix. RKOfix is still running, but it cannot change a preregistered-rule project
+  verdict: px061710's H17 already passes on 2 sets (GSTP1KO, MDAfix) under every interval, its H16 already fails on
+  those 2 sets under every interval, and its H18 already fails on MDAfix under every interval and on a second set
+  under each (RKOfix's two failing H18 point estimates, −0.23% and −0.86%, cannot pass under the entry or
+  protein-cluster interval, and GSTP1KO fails under the per-split interval). The strict per-split H17 for px061710
+  still depends on RKOfix (§7.2).
 
 ---
 
@@ -487,11 +530,14 @@ From the audit in `results/v9/expansion_raw.json`; "pct" is ΔRMSE as % of the c
 
   | Rule | H16 | H17 | H18 |
   |---|---|---|---|
-  | Preregistered, 0.5% | 1/3 | 3/3 | 2/3 (confirmed) |
-  | Preregistered, 1% | 1/3 | 3/3 | 1/3 |
-  | Preregistered, 1.5% | 0/3 | 2/3 | 1/3 |
-  | Strict, 1% | 0/3 | 2/3 | 1/3 |
-  | Strict, 2% | 0/3 | 1/3 | 1/3 |
+  | Point-estimate rule, 0.5% (post hoc) | 1/3 | 3/3 | 2/3 (would meet the ≥ 2-of-3 bar; post hoc, not a verdict) |
+  | Point-estimate rule, 1% (preregistered) | 1/3 | 3/3 | 1/3 |
+  | Point-estimate rule, 1.5% (post hoc) | 0/3 | 2/3 | 1/3 |
+  | Strict, 1% (post hoc) | 0/3 | 2/3 | 1/3 |
+  | Strict, 2% (post hoc) | 0/3 | 1/3 | 1/3 |
+
+  Only the 1% point-estimate row is the preregistered rule (`benchmarks/PREREGISTRATION_v9.md` §4). The red-team
+  report labels all three point-estimate rows "Preregistered"; they are relabelled here.
 
 - **The SESOI itself is a carried-forward convenience number.** It first appears after v3 as "for example 1% of RMSE".
   In absolute terms it is about 0.009–0.012 log2 units. Because the rule applies it to the point estimate, a true effect
@@ -573,8 +619,8 @@ Nothing below changed the frozen v9 code or any preregistered verdict.
 
 | Finding | Status after the skeptics | What was done |
 |---|---|---|
-| **Frozen BPCA was broken.** It treated the ~30 cells as observations, so ARD pruned every component. It equals per-protein mean imputation on 20 of 24 dev splits. On derks2022, `bpca` = `mean` exactly (MCAR RMSE 1.1079025) and `bpca+stack` = `stack_lowrank` (`results/confirm_v9/derks2022.json`). The selection never saw a working BPCA. | Confirmed by both skeptics: critical in the review; in the skeptics' corrected impact, "moderate, not critical" (verdict 28) and "high severity … rather than critical" (verdict 29, `results/v9/review_raw.json`). Both judged it unlikely that a working BPCA would displace `gcn_nograph+stack`; the post-hoc dev result below narrowly contradicts that | Post hoc `bpca_oba` (proteins as observations, as in pcaMethods/MSnbase). On dev (post hoc), `bpca_oba+stack` scores 0.9914 against 0.9918 for `gcn_nograph+stack` (0.9917 in `v9_selection.json`; 0.9918 is the addendum's recomputation). So under the frozen rule a working BPCA would narrowly have been selected (`docs/v9_addendum_results.md`, generated from `results/v9/addendum/dev_*.json`). Holdout results: §7. |
-| **Entry bootstrap ignores clustering** by protein, cell and split. The SE is understated by about 1.5–2×. In the review's dev proxy, a cell-cluster bootstrap inflated the SE 3.42×, a seed-cluster bootstrap 1.89× and a protein-cluster bootstrap 1.27× (`results/v9/review_raw.json`, verdict 7). The skeptics' CI-widening check (upper bound moved to point + k × (upper − point)) was run when only derks2022 and karagach2025_S1 had finished. Recomputed here on all five sets (post hoc, from `results/confirm_v9/*.json`): every project-level verdict holds at 2×; at 2.5× and 3×, karagach2025 H16 and derks2022 H17 fail, and no other project-level verdict changes. GSTP1KO's set-level H18 pass, px061710's only H18 set, already flips at 1.5×. | Confirmed (rated major, then moderate) | Post hoc, the addendum reruns the splits, keeps per-entry errors with coordinates, and recomputes every test with a protein-cluster bootstrap and a per-split t interval. The per-split interval replaced a degenerate split bootstrap. On derks2022 the protein-cluster CI is a median 1.42× wider than the entry CI (range 1.05–2.23), and the per-split CI a median 1.25× (`results/v9/expansion_raw.json`). The per-split interval is itself anticonservative, because the 10 subsamples overlap (red-team report 2, entry 20). No cell-cluster bootstrap has been run. Only derks2022 is finished; the px061710 sets, with the most cell overlap, have no robustness check yet. |
+| **Frozen BPCA was broken.** It treated the ~30 cells as observations, so ARD pruned every component. It equals per-protein mean imputation on 20 of 24 dev splits. On derks2022, `bpca` = `mean` exactly (MCAR RMSE 1.1079025) and `bpca+stack` = `stack_lowrank` (`results/confirm_v9/derks2022.json`). The selection never saw a working BPCA. | Confirmed by both skeptics: critical in the review; in the skeptics' corrected impact, "moderate, not critical" (verdict 28) and "high severity … rather than critical" (verdict 29, `results/v9/review_raw.json`). Both judged it unlikely that a working BPCA would displace `gcn_nograph+stack`; the post-hoc dev result below is a near-tie and does not clearly contradict that | Post hoc `bpca_oba` (proteins as observations, as in pcaMethods/MSnbase). On dev (post hoc), under the frozen convention, `bpca_oba+stack` scores 0.9916 against 0.9917 for `gcn_nograph+stack` (`results/phaseD/dev_combos.json`, which reproduces the frozen dev RMSEs exactly and the 0.9917 of `results/v9/v9_selection.json`). That is a tie to the fourth decimal: a working BPCA would have been selected by less than 0.0001, and the order reverses under a per-split mean (0.9917 vs 0.9915). The 0.9914 / 0.9918 in `docs/v9_addendum_results.md` use a different averaging. Holdout results: §7. |
+| **Entry bootstrap ignores clustering** by protein, cell and split. The SE is understated by about 1.5–2×. In the review's dev proxy, a cell-cluster bootstrap inflated the SE 3.42×, a seed-cluster bootstrap 1.89× and a protein-cluster bootstrap 1.27× (`results/v9/review_raw.json`, verdict 7). The skeptics' CI-widening check (upper bound moved to point + k × (upper − point)) was run when only derks2022 and karagach2025_S1 had finished. Recomputed here on all five sets (post hoc, from `results/confirm_v9/*.json`): every project-level verdict holds at 2×; at 2.5× and 3×, karagach2025 H16 and derks2022 H17 fail, and no other project-level verdict changes. GSTP1KO's set-level H18 pass, px061710's only H18 set, already flips at 1.5×. | Confirmed (rated major, then moderate) | Post hoc, the addendum reruns the splits, keeps per-entry errors with coordinates, and recomputes every test with a protein-cluster bootstrap and a per-split t interval. The per-split interval replaced a degenerate split bootstrap. On derks2022 the protein-cluster CI is a median 1.42× wider than the entry CI (range 1.05–2.23), and the per-split CI a median 1.25× (`results/v9/expansion_raw.json`). The per-split interval is itself anticonservative, because the 10 subsamples overlap (red-team report 2, entry 20). No cell-cluster bootstrap has been run. The robust intervals now cover derks2022, karagach2025_S1, GSTP1KO and MDAfix; RKOfix is still running (§7.2). |
 | **SESOI wording is ambiguous.** The code applies 1% to the point estimate, as v8 did. A strict reader would require the CI bound to clear −1%. | Both skeptics held that the text names the point estimate, as the code applies it; the review kept the finding because a reader can still take the strict view | Every test re-scored under the strict reading (`docs/v9_results.md`; §1, §5.4). The decisive reading should be fixed *before* the remaining addendum and secondary results arrive. |
 | **`cshrink`'s MNAR margin may be tuned to the simulator.** Its ψ-selection mask shares the MNAR generator's form. | Both skeptics refuted the material impact: ψ = ∞ gives the same dev MNAR (§5.3). The review and all four red-team reports keep the caveat, and the uniform stack mask for comparators is a second, unrefuted asymmetry (§5.3) | Kept as a caveat. MCAR is treated as the clean test, and the mask-specific verdicts are reported (§5.3). |
 | **`cshrink` missed its own Phase-C promotion bar** (full MCAR 0.9714 > 0.97; woo2025_PC3 MCAR 1.0006 > 1.00). The preregistration does not disclose this. | Confirmed (minor; not a protocol breach, since v9 was requested separately) | Disclosed here and in `docs/v9_review.md`. H17 and H18 should be read with it. |
@@ -598,60 +644,255 @@ Nothing below changed the frozen v9 code or any preregistered verdict.
 
 ## 7. Post-hoc addendum (exploratory)
 
-**This section is post hoc.** Its results are being filled in from `results/v9/addendum/` and `results/v9/addendum2/`.
-The addendum has finished for derks2022 and six dev targets. karagach2025_S1 started at 2026-11-08T05:05:53Z
-(`results/v9/addendum_runs.log`), and runs on px061710_GSTP1KO and px061710_MDAfix have started
-(`results/v9/addendum_px061710_*.log`). Addendum 2 has finished for derks2022 only (`results/v9/addendum2_runs.log`).
+**Everything in this section is post hoc.** It was computed after the preregistered results were known, on holdouts that
+had already been used, and most comparators were added after the fact. It changes no preregistered verdict (§1, §5).
+Read its intervals as estimates: they have no multiplicity control (§5).
 
-**Known so far for derks2022** (`results/v9/addendum/derks2022.json`):
+**Sources:**
+- `docs/v9_addendum_results.md` §§1–6, generated by `scripts/summarize_v9_addendum.py` from `results/v9/addendum/*.json`
+  and `results/v9/addendum2/*.json`.
+- `results/v9/addendum2/matched_vs_revised.json`, written by `scripts/matched_vs_revised_v9.py`.
+- Values marked "recomputed" are taken directly from the `entry`, `protein` and `split_t` records of the per-test lists
+  in `results/v9/addendum/<set>.json`.
 
-- **Exact reproduction.** The max |RMSE difference| from the frozen run is 0.0 under both masks.
-- **The verdicts are unchanged under protein-cluster and per-split resampling.** Only H18's count moves, from 11/12 to
-  10/12 under the per-split interval. These are the only two resamplings run, on derks2022 only; no cell-cluster
-  bootstrap exists, and the per-split interval is itself anticonservative because the subsamples overlap (§6):
+**Coverage** (see the status block at the top):
 
-  | Interval | H16 | H17 | H18 |
-  |---|---|---|---|
-  | Entry bootstrap | 12/20 | 4/4 | 11/12 |
-  | Protein-cluster bootstrap | 12/20 | 4/4 | 11/12 |
-  | Per-split t interval | 12/20 | 4/4 | 10/12 |
+| Run | What it covers | Sets with results |
+|---|---|---|
+| Addendum 1 | All 10 preregistered splits; robust intervals; Python ports and PIMMS | derks2022, karagach2025_S1, px061710_GSTP1KO, px061710_MDAfix (RKOfix still running) |
+| Addendum 2 | R reference implementations; seeds 9000–9003 only; no CIs of its own | all 5 primary sets |
+| Matched comparison | Addendum 1 and Addendum 2 joined on seeds 9000–9003 (adds `revised`) | all 10 set × mask cells |
 
-  Under the strict reading, H17 is 2/4 and H18 is 8/12 under all three intervals.
-- **A correctly oriented BPCA beats the champion.** Relative to the champion, `bpca_oba` is 0.978 (MCAR) and 0.967 (MNAR).
-  The champion is worse by:
-  - MCAR: +2.23%, entry CI [+1.36, +3.08], protein-cluster [+1.27, +3.18];
-  - MNAR: +3.44%, entry CI [+2.72, +4.14], protein-cluster [+2.63, +4.21].
-- **Against the revision it narrowly wins under MCAR and ties under MNAR.**
-  - MCAR, all entries: `revised` is worse by +0.97%, entry CI [+0.14, +1.80], protein-cluster [+0.10, +1.83]. The
-    per-split interval [−0.16, +2.13] includes 0.
-  - MNAR, all entries: +0.31%, CI [−0.37, +0.97], a tie.
-  - BPCA's point estimate is better in all four mask × endpoint cells (+0.97%, +0.89%, +0.31%, +0.98%), but every one
-    is below the 1% SESOI, so under the preregistered rule BPCA would not "beat" the revision in any cell.
-- **Counterfactual: had a working BPCA been the frozen data-only comparator,** every derks2022 test against
-  `bpca_oba+stack` fails, for both the champion and the revision (8 of 8; `docs/v9_addendum_results.md` §3).
-- **Dev corroboration is partial.** On dev, `revised` beats `bpca_oba+stack` in 11 of 12 target × mask cells; the
-  exception is gregoire2023_mixCTRL (TMT) MCAR, 0.941 for `bpca_oba+stack` against 0.967 for `revised`
-  (`docs/v9_addendum_results.md` §4). These are the same dev data on which `cshrink` was selected.
-- **Other added comparators:**
-  - Raw kNN over proteins (`knn_protein`) beats the champion under MNAR (champion +3.18%) but not under MCAR (champion
-    −5.10%).
-  - Stacked PIMMS-VAE (1.014 / 1.030) and stacked LLS (1.016 / 1.035) do not beat the champion (MCAR / MNAR ratios).
+No secondary holdout has any addendum result.
 
-**Addendum 2 on derks2022** (`results/v9/addendum2/derks2022.json`; post hoc, seeds 9000–9003 only, RMSE relative to
-the champion on those 4 splits, no CIs, and `revised` not scored):
+### 7.1 Exact reproduction
+
+The addendum recomputes every split from scratch, with a fresh `cshrink` cache. The table gives the maximum |RMSE
+difference| from the frozen run over all frozen methods (`docs/v9_addendum_results.md` §1):
+
+| Set | MCAR | MNAR |
+|---|---|---|
+| derks2022 | 0.0 | 0.0 |
+| karagach2025_S1 | 6.6e-10 | 7.0e-09 |
+| px061710_GSTP1KO | 3.0e-10 | 2.8e-10 |
+| px061710_MDAfix | 7.4e-09 | 1.2e-10 |
+| px061710_RKOfix | running | running |
+
+The frozen results reproduce to numerical precision, and bit-exactly on derks2022. The champion's per-entry errors are
+also identical in the Addendum 1 and Addendum 2 caches on every matched split: `champion_identical_in_both_caches` is
+true in all 10 cells of `results/v9/addendum2/matched_vs_revised.json`. So the two addenda score the same masks.
+
+### 7.2 Robustness of H16, H17 and H18
+
+The tests are the preregistered ones and the pass rule is the same. Only the interval changes. Each cell gives the
+number of tests passed under the entry bootstrap / the protein-cluster bootstrap / the per-split t interval, with the
+strict-SESOI reading in parentheses (`docs/v9_addendum_results.md` §1):
+
+| Set | H16 (of 20) | H17 (of 4) | H18 (of 12) |
+|---|---|---|---|
+| derks2022 | 12 / 12 / 12 (strict 12 / 12 / 12) | 4 / 4 / 4 (strict 2 / 2 / 2) | 11 / 11 / 10 (strict 8 / 8 / 8) |
+| karagach2025_S1 | 20 / 20 / **19** (strict 19 / 18 / 17) | 4 / 4 / 4 (strict 4 / 4 / 4) | 12 / 12 / 12 (strict 12 / 12 / 12) |
+| px061710_GSTP1KO | 18 / 18 / 17 (strict 18 / 17 / 16) | 4 / 4 / 4 (strict 4 / 4 / 3) | 12 / 12 / **10** (strict 11 / 11 / 10) |
+| px061710_MDAfix | 16 / 16 / 16 (strict 16 / 16 / 16) | 4 / 4 / 4 (strict 4 / 4 / 4) | 11 / 11 / 10 (strict 10 / 10 / 10) |
+| px061710_RKOfix | running | running | running |
+
+**How much wider the robust intervals are** (recomputed over the 36 H16–H18 tests per set, as the median ratio of CI
+widths to the entry-bootstrap CI):
+
+| Set | Protein-cluster / entry | Per-split t / entry |
+|---|---|---|
+| derks2022 | 1.42 (range 1.05–2.23) | 1.25 (0.42–3.21) |
+| karagach2025_S1 | 1.39 (1.17–1.65) | 3.47 (1.22–7.74) |
+| px061710_GSTP1KO | 1.35 (1.00–1.69) | 2.72 (1.16–6.20) |
+| px061710_MDAfix | 1.81 (1.21–2.60) | 2.13 (1.00–4.19) |
+
+**Which tests change.** No preregistered-rule test changes under the protein-cluster bootstrap. Under the per-split t
+interval, six tests change from pass to fail. All six are against `gcn_nograph+stack` (recomputed; in %). "pct" is the
+entry-bootstrap point estimate; the per-split interval is centred on the split mean (`split_t.mean_pct`) instead:
+
+| Set | Test | pct | Split mean | Per-split CI |
+|---|---|---|---|---|
+| derks2022 | H18 MCAR, in-complex | −1.22 | −1.19 | [−2.40, +0.02] |
+| karagach2025_S1 | H16 MCAR, all | −1.16 | −1.10 | [−2.23, +0.03] |
+| px061710_GSTP1KO | H16 MNAR, all | −1.55 | −1.49 | [−3.08, +0.10] |
+| px061710_GSTP1KO | H18 MCAR, all | −1.03 | −0.99 | [−2.52, +0.53] |
+| px061710_GSTP1KO | H18 MCAR, in-complex | −2.01 | −1.93 | [−4.22, +0.36] |
+| px061710_MDAfix | H18 MCAR, in-complex | −1.05 | −0.98 | [−2.68, +0.73] |
+
+**Project-level consequences** (px061710 needs ≥ 2 of its 3 sets):
+- **H16:** 1 of 3 projects under the entry and protein-cluster intervals, and **0 of 3 under the per-split interval**.
+  karagach2025, the only passing project, drops to 19/20.
+- **H17:** 3 of 3 under all three intervals. GSTP1KO and MDAfix pass 4/4 each, so RKOfix cannot change px061710. Under
+  the strict reading derks2022 is 2/4 under every interval, so H17 is 2 of 3 projects. Under strict per-split, GSTP1KO
+  is 3/4, so px061710's result there depends on RKOfix, which is still running.
+- **H18:** 1 of 3 (karagach2025) under all three intervals. Under the per-split interval no px061710 set reaches 12/12.
+  RKOfix was already 10/12 on the entry bootstrap (§5.1).
+
+**Limits of this check:**
+- No cell-cluster bootstrap has been run. That is the resampling the review found most inflating (3.42× on dev, §6).
+- The per-split interval is anticonservative, because the 30-cell subsamples overlap. They overlap most on the 75–78-cell
+  px061710 sets.
+- RKOfix is still running.
+
+### 7.3 Added comparators (Addendum 1, 10 splits)
+
+RMSE relative to the champion, as ranges over the four finished sets (`docs/v9_addendum_results.md` §2):
 
 | Method | MCAR | MNAR |
 |---|---|---|
-| pcaMethods BPCA (`r_bpca`) | 0.947 | 0.934 |
-| missForest, package defaults (`r_missforest`) | 0.985 | 0.947 |
-| RegEM, protein-space dual form (`rem_protein`) | 0.997 | 0.963 |
+| `revised` (for reference) | 0.968–0.988 | 0.939–0.970 |
+| `bpca_oba` (Python port, proteins as observations) | 0.978–1.010 | 0.967–0.991 |
+| `bpca_oba+stack` | 0.978–1.009 | 0.968–0.993 |
+| `gcn_nograph+stack` (preregistered) | 0.974–1.012 | 0.978–1.025 |
+| `knn_protein+stack` | 1.001–1.035 | 0.980–1.008 |
+| `pimms_vae+stack` | 1.014–1.071 | 1.030–1.112 |
+| `pimms_cf+stack` | 1.031–1.081 | 1.046–1.144 |
+| `lls+stack` | 1.016–1.069 | 1.035–1.127 |
+| `qrilc` | 5.831–15.026 | 4.067–11.702 |
+| `perseus` | 3.902–10.890 | 2.420–8.021 |
 
-- `r_bpca` is below the champion on all 4 splits under both masks (`per_split_rel_to_champion`).
-- These ratios use 4 of the 10 preregistered splits, so they are not directly comparable with the 10-split `bpca_oba`
-  ratios above.
+**What the table shows:**
+- **The champion is significantly worse than raw `bpca_oba` in 6 of 8 set × mask cells** (all entries, entry bootstrap,
+  CI entirely above 0; recomputed). These are derks2022 MCAR and MNAR (+2.23%, +3.44%), karagach2025_S1 MNAR (+1.43%),
+  GSTP1KO MNAR (+0.93%), and MDAfix MCAR and MNAR (+1.51%, +1.78%).
+  - The champion is better only on karagach2025_S1 MCAR (−0.95%, CI [−1.56, −0.37]).
+  - It ties on GSTP1KO MCAR (+0.04%, CI [−0.43, +0.49]).
+- **`revised` beats `bpca_oba+stack` everywhere except derks2022** (§7.4).
+- **PIMMS (both models) and LLS do not beat the champion anywhere,** even stacked.
+- **QRILC and Perseus are 2.4–15× worse.** This reflects the mask design (only detected values are masked), not bugs
+  (§6).
 
-These results bear on H16 and H18 but do not change them. They are exploratory: a holdout already spent, and a
-comparator added after the results were known.
+### 7.4 Counterfactual: a working BPCA as the frozen data-only comparator
+
+On dev, under the frozen convention, `bpca_oba+stack` scores 0.9916 × the champion, against 0.9917 for
+`gcn_nograph+stack` (`results/phaseD/dev_combos.json`). That is a tie to the fourth decimal: under the frozen selection
+rule a working BPCA would have been the data-only comparator by less than 0.0001, and the order reverses under a
+per-split mean (0.9917 vs 0.9915). The addendum's 0.9914 / 0.9918 (`docs/v9_addendum_results.md` §§3–4) use a different
+averaging (§6). The table runs the preregistered tests against it: entry bootstrap, pass = CI below 0 and ≤ −1%, and
+✗ = fail (`docs/v9_addendum_results.md` §3). Negative means our method is better.
+
+| Set | Mask | champion vs `bpca_oba+stack` (all / in-complex) | revised vs `bpca_oba+stack` (all / in-complex) |
+|---|---|---|---|
+| derks2022 | MCAR | +2.23% ✗ / +2.02% ✗ | +0.97% ✗ / +0.89% ✗ |
+| derks2022 | MNAR | +3.28% ✗ / +3.73% ✗ | +0.15% ✗ / +0.82% ✗ |
+| karagach2025_S1 | MCAR | −0.89% ✗ / −1.73% | −4.08% / −5.06% |
+| karagach2025_S1 | MNAR | +0.70% ✗ / +0.20% ✗ | −5.37% / −6.85% |
+| px061710_GSTP1KO | MCAR | −0.00% ✗ / −0.05% ✗ | −2.15% / −2.25% |
+| px061710_GSTP1KO | MNAR | +0.93% ✗ / +0.63% ✗ | −3.82% / −4.84% |
+| px061710_MDAfix | MCAR | +1.51% ✗ / +1.59% ✗ | −1.61% / −1.66% |
+| px061710_MDAfix | MNAR | +1.78% ✗ / +1.28% ✗ | −4.40% / −3.82% |
+
+- **Champion:** 1 of 16 tests pass (karagach2025_S1 MCAR, in-complex). Against this comparator, H16 would fail on every
+  set.
+- **Revision:** all 4 tests pass on karagach2025_S1, GSTP1KO and MDAfix, and all 4 fail on derks2022. Counted by
+  project, that is 2 of 3 (karagach2025 and px061710), with RKOfix still to come.
+- **This counterfactual probably flatters our methods.** It uses the Python port. On the matched splits, the pcaMethods
+  BPCA has lower RMSE than the port in all 10 cells (§7.6).
+
+### 7.5 Addendum 2: R reference implementations against the champion (4 splits)
+
+The implementations are pcaMethods 1.94 `bpca`, missForest 1.6.1 with package defaults and impute 1.76 `impute.knn`,
+plus Python ports checked against reference code (SeqKNN, trKNN, impSeq, RegEM in protein space, per-protein median).
+Ratios are RMSE relative to the champion on seeds 9000–9003 over all 5 sets (`docs/v9_addendum_results.md` §5):
+
+| Method | MCAR | MNAR |
+|---|---|---|
+| `r_bpca` (pcaMethods) | 0.947–0.983 | 0.929–0.965 |
+| `r_missforest` (defaults) | 0.972–0.999 | 0.935–0.977 |
+| `rem_protein` (RegEM) | 0.982–1.019 | 0.959–0.992 |
+| `seqknn+stack` | 1.014–1.029 | 1.019–1.026 |
+
+- **pcaMethods BPCA has lower RMSE than the champion on all 5 sets under both masks.** missForest with defaults does
+  too, though on RKOfix MCAR only marginally (0.999).
+- The `+stack` versions of `r_bpca` and `r_missforest` are within 0.011 of the raw versions (same table), so the stack
+  adds almost nothing to them.
+- **`r_knn` is unreliable.** It hit the known "more than 80 % missing" edge case (§6) in 8 calls on karagach2025_S1,
+  8 on GSTP1KO and 4 on RKOfix (`results/v9/addendum2_runs.log`), and each failed call fell back to the kNN fill.
+
+### 7.6 The revision against the R reference imputers on matched splits
+
+This is the most decision-relevant post-hoc result. Addendum 2 did not score `revised`, so
+`scripts/matched_vs_revised_v9.py` joins the two addenda on the four shared splits (seeds 9000–9003).
+
+The table gives RMSE relative to `revised`; < 1 means that method beats the revision. Brackets are the per-split t 95%
+interval over the 4 splits. That is a t interval on 3 df over overlapping subsamples, so it is **indicative only**.
+"Splits" counts the splits on which `r_bpca` is below `revised`. All values are from
+`results/v9/addendum2/matched_vs_revised.json`.
+
+| Set | Mask | champion | `r_bpca` | splits | `r_missforest` | `r_bpca+stack` | `r_missforest+stack` | `bpca_oba` | `gcn_nograph+stack` |
+|---|---|---|---|---|---|---|---|---|---|
+| derks2022 | MCAR | 1.011 | **0.958** [0.920, 0.998] | 4/4 | 0.996 [0.969, 1.024] | 0.958 | 0.994 | 0.983 | 1.009 |
+| derks2022 | MNAR | 1.041 | **0.973** [0.953, 0.993] | 4/4 | 0.986 [0.963, 1.010] | 0.978 | 0.995 | 0.996 | 1.033 |
+| karagach2025_S1 | MCAR | 1.027 | 1.010 [0.9997, 1.021] | 0/4 | 1.015 [1.004, 1.026] | 1.010 | 1.017 | 1.029 | 1.045 |
+| karagach2025_S1 | MNAR | 1.061 | 1.008 [0.997, 1.019] | 1/4 | 1.004 [0.984, 1.024] | 1.012 | 1.008 | 1.045 | 1.092 |
+| px061710_GSTP1KO | MCAR | 1.023 | 0.992 [0.967, 1.016] | 3/4 | 1.011 [1.006, 1.016] | 0.992 | 1.013 | 1.026 | 1.008 |
+| px061710_GSTP1KO | MNAR | 1.056 | 0.990 [0.972, 1.009] | 3/4 | 0.994 [0.954, 1.035] | 0.990 | 1.005 | 1.054 | 1.066 |
+| px061710_MDAfix | MCAR | 1.035 | 0.997 [0.980, 1.016] | 2/4 | 1.006 [0.979, 1.035] | 1.000 | 1.010 | 1.020 | 1.014 |
+| px061710_MDAfix | MNAR | 1.068 | 0.992 [0.963, 1.021] | 3/4 | 0.998 [0.985, 1.012] | 0.992 | 0.999 | 1.048 | 1.045 |
+| px061710_RKOfix | MCAR | 1.023 | 1.005 [0.999, 1.010] | 0/4 | 1.022 [0.985, 1.059] | 1.005 | 1.023 | 1.020 | 1.008 |
+| px061710_RKOfix | MNAR | 1.024 | 0.988 [0.965, 1.013] | 3/4 | 1.001 [0.975, 1.028] | 0.988 | 1.004 | 1.015 | 1.036 |
+
+**pcaMethods BPCA matches or beats the revision on most primary sets:**
+- Its RMSE is lower than the revision's in 7 of the 10 cells: derks2022, GSTP1KO and MDAfix under both masks, and
+  RKOfix MNAR. It is lower on 23 of the 40 splits.
+- **The margin is clear only on derks2022**, where BPCA is 4.2% (MCAR) and 2.7% (MNAR) lower. These are the only two
+  `r_bpca` intervals that lie entirely on one side of 1, and in both cases it is BPCA's side. (Two `r_missforest`
+  intervals lie entirely above 1, on the revision's side: karagach2025_S1 MCAR and GSTP1KO MCAR, below.)
+- On RKOfix MNAR BPCA is 1.2% lower (0.988), but the interval [0.965, 1.013] includes 1.
+- On GSTP1KO and MDAfix the differences are 0.3–1.0%, again with intervals that include 1. So BPCA and the revision
+  tie there.
+
+**missForest with package defaults is close behind:**
+- Its RMSE is lower than the revision's in 4 of 10 cells: derks2022 under both masks, and the MNAR cells of GSTP1KO and
+  MDAfix.
+- It is level on RKOfix MNAR (1.001). The ratios range from 0.986 to 1.022.
+
+**Where the revision is better:**
+- **karagach2025_S1**, against both R methods and under both masks:
+  - `r_bpca`: 1.010 under MCAR (interval [0.9997, 1.021], just including 1) and 1.008 under MNAR;
+  - `r_missforest`: 1.015 under MCAR (interval [1.004, 1.026]) and 1.004 under MNAR.
+- **RKOfix MCAR:** 1.005 against `r_bpca` and 1.022 against `r_missforest`.
+- **GSTP1KO MCAR against missForest:** 1.011, interval [1.006, 1.016].
+- Against `r_bpca`, the revision's best margin anywhere is 1.0% (karagach2025_S1 MCAR), which sits at the SESOI.
+- **Against every in-house comparator and Python port, the revision is ahead off derks2022.** Relative to it,
+  `bpca_oba` scores 1.015–1.054 and `gcn_nograph+stack` 1.008–1.092 on the other sets.
+- The champion is 1.011–1.068 relative to the revision in every cell, consistent with H17.
+
+**Caveats:**
+- The comparison uses 4 of the 10 preregistered splits, and RMSE is the only metric.
+- The R methods ran with package defaults and no tuning. The champion and the revision were tuned over Phases B–C (§6).
+- Raw `r_bpca` does not use the stack, so the uniform-stack-mask asymmetry in §5.3 does not apply to it.
+- pcaMethods BPCA beats the Python `bpca_oba` port in all 10 cells. So the frozen panel (broken BPCA, §6) and Addendum 1
+  (the port) both understated BPCA.
+
+### 7.7 Phase-D dev screen: stacking the revision with BPCA (dev only)
+
+Source: `results/phaseD/dev_combos.json` and `docs/phaseC/ideas/phaseD_combos.md`. This used the Phase-C fast pool,
+6 dev targets × seeds 100–101 × 2 masks = 24 splits, and touched no holdout.
+- The stack (kNN, low-rank, `adapt`, `cshrink`, `bpca_oba`) scores **0.9469** relative to the champion, against 0.9554
+  for `revised`.
+- That is **0.9911 of the revision.** The descriptive split interval is [0.9869, 0.9953], which is optimistic because the
+  splits share 6 targets.
+- It is better than the revision on 20 of 24 splits and worse on 3.
+- The gain of about 0.9% is **below the 1% SESOI**, and it was measured on the same pool on which `cshrink` was selected.
+- Once `cshrink` and BPCA are in the stack, `adapt` (the reference component) gets a mean weight of 0.010.
+- Adding `gcn_nograph` brings no further gain (0.9474).
+- The screen used the Python port, not pcaMethods BPCA.
+
+### 7.8 What the addendum changes
+
+- **No preregistered verdict changes.** The robust intervals make H16 weaker (0 of 3 projects under the per-split
+  interval) and leave H17 and H18 where they were.
+- **The data-only comparison is now the central open question.**
+  - pcaMethods BPCA and missForest, run with package defaults, have lower RMSE than the champion on every set
+    (point estimates on 4 splits, no CIs; missForest only 0.1% lower on RKOfix MCAR).
+  - pcaMethods BPCA is as good as the revision on these holdouts (post hoc, 4 of 10 splits): ahead by more than the
+    SESOI on derks2022, and within 1.2% elsewhere (its largest lead elsewhere is 1.2%, on RKOfix MNAR).
+  - missForest (defaults) is close behind: 0.986–1.022, and worse than the revision under MCAR on karagach2025_S1,
+    GSTP1KO and RKOfix.
+  - The revision is ahead on karagach2025_S1 and RKOfix MCAR, by at most about the SESOI against BPCA, and by 1.1–2.2%
+    against missForest under MCAR (karagach2025_S1, GSTP1KO, RKOfix).
+- **None of these comparisons involves a curated complex prior.**
 
 ---
 
@@ -705,7 +946,8 @@ in 1 of 36 subsamples.
    - it ties a no-edge masked MLP on average (0.998);
    - it is significantly worse than that MLP in 5 of 10 set × mask cells (all entries), including all three px061710
      sets under MCAR;
-   - post hoc, it loses to a working BPCA on derks2022 (§7).
+   - post hoc, it is significantly worse than a working BPCA port in 6 of 8 set × mask cells (§7.3), and has higher
+     RMSE than pcaMethods BPCA on all 5 sets under both masks (4 splits, §7.5).
 
    H16 is not confirmed.
 4. **A data-only change to the target's standardisation (`cshrink`) improves the champion** (H17 confirmed).
@@ -713,8 +955,15 @@ in 1 of 36 subsamples.
    - It passes the strict reading on 2 of 3 projects.
    - It is a preprocessing choice found by search on dev, it missed its Phase-C bar, and whether it needs the reference is
      untested.
-5. **"Beats the strongest typical methods" is not supported** (H18: 1 of 3 projects). Post hoc, a working BPCA ties or
-   narrowly beats the revision on derks2022, by less than the 1% SESOI in every cell (§7).
+5. **"Beats the strongest typical methods" is not supported** (H18: 1 of 3 projects).
+   - Post hoc, on matched splits, pcaMethods BPCA beats the revision on derks2022 (0.958 / 0.973). On GSTP1KO, MDAfix
+     and RKOfix MNAR it is at most 1.2% ahead, with intervals that include 1.
+   - Against pcaMethods BPCA, the revision is ahead by up to 1.0% on karagach2025_S1 and RKOfix MCAR (4 splits,
+     indicative intervals; §7.6).
+   - missForest with defaults is close behind. Against it the revision leads by 2.2% on RKOfix MCAR (1.022, interval
+     [0.985, 1.059]), 1.5% on karagach2025_S1 MCAR (1.015 [1.004, 1.026]) and 1.1% on GSTP1KO MCAR
+     (1.011 [1.006, 1.016]).
+   - The revision does clearly beat the Python BPCA port off derks2022 (§7.4).
 
 **The honest conclusion.**
 - After nine preregistered phases, the project has one positive result that has replicated across phases: transfer of
@@ -725,12 +974,28 @@ in 1 of 36 subsamples.
   entry 21). `cshrink` came from about 20 Phase-C ideas on the same 6-target dev pool and is the explicit form of the
   failed `tgtshrink` idea's null pipeline; a random-ψ control already gets about 73% of its dev gain (red-team report
   4, entry 22).
-- The transfer result is empirical and data-derived. Its advantage over the best data-only imputers is unresolved and
-  looks dataset-dependent. derks2022 is the only v9 primary holdout with distinct cell types, and the only holdout on
-  which `bpca_oba` has been scored so far. On it the gain over the kNN + low-rank stack is smallest (3.0–4.4%), the
-  champion's stack weight on the projection drops to about 0.5 (0.88–1.00 on the other four sets, `stack_weights` in
-  `results/confirm_v9/*.json`), and, post hoc, a working BPCA beats the champion (§7; Addendum 2's pcaMethods BPCA,
-  on 4 splits without CIs, agrees).
+- The transfer result is empirical and data-derived. Post hoc, it has **no demonstrated advantage over standard
+  data-only imputers.**
+  - pcaMethods BPCA and missForest (package defaults) have lower RMSE than the champion on every primary set under both
+    masks (point estimates on 4 splits, no CIs; missForest only 0.1% lower on RKOfix MCAR; §7.5).
+  - By point estimate, pcaMethods BPCA has lower RMSE than the revision in 7 of 10 cells, on 4 of 5 sets (all but
+    karagach2025_S1, where the revision leads by 0.8–1.0% with indicative intervals including 1); outside derks2022
+    every BPCA interval includes 1. missForest is lower in 4 of 10 cells, on 3 of 5 sets, and its intervals exclude 1
+    on the revision's side on karagach2025_S1 MCAR and GSTP1KO MCAR (4 splits; §7.6).
+  - derks2022 is the only v9 primary holdout with distinct cell types. On it:
+    - the gain over the kNN + low-rank stack is smallest (3.0–4.4%);
+    - the champion's stack weight on the projection drops to about 0.5 (0.88–1.00 on the other four sets,
+      `stack_weights` in `results/confirm_v9/*.json`);
+    - post hoc, BPCA beats the champion in both implementations (§7.3, §7.5), and pcaMethods BPCA beats the revision
+      by more than 1% (§7.6).
+- **The honest bottom line:** post hoc, on 4 of the 10 splits, pcaMethods BPCA run with package defaults is as good as
+  our best method (better on derks2022, tied elsewhere within indicative intervals). missForest with defaults is close
+  behind.
+  - The revision's clearest edge is about 1% over BPCA on karagach2025_S1 (interval including 1), a HeLa-only set that
+    shares its cell line with reference datasets (§3.3), and 1.1–1.5% over missForest on karagach2025_S1 and GSTP1KO
+    MCAR (indicative intervals excluding 1; 4 splits).
+  - Claiming otherwise would need a preregistered test against pcaMethods BPCA and missForest on all 10 splits, with
+    robust intervals, equal tuning and fresh holdouts (§9).
 - Dev data partly corroborate derks2022's pattern (red-team reports 1 and 2, entries 19–20): on gregoire2023_mixCTRL
   (TMT), `bpca_oba+stack` beats `revised` under MCAR (0.941 vs 0.967); Phase C showed a TMT/carrier MCAR weak spot
   (woo2025_PC3 1.0006, williams2020_tmt 0.9989, schoof2021 0.9972, `docs/EXPLORATION_LOG.md`); and raw `knn_protein`
@@ -741,7 +1006,8 @@ in 1 of 36 subsamples.
   imputation by a meaningful margin.
 - The thesis as stated in `AGENTS.md` should be reported as **not supported**.
 - The project's useful output is a rigorous negative result on curated priors, plus a moderate reference transfer
-  method that is competitive with, but not shown to be better than, the strongest data-only imputers we have tried. Its
+  method that is competitive with, but not shown to be better than, the strongest data-only imputers we have tried
+  (post hoc, these include pcaMethods BPCA and missForest, §7.6). Its
   controls have known limits: one permutation and one ALS fit per holdout, a permutation null that cannot separate
   co-variation from per-protein scale, and a weak no-reference arm.
 
@@ -763,8 +1029,11 @@ in 1 of 36 subsamples.
   fixed configuration (§6). **Unequal stack slots** favour the revision (4 slots against 3 for every other method).
 - **The stack mask is uniform for every comparator,** which handicaps comparators that are strong under MNAR (§5.3).
 - **One reference fit and one null permutation per holdout.** Phase B measured ALS run-to-run spread at about 0.5%.
-- **Within-dataset CIs understate uncertainty.** The robust intervals (protein-cluster and per-split only; no
-  cell-cluster bootstrap) are available for derks2022 only.
+- **Within-dataset CIs understate uncertainty.** The robust intervals cover protein-cluster and per-split resampling
+  only, with no cell-cluster bootstrap. They are available for 4 of the 5 primary sets (RKOfix is still running). The
+  per-split CIs are a median 1.25–3.47× wider than the entry CIs (§7.2).
+- **The post-hoc R comparison is thin.** It uses 4 of the 10 splits and RMSE only. The R methods ran at package
+  defaults, while the champion and the revision were tuned over Phases B–C (§7.6).
 - **Weak inference at the project level.** With 3 projects, exact binomial 95% intervals on the per-project success rate
   are wide (§5.4). The 1% SESOI is a convenience number applied to the point estimate. The roughly 780 panel CIs and the
   addendum CIs have no multiplicity control.
@@ -779,31 +1048,48 @@ in 1 of 36 subsamples.
 
 ### Next steps, in priority order
 
-1. **Finish and report the addendum** on karagach2025_S1 and the px061710 sets, then the secondary holdouts. Keep
-   everything labelled post hoc.
+1. **Finish the running jobs and report them, labelled post hoc:**
+   - Addendum 1 on px061710_RKOfix (its robustness and comparator rows). Then rerun `scripts/summarize_v9_addendum.py`.
+   - The secondary holdouts: khan2023, which is running, then brunner2022, karagach2025_S2 and px077946_H2O2.
+   - Their addenda. The Addendum 1 driver has stopped and must be restarted.
 2. **Fix the decisive SESOI reading now,** before those results arrive.
-3. **Settle the data-only comparison on dev before any new holdout:**
-   - stack(kNN, low-rank, `adapt`, best data-only method) against stack(kNN, low-rank, best data-only method);
+3. **Treat pcaMethods BPCA and missForest as the data-only bar.** To claim that the revision, or any successor, beats
+   standard imputers would take all of the following:
+   - all 10 splits rather than 4, with protein-cluster and cell-cluster intervals;
+   - the same inner-mask tuning budget for the R methods' main settings as our methods had;
+   - a margin that clears the SESOI on fresh holdouts (item 11), under a preregistration written before they are
+     touched.
+4. **Preregister "revised + BPCA" only if a full-pool dev run clears the SESOI.**
+   - On the fast pool it scores 0.9911 of the revision (Phase D, §7.7). That is below the 1% SESOI, and it was measured
+     on the pool used to select `cshrink`.
+   - Run it on the full dev pool (`FULL_SEEDS`, all dev targets), with pcaMethods BPCA alongside the Python port.
+   - Preregister it only if the dev win reaches the 1% SESOI.
+5. **Add downstream metrics before the next holdout:** calibration slope, variance ratio, fold-change and DE-rank
+   recovery, CORUM-pair correlation recovery, and clustering ARI (§6). RMSE cannot tell a better imputer from a
+   smoother one, and `cshrink` explicitly shrinks per-protein scale.
+6. **Settle the rest of the data-only comparison on dev before any new holdout:**
+   - stack(kNN, low-rank, `adapt`, best data-only method) against stack(kNN, low-rank, best data-only method), with
+     pcaMethods BPCA as the best data-only method;
    - `revised@null` and `revised@noref`;
    - every comparator given the same inner-mask tuning and the same number of stack slots.
-4. **Test what the reference actually contributes:**
+7. **Test what the reference actually contributes:**
    - a norm-preserving null (keep each loading row's norm and randomise its direction);
    - a diagonal-only reference-variance prior;
    - references that exclude the same lab and cell line.
-5. **Give curated complexes a fair, direct test** inside the champion, against degree-preserving and no-graph controls,
+8. **Give curated complexes a fair, direct test** inside the champion, against degree-preserving and no-graph controls,
    on dev first. Options:
    - a κ-weighted CORUM/Complex Portal prior on the loadings;
    - a GCN with a skip connection or a learned self-weight.
-6. **Make the benchmark closer to real use:**
+9. **Make the benchmark closer to real use:**
    - pattern-transplant and run/plex block masks;
    - errors by detection rate and intensity;
    - n = 30, 60, 100 and all cells;
    - at least one downstream metric (ARI, fold-change or DE recovery).
-7. **Add a dedicated SCP imputer** (omicsGMF, Lupine) where installable, and score msImpute on the holdouts (it is
+10. **Add a dedicated SCP imputer** (omicsGMF, Lupine) where installable, and score msImpute on the holdouts (it is
    bridged in Addendum 2 but not in that addendum's holdout run).
-8. **Choose the next holdouts deliberately:**
+11. **Choose the next holdouts deliberately:**
    - DDA or TMT;
    - primary tissue;
    - several real cell types;
    - no lab or cell-line overlap with the reference.
-9. **Report a project-level random-effects estimate with a prediction interval** alongside any vote count.
+12. **Report a project-level random-effects estimate with a prediction interval** alongside any vote count.
