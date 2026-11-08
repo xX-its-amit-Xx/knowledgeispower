@@ -76,3 +76,15 @@ R: pcaMethods 1.94 `bpca`, missForest 1.6.1 defaults, impute 1.76 `impute.knn`; 
 | derks2022 | 0.934 | 0.939 | 0.947 | 0.956 | 0.963 | 0.984 | 1.021 | 1.033 | 1.041 | 1.047 | 1.047 | 1.047 | 1.047 | 1.078 | 1.083 | 1.191 | 1.216 | 1.433 |
 | karagach2025_S1 | 0.950 | 0.953 | 0.946 | 0.950 | 0.992 | 1.005 | 1.023 | 1.100 | 1.026 | 1.100 | 1.100 | 1.100 | 1.081 | 1.154 | 1.236 | 1.235 | 1.265 | 1.209 |
 
+
+## 6. The revision vs the R reference imputers on matched splits (4 seeds; `scripts/matched_vs_revised_v9.py`)
+
+RMSE relative to `revised` on identical splits (seeds 9000-9003; the champion's errors are identical in both caches). < 1 = that method beats the revision. Four splits: the per-split intervals in the JSON are indicative only.
+
+| Holdout | mask | champion | r_bpca | r_bpca+stack | r_missforest | r_missforest+stack | bpca_oba+stack | gcn_nograph+stack | gcn+stack | pimms_vae+stack | rem_protein | seqknn+stack |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| derks2022 | MCAR | 1.011 | 0.958 | 0.958 | 0.996 | 0.994 | 0.983 | 1.009 | 1.012 | 1.021 | 1.009 | 1.026 |
+| derks2022 | MNAR | 1.041 | 0.973 | 0.978 | 0.986 | 0.995 | 0.996 | 1.033 | 1.046 | 1.073 | 1.002 | 1.063 |
+| karagach2025_S1 | MCAR | 1.027 | 1.010 | 1.010 | 1.015 | 1.017 | 1.029 | 1.045 | 1.059 | 1.091 | 1.047 | 1.052 |
+| karagach2025_S1 | MNAR | 1.061 | 1.008 | 1.012 | 1.004 | 1.008 | 1.045 | 1.092 | 1.104 | 1.143 | 1.053 | 1.086 |
+| px061710_GSTP1KO | MCAR | 1.023 | 0.992 | 0.992 | 1.011 | 1.013 | 1.027 | 1.008 | 1.070 | 1.092 | 1.021 | 1.053 |

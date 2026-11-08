@@ -104,6 +104,20 @@ def main():
                     L += ["| Holdout | " + " | ".join(meths) + " |", "|---|" + "---|" * len(meths)]
                 L.append(f"| {h} | " + " | ".join(f"{r.get(m, float('nan')):.3f}" for m in meths) + " |")
             L.append("")
+    mf = A2 / "matched_vs_revised.json"
+    if mf.exists():
+        M = json.loads(mf.read_text())
+        show = ["champion", "r_bpca", "r_bpca+stack", "r_missforest", "r_missforest+stack", "bpca_oba+stack",
+                "gcn_nograph+stack", "gcn+stack", "pimms_vae+stack", "rem_protein", "seqknn+stack"]
+        L += ["", "## 6. The revision vs the R reference imputers on matched splits (4 seeds; `scripts/matched_vs_revised_v9.py`)", "",
+              "RMSE relative to `revised` on identical splits (seeds 9000-9003; the champion's errors are identical in both caches). "
+              "< 1 = that method beats the revision. Four splits: the per-split intervals in the JSON are indicative only.", "",
+              "| Holdout | mask | " + " | ".join(show) + " |", "|---|---|" + "---|" * len(show)]
+        for h in ORDER:
+            for kind in ("MCAR", "MNAR"):
+                r = M["holdouts"].get(h, {}).get(kind)
+                if r:
+                    L.append(f"| {h} | {kind} | " + " | ".join(f"{r['methods'][m]['rmse_ratio_to_revised']:.3f}" for m in show) + " |")
     OUT.write_text("\n".join(L) + "\n")
     print(OUT)
 
