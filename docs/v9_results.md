@@ -8,7 +8,7 @@ Preregistration: `benchmarks/PREREGISTRATION_v9.md`. ✗ = the test failed (95% 
 |---|---|---|---|---|
 | H16 champion beats all 5 comparators | ✗ | ✓ | ✗ | **NOT CONFIRMED** (1 of 3 primary projects) |
 | H17 revision beats champion | ✓ | ✓ | ✓ | **CONFIRMED** (3 of 3 primary projects) |
-| H18 revision beats strongest typical methods | ✗ | ✓ | pending | pending (1 confirmed, 1 not, 1 outstanding) |
+| H18 revision beats strongest typical methods | ✗ | ✓ | ✗ | **NOT CONFIRMED** (1 of 3 primary projects) |
 
 ## Per holdout (tests passed)
 
@@ -18,7 +18,7 @@ Preregistration: `benchmarks/PREREGISTRATION_v9.md`. ✗ = the test failed (95% 
 | karagach2025_S1 | primary | 258 × 3687 | 0.33 | 20/20 | 4/4 | 12/12 |
 | px061710_GSTP1KO | primary | 78 × 3899 | 0.43 | 18/20 | 4/4 | 12/12 |
 | px061710_MDAfix | primary | 76 × 3325 | 0.38 | 16/20 | 4/4 | 11/12 |
-| px061710_RKOfix | primary | | | not run yet | | |
+| px061710_RKOfix | primary | 75 × 5088 | 0.41 | 17/20 | 4/4 | 10/12 |
 | khan2023 | secondary | | | not run yet | | |
 | brunner2022 | secondary | | | not run yet | | |
 | karagach2025_S2 | secondary | | | not run yet | | |
@@ -34,6 +34,7 @@ The preregistration applies the 1% SESOI to the point estimate (as the code and 
 | karagach2025_S1 | 19/20 | 4/4 | 12/12 |
 | px061710_GSTP1KO | 18/20 | 4/4 | 11/12 |
 | px061710_MDAfix | 16/20 | 4/4 | 10/12 |
+| px061710_RKOfix | 17/20 | 4/4 | 10/12 |
 
 ## Champion vs comparators, MCAR, all entries (in-complex in brackets)
 
@@ -43,6 +44,7 @@ The preregistration applies the 1% SESOI to the point estimate (as the code and 
 | karagach2025_S1 | -7.7% (-9.0%) | -4.0% (-4.9%) | -4.8% (-6.0%) | -1.2% (-1.8%) | -3.1% (-3.2%) | -3.2% (-3.4%) |
 | px061710_GSTP1KO | -9.9% (-11.2%) | -3.6% (-4.0%) | -4.6% (-5.4%) | +1.1% ✗ (+0.2% ✗) | -4.5% (-4.8%) | -2.1% (-2.2%) |
 | px061710_MDAfix | -7.3% (-8.1%) | -3.3% (-3.4%) | -2.8% (-3.0%) | +2.6% ✗ (+2.2% ✗) | -4.1% (-4.8%) | -3.1% (-3.2%) |
+| px061710_RKOfix | -8.6% (-10.3%) | -2.8% (-3.6%) | -3.8% (-4.5%) | +1.7% ✗ (+0.6% ✗) | -2.5% (-3.1%) | -1.9% (-1.4%) |
 
 ## Champion vs comparators, MNAR, all entries (in-complex in brackets)
 
@@ -52,51 +54,52 @@ The preregistration applies the 1% SESOI to the point estimate (as the code and 
 | karagach2025_S1 | -11.1% (-12.4%) | -4.1% (-5.1%) | -7.2% (-8.2%) | -2.4% (-3.2%) | -4.1% (-4.1%) | -6.0% (-7.0%) |
 | px061710_GSTP1KO | -14.0% (-15.6%) | -4.1% (-4.6%) | -8.3% (-9.1%) | -1.5% (-3.1%) | -5.2% (-4.9%) | -4.7% (-5.4%) |
 | px061710_MDAfix | -12.7% (-14.7%) | -3.8% (-4.4%) | -6.9% (-8.1%) | +2.3% ✗ (+0.6% ✗) | -5.4% (-6.7%) | -6.1% (-5.0%) |
+| px061710_RKOfix | -7.3% (-8.7%) | -2.9% (-3.0%) | -5.1% (-5.7%) | -0.8% ✗ (-3.2%) | -2.0% (-3.3%) | -3.2% (-1.9%) |
 
 ## Full panel: RMSE relative to the champion (mean of MCAR and MNAR, all entries)
 
-| Method | derks2022 | karagach2025_S1 | px061710_GSTP1KO | px061710_MDAfix | mean |
-|---|---|---|---|---|---|
-| revised | 0.979 | 0.954 | 0.966 | 0.954 | 0.963 |
-| gcn_nograph+stack | 0.996 | 1.018 | 1.002 | 0.976 | 0.998 |
-| gcn_nograph | 0.994 | 1.020 | 1.002 | 0.976 | 0.998 |
-| champion | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
-| gcn+stack | 1.003 | 1.037 | 1.051 | 1.050 | 1.035 |
-| champion@null | 1.035 | 1.042 | 1.040 | 1.037 | 1.039 |
-| imc_embed+stack | 1.007 | 1.059 | 1.066 | 1.052 | 1.046 |
-| rwr_resid+stack | 1.017 | 1.052 | 1.070 | 1.048 | 1.047 |
-| mice+stack | 1.013 | 1.064 | 1.069 | 1.042 | 1.047 |
-| champion@noref | 1.036 | 1.064 | 1.069 | 1.051 | 1.055 |
-| itersvd+stack | 1.015 | 1.077 | 1.080 | 1.070 | 1.061 |
-| imc_embed | 1.012 | 1.091 | 1.080 | 1.066 | 1.062 |
-| dae+stack | 1.020 | 1.088 | 1.098 | 1.061 | 1.067 |
-| missforest+stack | 1.025 | 1.088 | 1.097 | 1.066 | 1.069 |
-| grmf_string+stack | 1.029 | 1.081 | 1.096 | 1.079 | 1.071 |
-| gcn | 1.050 | 1.075 | 1.076 | 1.106 | 1.077 |
-| gcn_null+stack | 1.036 | 1.074 | 1.102 | 1.099 | 1.078 |
-| rwr_resid | 1.047 | 1.084 | 1.107 | 1.076 | 1.079 |
-| bpca+stack | 1.039 | 1.094 | 1.096 | 1.094 | 1.081 |
-| softimpute+stack | 1.043 | 1.089 | 1.108 | 1.095 | 1.084 |
-| mice | 1.054 | 1.112 | 1.103 | 1.073 | 1.086 |
-| grmf_datagraph+stack | 1.038 | 1.098 | 1.121 | 1.105 | 1.090 |
-| stack_lowrank | 1.039 | 1.104 | 1.136 | 1.112 | 1.098 |
-| mean+stack | 1.039 | 1.104 | 1.136 | 1.112 | 1.098 |
-| mindet+stack | 1.039 | 1.104 | 1.136 | 1.112 | 1.098 |
-| minprob+stack | 1.039 | 1.104 | 1.136 | 1.112 | 1.098 |
-| knn+stack | 1.039 | 1.104 | 1.136 | 1.112 | 1.098 |
-| softimpute | 1.074 | 1.122 | 1.141 | 1.130 | 1.117 |
-| missforest | 1.070 | 1.144 | 1.152 | 1.104 | 1.118 |
-| itersvd | 1.084 | 1.199 | 1.138 | 1.157 | 1.144 |
-| knn | 1.080 | 1.166 | 1.210 | 1.174 | 1.158 |
-| grmf_string | 1.107 | 1.182 | 1.184 | 1.170 | 1.161 |
-| bpca | 1.190 | 1.162 | 1.147 | 1.179 | 1.169 |
-| gcn_null | 1.124 | 1.131 | 1.188 | 1.240 | 1.171 |
-| grmf_datagraph | 1.158 | 1.257 | 1.321 | 1.321 | 1.264 |
-| lowrank | 1.238 | 1.329 | 1.335 | 1.318 | 1.305 |
-| mean | 1.190 | 1.260 | 1.369 | 1.417 | 1.309 |
-| dae | 1.321 | 1.524 | 1.563 | 1.509 | 1.479 |
-| mindet | 3.352 | 6.448 | 10.399 | 8.262 | 7.115 |
-| minprob | 3.474 | 6.505 | 10.456 | 8.324 | 7.190 |
+| Method | derks2022 | karagach2025_S1 | px061710_GSTP1KO | px061710_MDAfix | px061710_RKOfix | mean |
+|---|---|---|---|---|---|---|
+| revised | 0.979 | 0.954 | 0.966 | 0.954 | 0.974 | 0.965 |
+| gcn_nograph+stack | 0.996 | 1.018 | 1.002 | 0.976 | 0.996 | 0.998 |
+| gcn_nograph | 0.994 | 1.020 | 1.002 | 0.976 | 0.996 | 0.998 |
+| champion | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
+| gcn+stack | 1.003 | 1.037 | 1.051 | 1.050 | 1.023 | 1.033 |
+| champion@null | 1.035 | 1.042 | 1.040 | 1.037 | 1.029 | 1.037 |
+| rwr_resid+stack | 1.017 | 1.052 | 1.070 | 1.048 | 1.037 | 1.045 |
+| imc_embed+stack | 1.007 | 1.059 | 1.066 | 1.052 | 1.049 | 1.047 |
+| mice+stack | 1.013 | 1.064 | 1.069 | 1.042 | 1.050 | 1.048 |
+| champion@noref | 1.036 | 1.064 | 1.069 | 1.051 | 1.047 | 1.054 |
+| itersvd+stack | 1.015 | 1.077 | 1.080 | 1.070 | 1.054 | 1.059 |
+| dae+stack | 1.020 | 1.088 | 1.098 | 1.061 | 1.074 | 1.068 |
+| imc_embed | 1.012 | 1.091 | 1.080 | 1.066 | 1.094 | 1.069 |
+| missforest+stack | 1.025 | 1.088 | 1.097 | 1.066 | 1.074 | 1.070 |
+| gcn | 1.050 | 1.075 | 1.076 | 1.106 | 1.045 | 1.070 |
+| grmf_string+stack | 1.029 | 1.081 | 1.096 | 1.079 | 1.074 | 1.072 |
+| rwr_resid | 1.047 | 1.084 | 1.107 | 1.076 | 1.053 | 1.074 |
+| gcn_null+stack | 1.036 | 1.074 | 1.102 | 1.099 | 1.064 | 1.075 |
+| bpca+stack | 1.039 | 1.094 | 1.096 | 1.094 | 1.068 | 1.078 |
+| softimpute+stack | 1.043 | 1.089 | 1.108 | 1.095 | 1.084 | 1.084 |
+| mice | 1.054 | 1.112 | 1.103 | 1.073 | 1.098 | 1.088 |
+| grmf_datagraph+stack | 1.038 | 1.098 | 1.121 | 1.105 | 1.085 | 1.089 |
+| stack_lowrank | 1.039 | 1.104 | 1.136 | 1.112 | 1.087 | 1.095 |
+| mean+stack | 1.039 | 1.104 | 1.136 | 1.112 | 1.087 | 1.095 |
+| mindet+stack | 1.039 | 1.104 | 1.136 | 1.112 | 1.087 | 1.095 |
+| minprob+stack | 1.039 | 1.104 | 1.136 | 1.112 | 1.087 | 1.095 |
+| knn+stack | 1.039 | 1.104 | 1.136 | 1.112 | 1.087 | 1.095 |
+| softimpute | 1.074 | 1.122 | 1.141 | 1.130 | 1.107 | 1.115 |
+| missforest | 1.070 | 1.144 | 1.152 | 1.104 | 1.125 | 1.119 |
+| itersvd | 1.084 | 1.199 | 1.138 | 1.157 | 1.148 | 1.145 |
+| knn | 1.080 | 1.166 | 1.210 | 1.174 | 1.127 | 1.151 |
+| bpca | 1.190 | 1.162 | 1.147 | 1.179 | 1.126 | 1.161 |
+| gcn_null | 1.124 | 1.131 | 1.188 | 1.240 | 1.140 | 1.165 |
+| grmf_string | 1.107 | 1.182 | 1.184 | 1.170 | 1.219 | 1.173 |
+| grmf_datagraph | 1.158 | 1.257 | 1.321 | 1.321 | 1.362 | 1.284 |
+| mean | 1.190 | 1.260 | 1.369 | 1.417 | 1.275 | 1.302 |
+| lowrank | 1.238 | 1.329 | 1.335 | 1.318 | 1.356 | 1.315 |
+| dae | 1.321 | 1.524 | 1.563 | 1.509 | 1.633 | 1.510 |
+| mindet | 3.352 | 6.448 | 10.399 | 8.262 | 7.746 | 7.241 |
+| minprob | 3.474 | 6.505 | 10.456 | 8.324 | 7.817 | 7.315 |
 
 ## Does STRING help the GCN? (`gcn` vs its graph controls; ✗ = not better by ≥1% with CI < 0)
 
@@ -110,5 +113,7 @@ The preregistration applies the 1% SESOI to the point estimate (as the code and 
 | px061710_GSTP1KO | MNAR | -8.9% | +5.5% ✗ |
 | px061710_MDAfix | MCAR | -10.4% | +14.9% ✗ |
 | px061710_MDAfix | MNAR | -11.3% | +11.8% ✗ |
+| px061710_RKOfix | MCAR | -8.2% | +7.0% ✗ |
+| px061710_RKOfix | MNAR | -8.4% | +3.0% ✗ |
 
 ![v9 holdouts](figs/v9_holdouts.png)
