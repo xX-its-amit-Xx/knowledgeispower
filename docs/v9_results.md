@@ -6,9 +6,9 @@ Preregistration: `benchmarks/PREREGISTRATION_v9.md`. ✗ = the test failed (95% 
 
 | Hypothesis | derks2022 | karagach2025 | px061710 | Overall |
 |---|---|---|---|---|
-| H16 champion beats all 5 comparators | ✗ | ✓ | not run | pending (1 confirmed, 1 not, 1 outstanding) |
-| H17 revision beats champion | ✓ | ✓ | not run | **CONFIRMED** (2 of 3 primary projects) |
-| H18 revision beats strongest typical methods | ✗ | ✓ | not run | pending (1 confirmed, 1 not, 1 outstanding) |
+| H16 champion beats all 5 comparators | ✗ | ✓ | pending | pending (1 confirmed, 1 not, 1 outstanding) |
+| H17 revision beats champion | ✓ | ✓ | pending | **CONFIRMED** (2 of 3 primary projects) |
+| H18 revision beats strongest typical methods | ✗ | ✓ | pending | pending (1 confirmed, 1 not, 1 outstanding) |
 
 ## Per holdout (tests passed)
 
@@ -16,7 +16,7 @@ Preregistration: `benchmarks/PREREGISTRATION_v9.md`. ✗ = the test failed (95% 
 |---|---|---|---|---|---|---|
 | derks2022 | primary | 125 × 1093 | 0.57 | 12/20 | 4/4 | 11/12 |
 | karagach2025_S1 | primary | 258 × 3687 | 0.33 | 20/20 | 4/4 | 12/12 |
-| px061710_GSTP1KO | primary | | | not run yet | | |
+| px061710_GSTP1KO | primary | 78 × 3899 | 0.43 | 18/20 | 4/4 | 12/12 |
 | px061710_MDAfix | primary | | | not run yet | | |
 | px061710_RKOfix | primary | | | not run yet | | |
 | khan2023 | secondary | | | not run yet | | |
@@ -30,6 +30,7 @@ Preregistration: `benchmarks/PREREGISTRATION_v9.md`. ✗ = the test failed (95% 
 |---|---|---|---|---|---|---|
 | derks2022 | -3.0% (-3.1%) | -2.7% (-2.7%) | -2.6% (-2.6%) | +0.3% ✗ (-0.1% ✗) | -0.0% ✗ (-0.2% ✗) | -1.2% (-1.1%) |
 | karagach2025_S1 | -7.7% (-9.0%) | -4.0% (-4.9%) | -4.8% (-6.0%) | -1.2% (-1.8%) | -3.1% (-3.2%) | -3.2% (-3.4%) |
+| px061710_GSTP1KO | -9.9% (-11.2%) | -3.6% (-4.0%) | -4.6% (-5.4%) | +1.1% ✗ (+0.2% ✗) | -4.5% (-4.8%) | -2.1% (-2.2%) |
 
 ## Champion vs comparators, MNAR, all entries (in-complex in brackets)
 
@@ -37,51 +38,52 @@ Preregistration: `benchmarks/PREREGISTRATION_v9.md`. ✗ = the test failed (95% 
 |---|---|---|---|---|---|---|
 | derks2022 | -4.4% (-4.2%) | -4.1% (-3.7%) | -4.3% (-4.0%) | +0.6% ✗ (+0.6% ✗) | -0.5% ✗ (-0.4% ✗) | -3.0% (-2.8%) |
 | karagach2025_S1 | -11.1% (-12.4%) | -4.1% (-5.1%) | -7.2% (-8.2%) | -2.4% (-3.2%) | -4.1% (-4.1%) | -6.0% (-7.0%) |
+| px061710_GSTP1KO | -14.0% (-15.6%) | -4.1% (-4.6%) | -8.3% (-9.1%) | -1.5% (-3.1%) | -5.2% (-4.9%) | -4.7% (-5.4%) |
 
 ## Full panel: RMSE relative to the champion (mean of MCAR and MNAR, all entries)
 
-| Method | derks2022 | karagach2025_S1 | mean |
-|---|---|---|---|
-| revised | 0.979 | 0.954 | 0.966 |
-| champion | 1.000 | 1.000 | 1.000 |
-| gcn_nograph+stack | 0.996 | 1.018 | 1.007 |
-| gcn_nograph | 0.994 | 1.020 | 1.007 |
-| gcn+stack | 1.003 | 1.037 | 1.020 |
-| imc_embed+stack | 1.007 | 1.059 | 1.033 |
-| rwr_resid+stack | 1.017 | 1.052 | 1.034 |
-| mice+stack | 1.013 | 1.064 | 1.038 |
-| champion@null | 1.035 | 1.042 | 1.039 |
-| itersvd+stack | 1.015 | 1.077 | 1.046 |
-| champion@noref | 1.036 | 1.064 | 1.050 |
-| imc_embed | 1.012 | 1.091 | 1.051 |
-| dae+stack | 1.020 | 1.088 | 1.054 |
-| gcn_null+stack | 1.036 | 1.074 | 1.055 |
-| grmf_string+stack | 1.029 | 1.081 | 1.055 |
-| missforest+stack | 1.025 | 1.088 | 1.057 |
-| gcn | 1.050 | 1.075 | 1.062 |
-| rwr_resid | 1.047 | 1.084 | 1.066 |
-| softimpute+stack | 1.043 | 1.089 | 1.066 |
-| bpca+stack | 1.039 | 1.094 | 1.066 |
-| grmf_datagraph+stack | 1.038 | 1.098 | 1.068 |
-| stack_lowrank | 1.039 | 1.104 | 1.071 |
-| mean+stack | 1.039 | 1.104 | 1.071 |
-| mindet+stack | 1.039 | 1.104 | 1.071 |
-| minprob+stack | 1.039 | 1.104 | 1.071 |
-| knn+stack | 1.039 | 1.104 | 1.071 |
-| mice | 1.054 | 1.112 | 1.083 |
-| softimpute | 1.074 | 1.122 | 1.098 |
-| missforest | 1.070 | 1.144 | 1.107 |
-| knn | 1.080 | 1.166 | 1.123 |
-| gcn_null | 1.124 | 1.131 | 1.127 |
-| itersvd | 1.084 | 1.199 | 1.141 |
-| grmf_string | 1.107 | 1.182 | 1.145 |
-| bpca | 1.190 | 1.162 | 1.176 |
-| grmf_datagraph | 1.158 | 1.257 | 1.207 |
-| mean | 1.190 | 1.260 | 1.225 |
-| lowrank | 1.238 | 1.329 | 1.283 |
-| dae | 1.321 | 1.524 | 1.423 |
-| mindet | 3.352 | 6.448 | 4.900 |
-| minprob | 3.474 | 6.505 | 4.990 |
+| Method | derks2022 | karagach2025_S1 | px061710_GSTP1KO | mean |
+|---|---|---|---|---|
+| revised | 0.979 | 0.954 | 0.966 | 0.966 |
+| champion | 1.000 | 1.000 | 1.000 | 1.000 |
+| gcn_nograph+stack | 0.996 | 1.018 | 1.002 | 1.005 |
+| gcn_nograph | 0.994 | 1.020 | 1.002 | 1.006 |
+| gcn+stack | 1.003 | 1.037 | 1.051 | 1.030 |
+| champion@null | 1.035 | 1.042 | 1.040 | 1.039 |
+| imc_embed+stack | 1.007 | 1.059 | 1.066 | 1.044 |
+| rwr_resid+stack | 1.017 | 1.052 | 1.070 | 1.046 |
+| mice+stack | 1.013 | 1.064 | 1.069 | 1.048 |
+| champion@noref | 1.036 | 1.064 | 1.069 | 1.057 |
+| itersvd+stack | 1.015 | 1.077 | 1.080 | 1.057 |
+| imc_embed | 1.012 | 1.091 | 1.080 | 1.061 |
+| gcn | 1.050 | 1.075 | 1.076 | 1.067 |
+| grmf_string+stack | 1.029 | 1.081 | 1.096 | 1.069 |
+| dae+stack | 1.020 | 1.088 | 1.098 | 1.069 |
+| missforest+stack | 1.025 | 1.088 | 1.097 | 1.070 |
+| gcn_null+stack | 1.036 | 1.074 | 1.102 | 1.070 |
+| bpca+stack | 1.039 | 1.094 | 1.096 | 1.076 |
+| rwr_resid | 1.047 | 1.084 | 1.107 | 1.080 |
+| softimpute+stack | 1.043 | 1.089 | 1.108 | 1.080 |
+| grmf_datagraph+stack | 1.038 | 1.098 | 1.121 | 1.086 |
+| mice | 1.054 | 1.112 | 1.103 | 1.090 |
+| stack_lowrank | 1.039 | 1.104 | 1.136 | 1.093 |
+| mean+stack | 1.039 | 1.104 | 1.136 | 1.093 |
+| mindet+stack | 1.039 | 1.104 | 1.136 | 1.093 |
+| minprob+stack | 1.039 | 1.104 | 1.136 | 1.093 |
+| knn+stack | 1.039 | 1.104 | 1.136 | 1.093 |
+| softimpute | 1.074 | 1.122 | 1.141 | 1.112 |
+| missforest | 1.070 | 1.144 | 1.152 | 1.122 |
+| itersvd | 1.084 | 1.199 | 1.138 | 1.140 |
+| gcn_null | 1.124 | 1.131 | 1.188 | 1.148 |
+| knn | 1.080 | 1.166 | 1.210 | 1.152 |
+| grmf_string | 1.107 | 1.182 | 1.184 | 1.158 |
+| bpca | 1.190 | 1.162 | 1.147 | 1.166 |
+| grmf_datagraph | 1.158 | 1.257 | 1.321 | 1.245 |
+| mean | 1.190 | 1.260 | 1.369 | 1.273 |
+| lowrank | 1.238 | 1.329 | 1.335 | 1.301 |
+| dae | 1.321 | 1.524 | 1.563 | 1.469 |
+| mindet | 3.352 | 6.448 | 10.399 | 6.733 |
+| minprob | 3.474 | 6.505 | 10.456 | 6.812 |
 
 ## Does STRING help the GCN? (`gcn` vs its graph controls; ✗ = not better by ≥1% with CI < 0)
 
@@ -91,5 +93,7 @@ Preregistration: `benchmarks/PREREGISTRATION_v9.md`. ✗ = the test failed (95% 
 | derks2022 | MNAR | -6.0% | +5.1% ✗ |
 | karagach2025_S1 | MCAR | -5.2% | +7.2% ✗ |
 | karagach2025_S1 | MNAR | -4.7% | +3.5% ✗ |
+| px061710_GSTP1KO | MCAR | -9.9% | +9.4% ✗ |
+| px061710_GSTP1KO | MNAR | -8.9% | +5.5% ✗ |
 
 ![v9 holdouts](figs/v9_holdouts.png)
