@@ -30,7 +30,13 @@ def project_verdicts(R, key):
         sets = sets if isinstance(sets, list) else [sets]
         have = [s for s in sets if s in R]
         if len(have) < len(sets):
-            out[proj] = None if not have else ("pending", [R[s][f"{key}_confirmed"] for s in have])
+            oks = [R[s][f"{key}_confirmed"] for s in have]
+            if len(sets) == 3 and sum(oks) >= 2:
+                out[proj] = True  # already decided: >= 2 of 3 sets confirm
+            elif len(sets) == 3 and len(have) - sum(oks) >= 2:
+                out[proj] = False  # already decided: 2 of 3 sets fail
+            else:
+                out[proj] = None if not have else ("pending", oks)
             continue
         oks = [R[s][f"{key}_confirmed"] for s in sets]
         out[proj] = (sum(oks) >= 2) if len(sets) == 3 else oks[0]

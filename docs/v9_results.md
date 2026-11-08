@@ -6,8 +6,8 @@ Preregistration: `benchmarks/PREREGISTRATION_v9.md`. ✗ = the test failed (95% 
 
 | Hypothesis | derks2022 | karagach2025 | px061710 | Overall |
 |---|---|---|---|---|
-| H16 champion beats all 5 comparators | ✗ | ✓ | pending | pending (1 confirmed, 1 not, 1 outstanding) |
-| H17 revision beats champion | ✓ | ✓ | pending | **CONFIRMED** (2 of 3 primary projects) |
+| H16 champion beats all 5 comparators | ✗ | ✓ | ✗ | **NOT CONFIRMED** (1 of 3 primary projects) |
+| H17 revision beats champion | ✓ | ✓ | ✓ | **CONFIRMED** (3 of 3 primary projects) |
 | H18 revision beats strongest typical methods | ✗ | ✓ | pending | pending (1 confirmed, 1 not, 1 outstanding) |
 
 ## Per holdout (tests passed)
