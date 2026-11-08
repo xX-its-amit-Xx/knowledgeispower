@@ -42,7 +42,7 @@ from scp_graphfs_mcp import transfer as T  # noqa: E402
 
 warnings.filterwarnings("ignore")
 ROOT = Path(__file__).resolve().parents[1]
-VERSION = "v2"  # bump when addendum code changes: part of every cache key
+VERSION = "v3"  # bump when addendum code changes: part of every cache key
 CACHE = ROOT / "data" / "cache" / "v9_addendum" / VERSION
 OUT = ROOT / "results" / "v9" / "addendum"
 PANEL = ["gcn_nograph", "gcn"] + list(A.ADDENDUM)  # recomputed here; everything else stays frozen

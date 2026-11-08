@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Post-hoc v9 addendum: dev screen first, then each holdout whose preregistered result exists (waits for it).
 cd "$(dirname "$0")/.."
+export PIMMS_PYTHON="${PIMMS_PYTHON:-/tmp/claude-0/-home-user-knowledgeispower/19f0adc1-0e52-561e-b422-c31fec9b93e5/scratchpad/pimms/venv/bin/python}"
 for t in petrosius2023 leduc2022 weiss2026_liver gregoire2023_mixCTRL px063590_ADbrain sadiku2025; do
   [ -f "results/v9/addendum/dev_$t.json" ] && continue
   (cd benchmarks && nice -n 10 ../.venv/bin/python addendum_v9.py --dev "$t") 2>&1 | grep -v -i warning

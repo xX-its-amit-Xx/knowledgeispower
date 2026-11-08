@@ -17,6 +17,8 @@ Same signature as baselines.py: fn(Xm, ctx) -> full matrix; only unobserved entr
                 fraction is the left tail, and draw from the truncated left tail with SD = the fitted slope. (imputeLCMD's
                 code passes the variance where an SD is expected, i.e. effectively SD = sqrt(slope); we follow the paper.)
   perseus       Perseus down-shift imputation (Tyanova et al. 2016): per cell, draws from N(mean - 1.8 sd, (0.3 sd)^2).
+  pimms_cf, pimms_vae  PIMMS collaborative filtering and VAE (Webel et al. 2024) via scripts/pimms_bridge.py, README
+                defaults, in a separate virtualenv (pip install pimms-learn==0.5.2; path in $PIMMS_PYTHON).
   missforest_full  missForest closer to its defaults (100 trees, up to 10 iterations, 50 nearest features) - CPU heavy,
                 dev check only.
 """
@@ -187,5 +189,35 @@ def missforest_full(Xm, ctx):
     return _iterative(Xm, ctx, rf, max_iter=10)
 
 
-ADDENDUM = {"bpca_oba": bpca_oba, "lls": lls, "knn_protein": knn_protein, "qrilc": qrilc, "perseus": perseus}
+def _pimms(Xm, ctx, kind):
+    """PIMMS (pimms-learn 0.5.2) through scripts/pimms_bridge.py in its own virtualenv ($PIMMS_PYTHON). Proteins the
+    model cannot predict (no observations) fall back to the kNN base."""
+    import os
+    import subprocess
+    import tempfile
+    from pathlib import Path
+
+    py = os.environ.get("PIMMS_PYTHON")
+    if not py or not Path(py).exists():
+        raise RuntimeError("set PIMMS_PYTHON to a python with pimms-learn==0.5.2 installed")
+    bridge = Path(__file__).resolve().parents[2] / "scripts" / "pimms_bridge.py"
+    with tempfile.TemporaryDirectory() as d:
+        src, dst = Path(d) / "in.npz", Path(d) / "out.npz"
+        np.savez(src, X=Xm)
+        subprocess.run([py, str(bridge), str(src), str(dst), kind, str(ctx["seed"])], check=True,
+                       capture_output=True, text=True)
+        Y = np.load(dst)["Y"]
+    return _keep_obs(Xm, Y, ctx)
+
+
+def pimms_cf(Xm, ctx):
+    return _pimms(Xm, ctx, "cf")
+
+
+def pimms_vae(Xm, ctx):
+    return _pimms(Xm, ctx, "vae")
+
+
+ADDENDUM = {"bpca_oba": bpca_oba, "lls": lls, "knn_protein": knn_protein, "qrilc": qrilc, "perseus": perseus,
+            "pimms_cf": pimms_cf, "pimms_vae": pimms_vae}
 HEAVY = {"missforest_full": missforest_full}
