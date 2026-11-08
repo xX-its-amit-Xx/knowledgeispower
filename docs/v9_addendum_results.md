@@ -10,6 +10,7 @@ The addendum recomputes the same splits from scratch (with a fresh cshrink cache
 |---|---|---|---|---|
 | derks2022 | 0.0e+00 / 0.0e+00 | 12/20 / 12/20 / 12/20 (strict: 12/20 / 12/20 / 12/20) | 4/4 / 4/4 / 4/4 (strict: 2/4 / 2/4 / 2/4) | 11/12 / 11/12 / 10/12 (strict: 8/12 / 8/12 / 8/12) |
 | karagach2025_S1 | 6.6e-10 / 7.0e-09 | 20/20 / 20/20 / 19/20 (strict: 19/20 / 18/20 / 17/20) | 4/4 / 4/4 / 4/4 (strict: 4/4 / 4/4 / 4/4) | 12/12 / 12/12 / 12/12 (strict: 12/12 / 12/12 / 12/12) |
+| px061710_GSTP1KO | 3.0e-10 / 2.8e-10 | 18/20 / 18/20 / 17/20 (strict: 18/20 / 17/20 / 16/20) | 4/4 / 4/4 / 4/4 (strict: 4/4 / 4/4 / 3/4) | 12/12 / 12/12 / 10/12 (strict: 11/12 / 11/12 / 10/12) |
 
 ## 2. Added comparators on the holdouts: RMSE relative to the champion
 
@@ -21,6 +22,7 @@ The addendum recomputes the same splits from scratch (with a fresh cshrink cache
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | derks2022 | 0.988 | 1.000 | 0.978 | 0.978 | 0.997 | 1.000 | 1.006 | 1.016 | 1.014 | 1.031 | 1.031 | 5.831 | 3.902 |
 | karagach2025_S1 | 0.968 | 1.000 | 1.009 | 1.010 | 1.012 | 1.032 | 1.035 | 1.068 | 1.066 | 1.053 | 1.083 | 10.313 | 7.912 |
+| px061710_GSTP1KO | 0.979 | 1.000 | 1.000 | 1.000 | 0.989 | 1.047 | 1.020 | 1.069 | 1.071 | 1.081 | 1.109 | 15.026 | 10.890 |
 
 ### MNAR
 
@@ -28,6 +30,7 @@ The addendum recomputes the same splits from scratch (with a fresh cshrink cache
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | derks2022 | 0.970 | 1.000 | 0.968 | 0.967 | 0.994 | 1.005 | 0.984 | 1.035 | 1.030 | 1.046 | 1.046 | 4.067 | 2.420 |
 | karagach2025_S1 | 0.940 | 1.000 | 0.993 | 0.986 | 1.025 | 1.042 | 1.008 | 1.113 | 1.099 | 1.072 | 1.125 | 7.845 | 5.643 |
+| px061710_GSTP1KO | 0.953 | 1.000 | 0.991 | 0.991 | 1.016 | 1.054 | 0.981 | 1.127 | 1.112 | 1.104 | 1.162 | 11.702 | 8.021 |
 
 ## 3. Counterfactual: the preregistered tests with a working BPCA as the data-only comparator
 
@@ -39,6 +42,8 @@ On dev, `bpca_oba+stack` (0.9914 x champion) would have narrowly displaced `gcn_
 | derks2022 | MNAR | +3.28% ✗ / +3.73% ✗ | +0.15% ✗ / +0.82% ✗ |
 | karagach2025_S1 | MCAR | -0.89% ✗ / -1.73% | -4.08% / -5.06% |
 | karagach2025_S1 | MNAR | +0.70% ✗ / +0.20% ✗ | -5.37% / -6.85% |
+| px061710_GSTP1KO | MCAR | -0.00% ✗ / -0.05% ✗ | -2.15% / -2.25% |
+| px061710_GSTP1KO | MNAR | +0.93% ✗ / +0.63% ✗ | -3.82% / -4.84% |
 
 ## 4. Dev screen of the added comparators (Phase-C fast pool, stratified, seeds 100-101)
 
