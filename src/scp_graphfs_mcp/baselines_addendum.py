@@ -6,14 +6,16 @@ and the literature check found that several of the most-used proteomics imputers
 by benchmarks/addendum_v9.py on the same splits as the frozen panel. They change no preregistered verdict.
 
 Same signature as baselines.py: fn(Xm, ctx) -> full matrix; only unobserved entries are scored.
-  bpca_oba      BPCA as in Oba et al. 2003 / pcaMethods / MSnbase impute("bpca"): PROTEINS are the observations, the
-                cells are the dimensions, ARD on k = n-1 components, missing entries filled from the posterior.
+  bpca_oba      EM-ARD Bayesian PCA in Oba et al.'s orientation (pcaMethods / MSnbase impute("bpca")): PROTEINS are the
+                observations, the cells the dimensions, k = n-1 components with ARD; exact missing-data EM (see docstring).
   lls           local least squares (Kim, Golub & Park 2005): for each protein with missing values, regress it on its
-                k most correlated proteins over the cells where it is observed (k = 20).
+                k most correlated proteins over the cells where it is observed (k = min(10, n_obs // 3), ridge 1),
+                iterated up to 5 passes with neighbours' missing values re-filled from the previous pass.
   knn_protein   kNN over proteins (impute.knn / Troyanskaya 2001 orientation): average of the k = 10 nearest proteins
                 (Euclidean on co-observed cells), each standardised.
-  qrilc         QRILC (Lazar et al. 2016, imputeLCMD): per cell, fit a normal to the observed quantiles assuming the
-                missing fraction is the left tail, and draw missing values from the truncated left tail.
+  qrilc         QRILC (Lazar et al. 2016 model): per cell, fit a normal to the observed quantiles assuming the missing
+                fraction is the left tail, and draw from the truncated left tail with SD = the fitted slope. (imputeLCMD's
+                code passes the variance where an SD is expected, i.e. effectively SD = sqrt(slope); we follow the paper.)
   perseus       Perseus down-shift imputation (Tyanova et al. 2016): per cell, draws from N(mean - 1.8 sd, (0.3 sd)^2).
   missforest_full  missForest closer to its defaults (100 trees, up to 10 iterations, 50 nearest features) - CPU heavy,
                 dev check only.
@@ -28,66 +30,92 @@ from .baselines import _iterative, _keep_obs, _stats
 
 
 def bpca_oba(Xm, ctx, iters=200, tol=1e-6):
-    """Variational-free BPCA as in Oba's BPCAfill: rows = proteins (observations), columns = cells (dimensions)."""
+    """EM-ARD probabilistic PCA (Bishop 1999 ARD) in Oba et al.'s orientation: PROTEINS are the observations and the
+    cells are the dimensions (as in pcaMethods/MSnbase impute("bpca")), k = D-1 components, exact missing-data EM:
+    per-protein posterior over the latent from its observed cells; per-cell M-step over the proteins that observe it
+    (so no imputed value enters the sufficient statistics); noise precision from observed entries plus the posterior
+    variance term. Not a line-by-line port of Oba's variational BPCAfill (no SigW term, Bishop's ARD update)."""
     obs, mu, sd, ok = _stats(Xm)
     Z = np.where(obs, (Xm - mu) / sd, np.nan)[:, ok].T  # proteins x cells
     O = ~np.isnan(Z)
+    Of = O.astype(float)
+    Z0 = np.where(O, Z, 0.0)
     N, D = Z.shape
     k = D - 1
-    Y = np.where(O, Z, 0.0)
-    m = np.nanmean(Z, 0)
-    m = np.where(np.isfinite(m), m, 0.0)
+    m = np.where(Of.sum(0) > 0, Z0.sum(0) / np.maximum(Of.sum(0), 1), 0.0)
     rng = np.random.default_rng(ctx["seed"] + 11)
     W = 0.1 * rng.normal(size=(D, k))
     tau = 1.0
     alpha = np.ones(k)
     last = np.inf
+    Ex = np.zeros((N, k))
+    Sx = np.zeros((N, k, k))
     for _ in range(iters):
-        Ex = np.zeros((N, k))
-        Sx_sum = np.zeros((k, k))
-        Yfill = np.where(O, Z, 0.0)
-        for i in range(N):
+        for i in range(N):  # E-step: posterior of x_i from protein i's observed cells
             o = O[i]
             Wo = W[o]
-            M = np.eye(k) + tau * Wo.T @ Wo
-            Minv = np.linalg.inv(M)
-            Ex[i] = tau * Minv @ (Wo.T @ (Z[i, o] - m[o]))
-            Sx_sum += Minv
-            Yfill[i, ~o] = m[~o] + W[~o] @ Ex[i]
-        m = Yfill.mean(0) - W @ Ex.mean(0)
-        Yc = Yfill - m
-        A = Ex.T @ Ex + Sx_sum + np.diag(alpha) / tau
-        W = np.linalg.solve(A, Ex.T @ Yc).T
-        resid = Yc - Ex @ W.T
-        tau = (N * D) / max(np.sum(resid ** 2) + np.trace(W @ Sx_sum @ W.T), 1e-12)
+            Minv = np.linalg.inv(np.eye(k) + tau * Wo.T @ Wo)
+            Ex[i] = tau * Minv @ (Wo.T @ (Z0[i, o] - m[o]))
+            Sx[i] = Minv
+        XX = Sx + np.einsum("ik,il->ikl", Ex, Ex)  # E[x x'] per protein
+        Sj = np.einsum("ij,ikl->jkl", Of, XX)  # per cell: sum over proteins observing it
+        for j in range(D):  # M-step per cell over observing proteins
+            o = O[:, j]
+            if not o.any():
+                continue
+            b = Ex[o].T @ (Z0[o, j] - m[j])
+            W[j] = np.linalg.solve(Sj[j] + np.diag(alpha) / tau, b)
+            m[j] = np.mean(Z0[o, j] - Ex[o] @ W[j])
+        R = np.where(O, Z0 - m - Ex @ W.T, 0.0)
+        var_term = np.einsum("jk,ikl,jl,ij->", W, Sx, W, Of)
+        tau = Of.sum() / max(np.sum(R ** 2) + var_term, 1e-12)
         alpha = D / np.maximum((W ** 2).sum(0), 1e-12)
-        err = float(np.sum(np.where(O, resid, 0.0) ** 2))
+        err = float(np.sum(R ** 2))
         if abs(last - err) <= tol * max(err, 1e-12):
             break
         last = err
+    for i in range(N):  # final E-step with the final parameters
+        o = O[i]
+        Wo = W[o]
+        Minv = np.linalg.inv(np.eye(k) + tau * Wo.T @ Wo)
+        Ex[i] = tau * Minv @ (Wo.T @ (Z0[i, o] - m[o]))
     L = np.zeros(Xm.shape)
     L[:, ok] = (m + Ex @ W.T).T
     return _keep_obs(Xm, mu + sd * L, ctx)
 
 
-def _protein_corr(Z, O, min_overlap=5):
+def _protein_corr(Z, O, min_overlap=None):
+    """Co-observed cross-moment of per-protein standardised values (~ correlation), shrunk by overlap cnt/(cnt+5);
+    pairs observed together in fewer than max(5, n/4) cells get 0."""
     Zf = np.where(O, Z, 0.0)
     Of = O.astype(float)
     cnt = Of.T @ Of
-    C = (Zf.T @ Zf) / np.maximum(cnt, 1)
-    C[cnt < min_overlap] = 0.0
+    C = (Zf.T @ Zf) / np.maximum(cnt, 1) * (cnt / (cnt + 5.0))
+    C[cnt < (min_overlap or max(5, Z.shape[0] // 4))] = 0.0
     np.fill_diagonal(C, 0.0)
     return C, cnt
 
 
-def lls(Xm, ctx, k=10, ridge=1.0):
+def lls(Xm, ctx, k=10, ridge=1.0, passes=5):
     """k neighbours by |correlation|, capped at a third of the protein's observed cells (Kim et al. choose k by the data;
     with ~30 cells an uncapped k interpolates noise); ridge on standardised values."""
     obs, mu, sd, ok = _stats(Xm)
     Z = np.where(obs, (Xm - mu) / sd, 0.0)
     C, _ = _protein_corr(Z, obs)
     out = np.zeros_like(Z)
-    full = np.where(obs, Z, 0.0)  # neighbours' own missing values = 0 (their mean) when used as predictors
+    full = np.where(obs, Z, 0.0)  # pass 1: neighbours' missing values = 0 (their mean); then refined iteratively
+    for _ in range(passes):
+        out = _lls_pass(Z, obs, ok, C, full, k, ridge)
+        new = np.where(obs, Z, out)
+        if np.linalg.norm(new - full) <= 1e-4 * max(np.linalg.norm(full), 1e-12):
+            full = new
+            break
+        full = new
+    return _keep_obs(Xm, mu + sd * out, ctx)
+
+
+def _lls_pass(Z, obs, ok, C, full, k, ridge):
+    out = np.zeros_like(Z)
     for j in np.where((~obs).any(0) & ok)[0]:
         kk = max(2, min(k, int(obs[:, j].sum()) // 3))
         nb = np.argsort(-np.abs(C[j]))[:kk]
@@ -98,7 +126,7 @@ def lls(Xm, ctx, k=10, ridge=1.0):
         A = full[o][:, nb]
         beta = np.linalg.solve(A.T @ A + ridge * np.eye(len(nb)), A.T @ Z[o, j])
         out[~o, j] = full[~o][:, nb] @ beta
-    return _keep_obs(Xm, mu + sd * out, ctx)
+    return out
 
 
 def knn_protein(Xm, ctx, k=10, min_overlap=5):
