@@ -1,0 +1,530 @@
+[02:59:55] petrosius2023 MCAR 100 (195s)
+[03:03:48] petrosius2023 MCAR 101 (233s)
+[03:07:35] petrosius2023 MNAR 100 (227s)
+[03:10:56] petrosius2023 MNAR 101 (201s)
+{
+ "dataset": "petrosius2023",
+ "H16_passes": {
+  "entry": {
+   "pass_prereg": "16/20",
+   "pass_strict": "15/20"
+  },
+  "protein": {
+   "pass_prereg": "16/20",
+   "pass_strict": "15/20"
+  },
+  "split_t": {
+   "pass_prereg": "0/20",
+   "pass_strict": "0/20"
+  }
+ },
+ "H17_passes": {
+  "entry": {
+   "pass_prereg": "4/4",
+   "pass_strict": "4/4"
+  },
+  "protein": {
+   "pass_prereg": "4/4",
+   "pass_strict": "4/4"
+  },
+  "split_t": {
+   "pass_prereg": "0/4",
+   "pass_strict": "0/4"
+  }
+ },
+ "H18_passes": {
+  "entry": {
+   "pass_prereg": "12/12",
+   "pass_strict": "12/12"
+  },
+  "protein": {
+   "pass_prereg": "12/12",
+   "pass_strict": "12/12"
+  },
+  "split_t": {
+   "pass_prereg": "0/12",
+   "pass_strict": "0/12"
+  }
+ },
+ "repro": {
+  "MCAR": null,
+  "MNAR": null
+ }
+}
+[03:15:37] leduc2022 MCAR 100 (242s)
+[03:19:31] leduc2022 MCAR 101 (235s)
+[03:23:12] leduc2022 MNAR 100 (220s)
+[03:26:08] leduc2022 MNAR 101 (177s)
+{
+ "dataset": "leduc2022",
+ "H16_passes": {
+  "entry": {
+   "pass_prereg": "15/20",
+   "pass_strict": "6/20"
+  },
+  "protein": {
+   "pass_prereg": "15/20",
+   "pass_strict": "5/20"
+  },
+  "split_t": {
+   "pass_prereg": "0/20",
+   "pass_strict": "0/20"
+  }
+ },
+ "H17_passes": {
+  "entry": {
+   "pass_prereg": "4/4",
+   "pass_strict": "4/4"
+  },
+  "protein": {
+   "pass_prereg": "4/4",
+   "pass_strict": "4/4"
+  },
+  "split_t": {
+   "pass_prereg": "0/4",
+   "pass_strict": "0/4"
+  }
+ },
+ "H18_passes": {
+  "entry": {
+   "pass_prereg": "12/12",
+   "pass_strict": "12/12"
+  },
+  "protein": {
+   "pass_prereg": "12/12",
+   "pass_strict": "12/12"
+  },
+  "split_t": {
+   "pass_prereg": "0/12",
+   "pass_strict": "0/12"
+  }
+ },
+ "repro": {
+  "MCAR": null,
+  "MNAR": null
+ }
+}
+[03:29:50] weiss2026_liver MCAR 100 (170s)
+[03:32:26] weiss2026_liver MCAR 101 (157s)
+[03:35:19] weiss2026_liver MNAR 100 (172s)
+[03:38:05] weiss2026_liver MNAR 101 (166s)
+{
+ "dataset": "weiss2026_liver",
+ "H16_passes": {
+  "entry": {
+   "pass_prereg": "14/20",
+   "pass_strict": "14/20"
+  },
+  "protein": {
+   "pass_prereg": "14/20",
+   "pass_strict": "14/20"
+  },
+  "split_t": {
+   "pass_prereg": "0/20",
+   "pass_strict": "0/20"
+  }
+ },
+ "H17_passes": {
+  "entry": {
+   "pass_prereg": "4/4",
+   "pass_strict": "4/4"
+  },
+  "protein": {
+   "pass_prereg": "4/4",
+   "pass_strict": "4/4"
+  },
+  "split_t": {
+   "pass_prereg": "0/4",
+   "pass_strict": "0/4"
+  }
+ },
+ "H18_passes": {
+  "entry": {
+   "pass_prereg": "12/12",
+   "pass_strict": "12/12"
+  },
+  "protein": {
+   "pass_prereg": "12/12",
+   "pass_strict": "12/12"
+  },
+  "split_t": {
+   "pass_prereg": "0/12",
+   "pass_strict": "0/12"
+  }
+ },
+ "repro": {
+  "MCAR": null,
+  "MNAR": null
+ }
+}
+[03:41:55] gregoire2023_mixCTRL MCAR 100 (188s)
+[03:44:58] gregoire2023_mixCTRL MCAR 101 (183s)
+[03:47:54] gregoire2023_mixCTRL MNAR 100 (176s)
+[03:49:41] gregoire2023_mixCTRL MNAR 101 (107s)
+{
+ "dataset": "gregoire2023_mixCTRL",
+ "H16_passes": {
+  "entry": {
+   "pass_prereg": "4/20",
+   "pass_strict": "2/20"
+  },
+  "protein": {
+   "pass_prereg": "4/20",
+   "pass_strict": "0/20"
+  },
+  "split_t": {
+   "pass_prereg": "0/20",
+   "pass_strict": "0/20"
+  }
+ },
+ "H17_passes": {
+  "entry": {
+   "pass_prereg": "4/4",
+   "pass_strict": "4/4"
+  },
+  "protein": {
+   "pass_prereg": "4/4",
+   "pass_strict": "4/4"
+  },
+  "split_t": {
+   "pass_prereg": "0/4",
+   "pass_strict": "0/4"
+  }
+ },
+ "H18_passes": {
+  "entry": {
+   "pass_prereg": "10/12",
+   "pass_strict": "10/12"
+  },
+  "protein": {
+   "pass_prereg": "10/12",
+   "pass_strict": "8/12"
+  },
+  "split_t": {
+   "pass_prereg": "0/12",
+   "pass_strict": "0/12"
+  }
+ },
+ "repro": {
+  "MCAR": null,
+  "MNAR": null
+ }
+}
+[03:56:25] px063590_ADbrain MCAR 100 (366s)
+[04:02:12] px063590_ADbrain MCAR 101 (347s)
+[04:08:30] px063590_ADbrain MNAR 100 (378s)
+[04:14:14] px063590_ADbrain MNAR 101 (344s)
+{
+ "dataset": "px063590_ADbrain",
+ "H16_passes": {
+  "entry": {
+   "pass_prereg": "13/20",
+   "pass_strict": "9/20"
+  },
+  "protein": {
+   "pass_prereg": "13/20",
+   "pass_strict": "9/20"
+  },
+  "split_t": {
+   "pass_prereg": "0/20",
+   "pass_strict": "0/20"
+  }
+ },
+ "H17_passes": {
+  "entry": {
+   "pass_prereg": "4/4",
+   "pass_strict": "1/4"
+  },
+  "protein": {
+   "pass_prereg": "4/4",
+   "pass_strict": "2/4"
+  },
+  "split_t": {
+   "pass_prereg": "0/4",
+   "pass_strict": "0/4"
+  }
+ },
+ "H18_passes": {
+  "entry": {
+   "pass_prereg": "12/12",
+   "pass_strict": "10/12"
+  },
+  "protein": {
+   "pass_prereg": "12/12",
+   "pass_strict": "10/12"
+  },
+  "split_t": {
+   "pass_prereg": "0/12",
+   "pass_strict": "0/12"
+  }
+ },
+ "repro": {
+  "MCAR": null,
+  "MNAR": null
+ }
+}
+[04:18:59] sadiku2025 MCAR 100 (244s)
+[04:22:22] sadiku2025 MCAR 101 (203s)
+[04:26:31] sadiku2025 MNAR 100 (249s)
+[04:29:46] sadiku2025 MNAR 101 (195s)
+{
+ "dataset": "sadiku2025",
+ "H16_passes": {
+  "entry": {
+   "pass_prereg": "13/20",
+   "pass_strict": "12/20"
+  },
+  "protein": {
+   "pass_prereg": "13/20",
+   "pass_strict": "12/20"
+  },
+  "split_t": {
+   "pass_prereg": "0/20",
+   "pass_strict": "0/20"
+  }
+ },
+ "H17_passes": {
+  "entry": {
+   "pass_prereg": "4/4",
+   "pass_strict": "3/4"
+  },
+  "protein": {
+   "pass_prereg": "4/4",
+   "pass_strict": "3/4"
+  },
+  "split_t": {
+   "pass_prereg": "0/4",
+   "pass_strict": "0/4"
+  }
+ },
+ "H18_passes": {
+  "entry": {
+   "pass_prereg": "9/12",
+   "pass_strict": "8/12"
+  },
+  "protein": {
+   "pass_prereg": "9/12",
+   "pass_strict": "8/12"
+  },
+  "split_t": {
+   "pass_prereg": "0/12",
+   "pass_strict": "0/12"
+  }
+ },
+ "repro": {
+  "MCAR": null,
+  "MNAR": null
+ }
+}
+=== addendum derks2022 start 2026-11-08T04:29:54Z
+[04:32:08] derks2022 MCAR 9000 (112s)
+[04:34:00] derks2022 MCAR 9001 (112s)
+[04:35:52] derks2022 MCAR 9002 (112s)
+[04:37:42] derks2022 MCAR 9003 (109s)
+[04:38:43] derks2022 MCAR 9004 (61s)
+[04:40:26] derks2022 MCAR 9005 (103s)
+[04:42:18] derks2022 MCAR 9006 (112s)
+[04:44:09] derks2022 MCAR 9007 (111s)
+[04:45:59] derks2022 MCAR 9008 (111s)
+[04:47:54] derks2022 MCAR 9009 (114s)
+[04:49:46] derks2022 MNAR 9000 (113s)
+[04:51:42] derks2022 MNAR 9001 (116s)
+[04:53:38] derks2022 MNAR 9002 (116s)
+[04:55:30] derks2022 MNAR 9003 (112s)
+[04:56:59] derks2022 MNAR 9004 (89s)
+[04:58:46] derks2022 MNAR 9005 (107s)
+[05:00:17] derks2022 MNAR 9006 (91s)
+[05:02:07] derks2022 MNAR 9007 (110s)
+[05:03:55] derks2022 MNAR 9008 (108s)
+[05:05:40] derks2022 MNAR 9009 (105s)
+{
+ "dataset": "derks2022",
+ "H16_passes": {
+  "entry": {
+   "pass_prereg": "12/20",
+   "pass_strict": "12/20"
+  },
+  "protein": {
+   "pass_prereg": "12/20",
+   "pass_strict": "12/20"
+  },
+  "split_t": {
+   "pass_prereg": "12/20",
+   "pass_strict": "12/20"
+  }
+ },
+ "H17_passes": {
+  "entry": {
+   "pass_prereg": "4/4",
+   "pass_strict": "2/4"
+  },
+  "protein": {
+   "pass_prereg": "4/4",
+   "pass_strict": "2/4"
+  },
+  "split_t": {
+   "pass_prereg": "4/4",
+   "pass_strict": "2/4"
+  }
+ },
+ "H18_passes": {
+  "entry": {
+   "pass_prereg": "11/12",
+   "pass_strict": "8/12"
+  },
+  "protein": {
+   "pass_prereg": "11/12",
+   "pass_strict": "8/12"
+  },
+  "split_t": {
+   "pass_prereg": "10/12",
+   "pass_strict": "8/12"
+  }
+ },
+ "repro": {
+  "MCAR": 0.0,
+  "MNAR": 0.0
+ }
+}
+=== addendum derks2022 end 2026-11-08T05:05:53Z
+=== addendum karagach2025_S1 start 2026-11-08T05:05:53Z
+[05:11:21] karagach2025_S1 MCAR 9000 (290s)
+[05:17:10] karagach2025_S1 MCAR 9001 (350s)
+[05:23:00] karagach2025_S1 MCAR 9002 (350s)
+[05:29:04] karagach2025_S1 MCAR 9003 (363s)
+[05:34:16] karagach2025_S1 MCAR 9004 (312s)
+[05:40:09] karagach2025_S1 MCAR 9005 (353s)
+[05:46:09] karagach2025_S1 MCAR 9006 (360s)
+[05:52:09] karagach2025_S1 MCAR 9007 (360s)
+[05:58:14] karagach2025_S1 MCAR 9008 (365s)
+[06:04:13] karagach2025_S1 MCAR 9009 (359s)
+[06:10:19] karagach2025_S1 MNAR 9000 (366s)
+[06:16:19] karagach2025_S1 MNAR 9001 (360s)
+[06:22:17] karagach2025_S1 MNAR 9002 (358s)
+[06:28:21] karagach2025_S1 MNAR 9003 (364s)
+[06:32:50] karagach2025_S1 MNAR 9004 (269s)
+[06:38:40] karagach2025_S1 MNAR 9005 (350s)
+[06:44:50] karagach2025_S1 MNAR 9006 (370s)
+[06:56:02] karagach2025_S1 MNAR 9007 (672s)
+[07:02:47] karagach2025_S1 MNAR 9008 (405s)
+[07:09:17] karagach2025_S1 MNAR 9009 (391s)
+{
+ "dataset": "karagach2025_S1",
+ "H16_passes": {
+  "entry": {
+   "pass_prereg": "20/20",
+   "pass_strict": "19/20"
+  },
+  "protein": {
+   "pass_prereg": "20/20",
+   "pass_strict": "18/20"
+  },
+  "split_t": {
+   "pass_prereg": "19/20",
+   "pass_strict": "17/20"
+  }
+ },
+ "H17_passes": {
+  "entry": {
+   "pass_prereg": "4/4",
+   "pass_strict": "4/4"
+  },
+  "protein": {
+   "pass_prereg": "4/4",
+   "pass_strict": "4/4"
+  },
+  "split_t": {
+   "pass_prereg": "4/4",
+   "pass_strict": "4/4"
+  }
+ },
+ "H18_passes": {
+  "entry": {
+   "pass_prereg": "12/12",
+   "pass_strict": "12/12"
+  },
+  "protein": {
+   "pass_prereg": "12/12",
+   "pass_strict": "12/12"
+  },
+  "split_t": {
+   "pass_prereg": "12/12",
+   "pass_strict": "12/12"
+  }
+ },
+ "repro": {
+  "MCAR": 6.645894945478403e-10,
+  "MNAR": 6.963543741633771e-09
+ }
+}
+=== addendum karagach2025_S1 end 2026-11-08T07:10:26Z
+=== addendum px061710_GSTP1KO start 2026-11-08T07:10:26Z
+[07:18:50] px061710_GSTP1KO MCAR 9002 (463s)
+[07:26:24] px061710_GSTP1KO MCAR 9003 (454s)
+[07:34:28] px061710_GSTP1KO MCAR 9004 (484s)
+[07:42:31] px061710_GSTP1KO MCAR 9005 (483s)
+[07:50:31] px061710_GSTP1KO MCAR 9006 (480s)
+[07:58:49] px061710_GSTP1KO MCAR 9007 (498s)
+[08:07:03] px061710_GSTP1KO MCAR 9008 (494s)
+[08:15:19] px061710_GSTP1KO MCAR 9009 (496s)
+[08:23:00] px061710_GSTP1KO MNAR 9000 (461s)
+[08:31:25] px061710_GSTP1KO MNAR 9001 (505s)
+[08:39:06] px061710_GSTP1KO MNAR 9002 (461s)
+[08:46:22] px061710_GSTP1KO MNAR 9003 (436s)
+[08:51:35] px061710_GSTP1KO MNAR 9004 (312s)
+[08:58:20] px061710_GSTP1KO MNAR 9005 (405s)
+[09:05:04] px061710_GSTP1KO MNAR 9006 (404s)
+[09:11:38] px061710_GSTP1KO MNAR 9007 (394s)
+[09:18:10] px061710_GSTP1KO MNAR 9008 (392s)
+[09:23:42] px061710_GSTP1KO MNAR 9009 (332s)
+{
+ "dataset": "px061710_GSTP1KO",
+ "H16_passes": {
+  "entry": {
+   "pass_prereg": "18/20",
+   "pass_strict": "18/20"
+  },
+  "protein": {
+   "pass_prereg": "18/20",
+   "pass_strict": "17/20"
+  },
+  "split_t": {
+   "pass_prereg": "17/20",
+   "pass_strict": "16/20"
+  }
+ },
+ "H17_passes": {
+  "entry": {
+   "pass_prereg": "4/4",
+   "pass_strict": "4/4"
+  },
+  "protein": {
+   "pass_prereg": "4/4",
+   "pass_strict": "4/4"
+  },
+  "split_t": {
+   "pass_prereg": "4/4",
+   "pass_strict": "3/4"
+  }
+ },
+ "H18_passes": {
+  "entry": {
+   "pass_prereg": "12/12",
+   "pass_strict": "11/12"
+  },
+  "protein": {
+   "pass_prereg": "12/12",
+   "pass_strict": "11/12"
+  },
+  "split_t": {
+   "pass_prereg": "10/12",
+   "pass_strict": "10/12"
+  }
+ },
+ "repro": {
+  "MCAR": 2.9896385367322864e-10,
+  "MNAR": 2.82258105777089e-10
+ }
+}
+=== addendum px061710_GSTP1KO end 2026-11-08T09:24:47Z
+=== addendum px061710_MDAfix start 2026-11-08T09:24:47Z

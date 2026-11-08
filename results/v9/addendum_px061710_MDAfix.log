@@ -1,0 +1,69 @@
+[06:49:22] px061710_MDAfix MCAR 9000 (620s)
+[07:00:04] px061710_MDAfix MCAR 9001 (642s)
+[07:10:46] px061710_MDAfix MCAR 9002 (642s)
+[07:24:23] px061710_MDAfix MCAR 9003 (818s)
+[07:38:17] px061710_MDAfix MCAR 9004 (833s)
+[07:52:48] px061710_MDAfix MCAR 9005 (871s)
+[08:04:17] px061710_MDAfix MCAR 9006 (689s)
+[08:18:30] px061710_MDAfix MCAR 9007 (853s)
+[08:32:53] px061710_MDAfix MCAR 9008 (864s)
+[08:45:37] px061710_MDAfix MCAR 9009 (764s)
+[08:57:07] px061710_MDAfix MNAR 9000 (689s)
+[09:08:42] px061710_MDAfix MNAR 9001 (695s)
+[09:19:59] px061710_MDAfix MNAR 9002 (678s)
+[09:28:42] px061710_MDAfix MNAR 9003 (522s)
+[09:34:55] px061710_MDAfix MNAR 9004 (373s)
+[09:40:58] px061710_MDAfix MNAR 9005 (363s)
+[09:46:57] px061710_MDAfix MNAR 9006 (359s)
+[09:52:51] px061710_MDAfix MNAR 9007 (355s)
+[09:58:46] px061710_MDAfix MNAR 9008 (354s)
+[10:04:27] px061710_MDAfix MNAR 9009 (342s)
+{
+ "dataset": "px061710_MDAfix",
+ "H16_passes": {
+  "entry": {
+   "pass_prereg": "16/20",
+   "pass_strict": "16/20"
+  },
+  "protein": {
+   "pass_prereg": "16/20",
+   "pass_strict": "16/20"
+  },
+  "split_t": {
+   "pass_prereg": "16/20",
+   "pass_strict": "16/20"
+  }
+ },
+ "H17_passes": {
+  "entry": {
+   "pass_prereg": "4/4",
+   "pass_strict": "4/4"
+  },
+  "protein": {
+   "pass_prereg": "4/4",
+   "pass_strict": "4/4"
+  },
+  "split_t": {
+   "pass_prereg": "4/4",
+   "pass_strict": "4/4"
+  }
+ },
+ "H18_passes": {
+  "entry": {
+   "pass_prereg": "11/12",
+   "pass_strict": "10/12"
+  },
+  "protein": {
+   "pass_prereg": "11/12",
+   "pass_strict": "10/12"
+  },
+  "split_t": {
+   "pass_prereg": "10/12",
+   "pass_strict": "10/12"
+  }
+ },
+ "repro": {
+  "MCAR": 7.35476624047493e-09,
+  "MNAR": 1.1577860892231229e-10
+ }
+}

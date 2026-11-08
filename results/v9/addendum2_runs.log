@@ -1,0 +1,181 @@
+=== addendum2 derks2022 start 2026-11-08T06:38:35Z
+[06:40:23] derks2022 MCAR 9000 (86s) r_bpca=43s r_missforest=34s r_knn=1s seqknn=0s trknn=0s impseq=5s rem_protein=1s median=0s
+[06:41:52] derks2022 MCAR 9001 (89s) r_bpca=45s r_missforest=36s r_knn=0s seqknn=0s trknn=0s impseq=4s rem_protein=1s median=0s
+[06:43:21] derks2022 MCAR 9002 (89s) r_bpca=44s r_missforest=37s r_knn=1s seqknn=0s trknn=0s impseq=5s rem_protein=1s median=0s
+[06:44:53] derks2022 MCAR 9003 (92s) r_bpca=43s r_missforest=37s r_knn=1s seqknn=0s trknn=0s impseq=8s rem_protein=1s median=0s
+[06:46:24] derks2022 MNAR 9000 (91s) r_bpca=46s r_missforest=36s r_knn=1s seqknn=0s trknn=0s impseq=5s rem_protein=1s median=0s
+[06:48:03] derks2022 MNAR 9001 (99s) r_bpca=46s r_missforest=45s r_knn=1s seqknn=0s trknn=0s impseq=5s rem_protein=1s median=0s
+[06:49:28] derks2022 MNAR 9002 (85s) r_bpca=46s r_missforest=31s r_knn=1s seqknn=0s trknn=0s impseq=5s rem_protein=1s median=0s
+[06:51:04] derks2022 MNAR 9003 (96s) r_bpca=46s r_missforest=39s r_knn=1s seqknn=0s trknn=0s impseq=7s rem_protein=1s median=0s
+MCAR {'r_bpca': 0.947, 'r_bpca+stack': 0.947, 'r_missforest+stack': 0.982, 'r_missforest': 0.985, 'rem_protein+stack': 0.987, 'rem_protein': 0.997, 'champion': 1.0, 'seqknn+stack': 1.014, 'r_knn+stack': 1.019, 'stack_lowrank': 1.029, 'trknn+stack': 1.029, 'median+stack': 1.029, 'impseq+stack': 1.039, 'knn': 1.069, 'seqknn': 1.089, 'r_knn': 1.155, 'median': 1.238, 'trknn': 1.289, 'impseq': 1.59}
+MNAR {'r_bpca': 0.934, 'r_bpca+stack': 0.939, 'r_missforest': 0.947, 'r_missforest+stack': 0.956, 'rem_protein': 0.963, 'rem_protein+stack': 0.984, 'champion': 1.0, 'seqknn+stack': 1.021, 'r_knn+stack': 1.033, 'seqknn': 1.041, 'stack_lowrank': 1.047, 'trknn+stack': 1.047, 'median+stack': 1.047, 'impseq+stack': 1.047, 'knn': 1.078, 'r_knn': 1.083, 'trknn': 1.191, 'median': 1.216, 'impseq': 1.433}
+=== addendum2 derks2022 end 2026-11-08T06:51:04Z
+=== addendum2 karagach2025_S1 start 2026-11-08T06:51:04Z
+[06:59:15] karagach2025_S1 MCAR 9000 (450s) r_bpca=141s r_missforest=297s r_knn=2s seqknn=2s trknn=3s impseq=0s rem_protein=2s median=0s
+  scp_graphfs_mcp.addendum2.rbridge:r_knn failed: r_bridge.R knn failed:
+Error in impute::impute.knn(P, k = 10, rng.seed = seed) : 
+  a column has more than 80 % missing values!
+Calls: t -> <Anonymous>
+Execution halted
+
+  scp_graphfs_mcp.addendum2.rbridge:r_knn failed: r_bridge.R knn failed:
+Error in impute::impute.knn(P, k = 10, rng.seed = seed) : 
+  a column has more than 80 % missing values!
+Calls: t -> <Anonymous>
+Execution halted
+
+[07:07:52] karagach2025_S1 MCAR 9001 (516s) r_bpca=145s r_missforest=176s r_knn=1s seqknn=1s trknn=3s impseq=185s rem_protein=2s median=0s
+  scp_graphfs_mcp.addendum2.rbridge:r_knn failed: r_bridge.R knn failed:
+Error in impute::impute.knn(P, k = 10, rng.seed = seed) : 
+  a column has more than 80 % missing values!
+Calls: t -> <Anonymous>
+Execution halted
+
+  scp_graphfs_mcp.addendum2.rbridge:r_knn failed: r_bridge.R knn failed:
+Error in impute::impute.knn(P, k = 10, rng.seed = seed) : 
+  a column has more than 80 % missing values!
+Calls: t -> <Anonymous>
+Execution halted
+
+[07:16:00] karagach2025_S1 MCAR 9002 (489s) r_bpca=160s r_missforest=195s r_knn=1s seqknn=2s trknn=3s impseq=123s rem_protein=3s median=0s
+[07:25:05] karagach2025_S1 MCAR 9003 (545s) r_bpca=174s r_missforest=353s r_knn=2s seqknn=2s trknn=3s impseq=5s rem_protein=2s median=0s
+[07:34:00] karagach2025_S1 MNAR 9000 (535s) r_bpca=170s r_missforest=349s r_knn=2s seqknn=2s trknn=4s impseq=1s rem_protein=2s median=0s
+  scp_graphfs_mcp.addendum2.rbridge:r_knn failed: r_bridge.R knn failed:
+Error in impute::impute.knn(P, k = 10, rng.seed = seed) : 
+  a column has more than 80 % missing values!
+Calls: t -> <Anonymous>
+Execution halted
+
+  scp_graphfs_mcp.addendum2.rbridge:r_knn failed: r_bridge.R knn failed:
+Error in impute::impute.knn(P, k = 10, rng.seed = seed) : 
+  a column has more than 80 % missing values!
+Calls: t -> <Anonymous>
+Execution halted
+
+[07:45:03] karagach2025_S1 MNAR 9001 (663s) r_bpca=177s r_missforest=231s r_knn=1s seqknn=2s trknn=4s impseq=239s rem_protein=3s median=0s
+  scp_graphfs_mcp.addendum2.rbridge:r_knn failed: r_bridge.R knn failed:
+Error in impute::impute.knn(P, k = 10, rng.seed = seed) : 
+  a column has more than 80 % missing values!
+Calls: t -> <Anonymous>
+Execution halted
+
+  scp_graphfs_mcp.addendum2.rbridge:r_knn failed: r_bridge.R knn failed:
+Error in impute::impute.knn(P, k = 10, rng.seed = seed) : 
+  a column has more than 80 % missing values!
+Calls: t -> <Anonymous>
+Execution halted
+
+[07:55:40] karagach2025_S1 MNAR 9002 (638s) r_bpca=180s r_missforest=288s r_knn=1s seqknn=2s trknn=4s impseq=155s rem_protein=3s median=0s
+[08:04:42] karagach2025_S1 MNAR 9003 (541s) r_bpca=185s r_missforest=335s r_knn=2s seqknn=2s trknn=3s impseq=6s rem_protein=2s median=0s
+MCAR {'r_bpca': 0.983, 'r_bpca+stack': 0.983, 'r_missforest': 0.988, 'r_missforest+stack': 0.99, 'champion': 1.0, 'rem_protein+stack': 1.016, 'rem_protein': 1.019, 'seqknn+stack': 1.025, 'seqknn': 1.058, 'stack_lowrank': 1.078, 'r_knn+stack': 1.078, 'trknn+stack': 1.078, 'median+stack': 1.078, 'impseq+stack': 1.105, 'knn': 1.125, 'median': 1.239, 'r_knn': 1.28, 'trknn': 1.344, 'impseq': 1.835}
+MNAR {'r_missforest': 0.946, 'r_bpca': 0.95, 'r_missforest+stack': 0.95, 'r_bpca+stack': 0.953, 'rem_protein': 0.992, 'champion': 1.0, 'rem_protein+stack': 1.005, 'seqknn+stack': 1.023, 'seqknn': 1.026, 'impseq+stack': 1.081, 'stack_lowrank': 1.1, 'r_knn+stack': 1.1, 'trknn+stack': 1.1, 'median+stack': 1.1, 'knn': 1.154, 'impseq': 1.209, 'trknn': 1.235, 'r_knn': 1.236, 'median': 1.265}
+=== addendum2 karagach2025_S1 end 2026-11-08T08:04:42Z
+=== addendum2 px061710_GSTP1KO start 2026-11-08T08:04:42Z
+[08:13:33] px061710_GSTP1KO MCAR 9000 (479s) r_bpca=185s r_missforest=278s r_knn=2s seqknn=2s trknn=5s impseq=0s rem_protein=3s median=0s
+[08:21:34] px061710_GSTP1KO MCAR 9001 (481s) r_bpca=186s r_missforest=280s r_knn=2s seqknn=2s trknn=4s impseq=0s rem_protein=3s median=0s
+  scp_graphfs_mcp.addendum2.rbridge:r_knn failed: r_bridge.R knn failed:
+Error in impute::impute.knn(P, k = 10, rng.seed = seed) : 
+  a column has more than 80 % missing values!
+Calls: t -> <Anonymous>
+Execution halted
+
+  scp_graphfs_mcp.addendum2.rbridge:r_knn failed: r_bridge.R knn failed:
+Error in impute::impute.knn(P, k = 10, rng.seed = seed) : 
+  a column has more than 80 % missing values!
+Calls: t -> <Anonymous>
+Execution halted
+
+[08:31:57] px061710_GSTP1KO MCAR 9002 (623s) r_bpca=189s r_missforest=176s r_knn=1s seqknn=2s trknn=5s impseq=243s rem_protein=3s median=0s
+  scp_graphfs_mcp.addendum2.rbridge:r_knn failed: r_bridge.R knn failed:
+Error in impute::impute.knn(P, k = 10, rng.seed = seed) : 
+  a column has more than 80 % missing values!
+Calls: t -> <Anonymous>
+Execution halted
+
+  scp_graphfs_mcp.addendum2.rbridge:r_knn failed: r_bridge.R knn failed:
+Error in impute::impute.knn(P, k = 10, rng.seed = seed) : 
+  a column has more than 80 % missing values!
+Calls: t -> <Anonymous>
+Execution halted
+
+[08:42:01] px061710_GSTP1KO MCAR 9003 (605s) r_bpca=174s r_missforest=189s r_knn=1s seqknn=2s trknn=4s impseq=228s rem_protein=3s median=0s
+[08:48:48] px061710_GSTP1KO MNAR 9000 (407s) r_bpca=160s r_missforest=234s r_knn=1s seqknn=1s trknn=4s impseq=0s rem_protein=2s median=0s
+[08:56:08] px061710_GSTP1KO MNAR 9001 (440s) r_bpca=163s r_missforest=252s r_knn=1s seqknn=1s trknn=4s impseq=13s rem_protein=2s median=0s
+  scp_graphfs_mcp.addendum2.rbridge:r_knn failed: r_bridge.R knn failed:
+Error in impute::impute.knn(P, k = 10, rng.seed = seed) : 
+  a column has more than 80 % missing values!
+Calls: t -> <Anonymous>
+Execution halted
+
+  scp_graphfs_mcp.addendum2.rbridge:r_knn failed: r_bridge.R knn failed:
+Error in impute::impute.knn(P, k = 10, rng.seed = seed) : 
+  a column has more than 80 % missing values!
+Calls: t -> <Anonymous>
+Execution halted
+
+[09:04:47] px061710_GSTP1KO MNAR 9002 (518s) r_bpca=150s r_missforest=159s r_knn=1s seqknn=1s trknn=3s impseq=198s rem_protein=2s median=0s
+  scp_graphfs_mcp.addendum2.rbridge:r_knn failed: r_bridge.R knn failed:
+Error in impute::impute.knn(P, k = 10, rng.seed = seed) : 
+  a column has more than 80 % missing values!
+Calls: t -> <Anonymous>
+Execution halted
+
+  scp_graphfs_mcp.addendum2.rbridge:r_knn failed: r_bridge.R knn failed:
+Error in impute::impute.knn(P, k = 10, rng.seed = seed) : 
+  a column has more than 80 % missing values!
+Calls: t -> <Anonymous>
+Execution halted
+
+[09:13:21] px061710_GSTP1KO MNAR 9003 (514s) r_bpca=152s r_missforest=162s r_knn=1s seqknn=1s trknn=3s impseq=188s rem_protein=2s median=0s
+MCAR {'r_bpca': 0.969, 'r_bpca+stack': 0.97, 'r_missforest': 0.988, 'r_missforest+stack': 0.991, 'rem_protein+stack': 0.997, 'rem_protein': 0.999, 'champion': 1.0, 'impseq+stack': 1.019, 'seqknn+stack': 1.029, 'impseq': 1.044, 'seqknn': 1.068, 'stack_lowrank': 1.113, 'r_knn+stack': 1.113, 'median+stack': 1.113, 'trknn+stack': 1.117, 'knn': 1.176, 'median': 1.358, 'trknn': 1.444, 'r_knn': 1.445}
+MNAR {'r_bpca': 0.937, 'r_bpca+stack': 0.937, 'r_missforest': 0.941, 'r_missforest+stack': 0.952, 'rem_protein': 0.97, 'champion': 1.0, 'rem_protein+stack': 1.004, 'seqknn': 1.02, 'seqknn+stack': 1.026, 'impseq+stack': 1.052, 'impseq': 1.052, 'trknn+stack': 1.155, 'stack_lowrank': 1.166, 'r_knn+stack': 1.166, 'median+stack': 1.166, 'knn': 1.251, 'trknn': 1.336, 'r_knn': 1.412, 'median': 1.43}
+=== addendum2 px061710_GSTP1KO end 2026-11-08T09:13:21Z
+=== addendum2 px061710_MDAfix start 2026-11-08T09:13:21Z
+[09:20:03] px061710_MDAfix MCAR 9000 (363s) r_bpca=126s r_missforest=216s r_knn=1s seqknn=1s trknn=3s impseq=11s rem_protein=2s median=0s
+[09:26:34] px061710_MDAfix MCAR 9001 (391s) r_bpca=135s r_missforest=236s r_knn=2s seqknn=1s trknn=3s impseq=9s rem_protein=2s median=0s
+[09:33:03] px061710_MDAfix MCAR 9002 (389s) r_bpca=132s r_missforest=237s r_knn=2s seqknn=1s trknn=3s impseq=10s rem_protein=2s median=0s
+[09:39:28] px061710_MDAfix MCAR 9003 (384s) r_bpca=146s r_missforest=227s r_knn=1s seqknn=1s trknn=3s impseq=0s rem_protein=2s median=0s
+[09:45:54] px061710_MDAfix MNAR 9000 (387s) r_bpca=139s r_missforest=226s r_knn=1s seqknn=1s trknn=3s impseq=11s rem_protein=2s median=0s
+[09:52:12] px061710_MDAfix MNAR 9001 (378s) r_bpca=133s r_missforest=226s r_knn=2s seqknn=1s trknn=2s impseq=8s rem_protein=2s median=0s
+[09:58:21] px061710_MDAfix MNAR 9002 (369s) r_bpca=133s r_missforest=219s r_knn=1s seqknn=1s trknn=2s impseq=8s rem_protein=2s median=0s
+[10:04:21] px061710_MDAfix MNAR 9003 (360s) r_bpca=128s r_missforest=211s r_knn=1s seqknn=1s trknn=3s impseq=11s rem_protein=2s median=0s
+MCAR {'r_bpca': 0.963, 'r_bpca+stack': 0.966, 'r_missforest': 0.972, 'r_missforest+stack': 0.975, 'rem_protein': 0.982, 'rem_protein+stack': 0.989, 'champion': 1.0, 'seqknn+stack': 1.014, 'seqknn': 1.048, 'r_knn+stack': 1.07, 'stack_lowrank': 1.085, 'trknn+stack': 1.085, 'median+stack': 1.085, 'impseq+stack': 1.092, 'knn': 1.141, 'impseq': 1.241, 'r_knn': 1.395, 'median': 1.411, 'trknn': 1.438}
+MNAR {'impseq': 0.92, 'r_bpca': 0.929, 'r_bpca+stack': 0.929, 'r_missforest': 0.935, 'r_missforest+stack': 0.936, 'rem_protein': 0.959, 'rem_protein+stack': 0.968, 'champion': 1.0, 'seqknn': 1.017, 'seqknn+stack': 1.02, 'impseq+stack': 1.033, 'r_knn+stack': 1.106, 'stack_lowrank': 1.153, 'trknn+stack': 1.153, 'median+stack': 1.153, 'knn': 1.226, 'r_knn': 1.296, 'trknn': 1.369, 'median': 1.521}
+=== addendum2 px061710_MDAfix end 2026-11-08T10:04:21Z
+=== addendum2 px061710_RKOfix start 2026-11-08T10:04:21Z
+[10:16:00] px061710_RKOfix MCAR 9000 (649s) r_bpca=229s r_missforest=315s r_knn=2s seqknn=3s trknn=6s impseq=86s rem_protein=3s median=0s
+[10:26:26] px061710_RKOfix MCAR 9001 (626s) r_bpca=212s r_missforest=384s r_knn=2s seqknn=3s trknn=6s impseq=10s rem_protein=3s median=0s
+[10:36:21] px061710_RKOfix MCAR 9002 (595s) r_bpca=198s r_missforest=307s r_knn=2s seqknn=3s trknn=6s impseq=73s rem_protein=3s median=0s
+[10:47:36] px061710_RKOfix MCAR 9003 (676s) r_bpca=228s r_missforest=401s r_knn=2s seqknn=3s trknn=6s impseq=27s rem_protein=3s median=0s
+  scp_graphfs_mcp.addendum2.rbridge:r_knn failed: r_bridge.R knn failed:
+Error in impute::impute.knn(P, k = 10, rng.seed = seed) : 
+  a column has more than 80 % missing values!
+Calls: t -> <Anonymous>
+Execution halted
+
+  scp_graphfs_mcp.addendum2.rbridge:r_knn failed: r_bridge.R knn failed:
+Error in impute::impute.knn(P, k = 10, rng.seed = seed) : 
+  a column has more than 80 % missing values!
+Calls: t -> <Anonymous>
+Execution halted
+
+[10:59:22] px061710_RKOfix MNAR 9000 (706s) r_bpca=224s r_missforest=367s r_knn=1s seqknn=2s trknn=6s impseq=97s rem_protein=3s median=0s
+[11:09:17] px061710_RKOfix MNAR 9001 (595s) r_bpca=220s r_missforest=356s r_knn=2s seqknn=3s trknn=6s impseq=0s rem_protein=3s median=0s
+  scp_graphfs_mcp.addendum2.rbridge:r_knn failed: r_bridge.R knn failed:
+Error in impute::impute.knn(P, k = 10, rng.seed = seed) : 
+  a column has more than 80 % missing values!
+Calls: t -> <Anonymous>
+Execution halted
+
+  scp_graphfs_mcp.addendum2.rbridge:r_knn failed: r_bridge.R knn failed:
+Error in impute::impute.knn(P, k = 10, rng.seed = seed) : 
+  a column has more than 80 % missing values!
+Calls: t -> <Anonymous>
+Execution halted
+
+[11:21:07] px061710_RKOfix MNAR 9002 (710s) r_bpca=216s r_missforest=378s r_knn=1s seqknn=2s trknn=6s impseq=98s rem_protein=3s median=0s
+[11:31:52] px061710_RKOfix MNAR 9003 (644s) r_bpca=211s r_missforest=391s r_knn=2s seqknn=2s trknn=6s impseq=23s rem_protein=3s median=0s
+MCAR {'r_bpca': 0.982, 'r_bpca+stack': 0.982, 'r_missforest': 0.999, 'champion': 1.0, 'r_missforest+stack': 1.0, 'rem_protein': 1.019, 'rem_protein+stack': 1.02, 'seqknn+stack': 1.022, 'impseq+stack': 1.039, 'impseq': 1.06, 'r_knn+stack': 1.062, 'seqknn': 1.068, 'stack_lowrank': 1.1, 'trknn+stack': 1.1, 'median+stack': 1.1, 'knn': 1.152, 'median': 1.291, 'r_knn': 1.326, 'trknn': 1.448}
+MNAR {'r_bpca': 0.965, 'r_bpca+stack': 0.965, 'r_missforest': 0.977, 'r_missforest+stack': 0.98, 'rem_protein': 0.987, 'rem_protein+stack': 0.99, 'champion': 1.0, 'seqknn+stack': 1.019, 'seqknn': 1.054, 'stack_lowrank': 1.075, 'trknn+stack': 1.075, 'median+stack': 1.075, 'r_knn+stack': 1.085, 'knn': 1.105, 'impseq+stack': 1.124, 'median': 1.241, 'r_knn': 1.251, 'trknn': 1.307, 'impseq': 1.402}
+=== addendum2 px061710_RKOfix end 2026-11-08T11:31:52Z
+=== ADDENDUM2 ALL DONE

@@ -12,6 +12,7 @@ The addendum recomputes the same splits from scratch (with a fresh cshrink cache
 | karagach2025_S1 | 6.6e-10 / 7.0e-09 | 20/20 / 20/20 / 19/20 (strict: 19/20 / 18/20 / 17/20) | 4/4 / 4/4 / 4/4 (strict: 4/4 / 4/4 / 4/4) | 12/12 / 12/12 / 12/12 (strict: 12/12 / 12/12 / 12/12) |
 | px061710_GSTP1KO | 3.0e-10 / 2.8e-10 | 18/20 / 18/20 / 17/20 (strict: 18/20 / 17/20 / 16/20) | 4/4 / 4/4 / 4/4 (strict: 4/4 / 4/4 / 3/4) | 12/12 / 12/12 / 10/12 (strict: 11/12 / 11/12 / 10/12) |
 | px061710_MDAfix | 7.4e-09 / 1.2e-10 | 16/20 / 16/20 / 16/20 (strict: 16/20 / 16/20 / 16/20) | 4/4 / 4/4 / 4/4 (strict: 4/4 / 4/4 / 4/4) | 11/12 / 11/12 / 10/12 (strict: 10/12 / 10/12 / 10/12) |
+| px061710_RKOfix | 1.1e-16 / 0.0e+00 | 17/20 / 17/20 / 17/20 (strict: 17/20 / 17/20 / 16/20) | 4/4 / 4/4 / 4/4 (strict: 4/4 / 3/4 / 2/4) | 10/12 / 10/12 / 10/12 (strict: 10/12 / 10/12 / 10/12) |
 
 ## 2. Added comparators on the holdouts: RMSE relative to the champion
 
@@ -25,6 +26,7 @@ The addendum recomputes the same splits from scratch (with a fresh cshrink cache
 | karagach2025_S1 | 0.968 | 1.000 | 1.009 | 1.010 | 1.012 | 1.032 | 1.035 | 1.068 | 1.066 | 1.053 | 1.083 | 10.313 | 7.912 |
 | px061710_GSTP1KO | 0.979 | 1.000 | 1.000 | 1.000 | 0.989 | 1.047 | 1.020 | 1.069 | 1.071 | 1.081 | 1.109 | 15.026 | 10.890 |
 | px061710_MDAfix | 0.969 | 1.000 | 0.985 | 0.985 | 0.974 | 1.043 | 1.001 | 1.042 | 1.034 | 1.058 | 1.078 | 12.395 | 9.230 |
+| px061710_RKOfix | 0.981 | 1.000 | 0.993 | 0.993 | 0.983 | 1.026 | 1.027 | 1.074 | 1.067 | 1.064 | 1.094 | 11.469 | 8.406 |
 
 ### MNAR
 
@@ -34,6 +36,7 @@ The addendum recomputes the same splits from scratch (with a fresh cshrink cache
 | karagach2025_S1 | 0.940 | 1.000 | 0.993 | 0.986 | 1.025 | 1.042 | 1.008 | 1.113 | 1.099 | 1.072 | 1.125 | 7.845 | 5.643 |
 | px061710_GSTP1KO | 0.953 | 1.000 | 0.991 | 0.991 | 1.016 | 1.054 | 0.981 | 1.127 | 1.112 | 1.104 | 1.162 | 11.702 | 8.021 |
 | px061710_MDAfix | 0.939 | 1.000 | 0.983 | 0.983 | 0.978 | 1.058 | 0.980 | 1.095 | 1.058 | 1.144 | 1.145 | 9.458 | 6.512 |
+| px061710_RKOfix | 0.968 | 1.000 | 0.992 | 0.992 | 1.008 | 1.020 | 0.974 | 1.063 | 1.059 | 1.054 | 1.079 | 9.455 | 6.498 |
 
 ## 3. Counterfactual: the preregistered tests with a working BPCA as the data-only comparator
 
@@ -49,6 +52,8 @@ On dev, `bpca_oba+stack` (0.9914 x champion) would have narrowly displaced `gcn_
 | px061710_GSTP1KO | MNAR | +0.93% ✗ / +0.63% ✗ | -3.82% / -4.84% |
 | px061710_MDAfix | MCAR | +1.51% ✗ / +1.59% ✗ | -1.61% / -1.66% |
 | px061710_MDAfix | MNAR | +1.78% ✗ / +1.28% ✗ | -4.40% / -3.82% |
+| px061710_RKOfix | MCAR | +0.74% ✗ / +0.08% ✗ | -1.17% / -1.33% |
+| px061710_RKOfix | MNAR | +0.84% ✗ / +0.85% ✗ | -2.39% / -1.09% |
 
 ## 4. Dev screen of the added comparators (Phase-C fast pool, stratified, seeds 100-101)
 

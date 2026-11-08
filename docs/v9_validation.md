@@ -43,6 +43,22 @@
 
 ---
 
+
+> **Late update (2026-11-08 12:38 UTC, post hoc).** After the fact-checked text below was finalised, Addendum 1 finished
+> on px061710_RKOfix. Where the text below says "running", the rows are now in `docs/v9_addendum_results.md`
+> (generated from `results/v9/addendum/px061710_RKOfix.json`):
+> - **Reproduction:** exact (1.1e-16 / 0.0).
+> - **Robustness counts:** H16 17/20, H17 4/4 and H18 10/12 under all three interval types.
+> - **Under the strict reading:** H17 is 3/4 (protein-cluster) and 2/4 (per-split).
+> - **BPCA counterfactual:** the revision beats the Python `bpca_oba+stack` on all 4 RKOfix tests (−1.09% to −2.39%).
+>   The champion does not beat it (+0.08% to +0.85%).
+> - **Effect on the counterfactual:** the revision now beats the Python BPCA on 2 of 3 projects. derks2022 fails;
+>   px061710 passes on 3 of 3 sets.
+> - **The R reference BPCA (pcaMethods) is stronger than the Python port.** On matched splits it is 1.005 (MCAR) and
+>   0.988 (MNAR) × the revision on RKOfix (`results/v9/addendum2/matched_vs_revised.json`). So the §7.6 conclusion
+>   stands: standard BPCA is as good as our best method on these holdouts.
+> - **khan2023**, the first secondary holdout, was still running at 12:38 UTC (about two-thirds done).
+
 ## 1. Summary
 
 **What was asked** (Amit, 2026-11-07, recorded in `benchmarks/PREREGISTRATION_v9.md` §0):
