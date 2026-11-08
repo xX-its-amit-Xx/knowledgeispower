@@ -1,0 +1,5773 @@
+{
+ "dataset": "sadiku2025",
+ "seeds": [
+  100,
+  101
+ ],
+ "post_hoc": true,
+ "addendum_version": "v3",
+ "masks": {
+  "MCAR": {
+   "rmse": {
+    "knn": 0.8924208552306798,
+    "lowrank": 1.1848513426924532,
+    "stack_lowrank": 0.8528562448928858,
+    "champion": 0.7858909875210034,
+    "revised": 0.7599564667759237,
+    "champion@null": 0.834981278931631,
+    "champion@noref": 0.8376746347851476,
+    "gcn_nograph": 0.7636718451627514,
+    "gcn_nograph+stack": 0.7636718451627514,
+    "gcn": 0.8232718158967434,
+    "gcn+stack": 0.8088261777245994,
+    "bpca_oba": 0.797760162972347,
+    "bpca_oba+stack": 0.7930451813856773,
+    "lls": 0.8615041553081135,
+    "lls+stack": 0.8342385105105045,
+    "knn_protein": 0.8346075379930694,
+    "knn_protein+stack": 0.8146400732931172,
+    "qrilc": 6.764573190211063,
+    "qrilc+stack": 0.8528562448928858,
+    "perseus": 4.04135020771222,
+    "perseus+stack": 0.8528562448928858,
+    "pimms_cf": 0.9377754200779488,
+    "pimms_cf+stack": 0.8503827596917729,
+    "pimms_vae": 0.9276945927802217,
+    "pimms_vae+stack": 0.8475094640006579
+   },
+   "rel_to_champion": {
+    "knn": 1.1355529830488473,
+    "lowrank": 1.5076535569264145,
+    "stack_lowrank": 1.0852093463790902,
+    "champion": 1.0,
+    "revised": 0.9669998496523201,
+    "champion@null": 1.0624645048615164,
+    "champion@noref": 1.0658916415716757,
+    "gcn_nograph": 0.9717274498485604,
+    "gcn_nograph+stack": 0.9717274498485604,
+    "gcn": 1.047564902727353,
+    "gcn+stack": 1.0291836788661266,
+    "bpca_oba": 1.0151028267785376,
+    "bpca_oba+stack": 1.0091032903777672,
+    "lls": 1.0962133031015187,
+    "lls+stack": 1.061519375787738,
+    "knn_protein": 1.0619889415270385,
+    "knn_protein+stack": 1.0365815185930547,
+    "qrilc": 8.607521014522737,
+    "qrilc+stack": 1.0852093463790902,
+    "perseus": 5.142380141627738,
+    "perseus+stack": 1.0852093463790902,
+    "pimms_cf": 1.1932639958578048,
+    "pimms_cf+stack": 1.082061982125792,
+    "pimms_vae": 1.1804367367877833,
+    "pimms_vae+stack": 1.0784058825690601
+   },
+   "H16": [
+    {
+     "method": "champion",
+     "vs": "stack_lowrank",
+     "endpoint": "all",
+     "entry": {
+      "pct": -7.851880990833677,
+      "ci95_pct": [
+       -10.294295436138073,
+       -5.609962053132544
+      ],
+      "n_clusters": 4076,
+      "pass_prereg": true,
+      "pass_strict": true
+     },
+     "protein": {
+      "pct": -7.851880990833677,
+      "ci95_pct": [
+       -10.66128136919538,
+       -5.31295486978758
+      ],
+      "n_clusters": 958,
+      "pass_prereg": true,
+      "pass_strict": true
+     },
+     "split_t": {
+      "mean_pct": -7.786428210181458,
+      "ci95_pct": [
+       -22.909097248438734,
+       7.336240828075817
+      ],
+      "n_splits": 2,
+      "n_splits_better": 2,
+      "valid": false,
+      "pass_prereg": false,
+      "pass_strict": false
+     }
+    },
+    {
+     "method": "champion",
+     "vs": "stack_lowrank",
+     "endpoint": "in_complex",
+     "entry": {
+      "pct": -8.385571896637709,
+      "ci95_pct": [
+       -11.735243636638314,
+       -5.057268776314866
+      ],
+      "n_clusters": 2430,
+      "pass_prereg": true,
+      "pass_strict": true
+     },
+     "protein": {
+      "pct": -8.385571896637709,
+      "ci95_pct": [
+       -11.948212795646556,
+       -4.831770512649705
+      ],
+      "n_clusters": 567,
+      "pass_prereg": true,
+      "pass_strict": true
+     },
+     "split_t": {
+      "mean_pct": -8.382495266344277,
+      "ci95_pct": [
+       -12.329729491166766,
+       -4.4352610415217875
+      ],
+      "n_splits": 2,
+      "n_splits_better": 2,
+      "valid": false,
+      "pass_prereg": false,
+      "pass_strict": false
+     }
+    },
+    {
+     "method": "champion",
+     "vs": "champion@null",
+     "endpoint": "all",
+     "entry": {
+      "pct": -5.879208630095185,
+      "ci95_pct": [
+       -8.547352429067368,
+       -3.2663097416363205
+      ],
+      "n_clusters": 4076,
+      "pass_prereg": true,
+      "pass_strict": true
+     },
+     "protein": {
+      "pct": -5.879208630095185,
+      "ci95_pct": [
+       -8.91662889915697,
+       -2.971309023448914
+      ],
+      "n_clusters": 958,
+      "pass_prereg": true,
+      "pass_strict": true
+     },
+     "split_t": {
+      "mean_pct": -5.765631212020553,
+      "ci95_pct": [
+       -28.706110334602517,
+       17.174847910561414
+      ],
+      "n_splits": 2,
+      "n_splits_better": 2,
+      "valid": false,
+      "pass_prereg": false,
+      "pass_strict": false
+     }
+    },
+    {
+     "method": "champion",
+     "vs": "champion@null",
+     "endpoint": "in_complex",
+     "entry": {
+      "pct": -5.965625454704275,
+      "ci95_pct": [
+       -9.180948652450077,
+       -2.688099604290791
+      ],
+      "n_clusters": 2430,
+      "pass_prereg": true,
+      "pass_strict": true
+     },
+     "protein": {
+      "pct": -5.965625454704275,
+      "ci95_pct": [
+       -10.1725223064973,
+       -1.9975869472220897
+      ],
+      "n_clusters": 567,
+      "pass_prereg": true,
+      "pass_strict": true
+     },
+     "split_t": {
+      "mean_pct": -5.912624011469337,
+      "ci95_pct": [
+       -20.351496086312913,
+       8.526248063374238
+      ],
+      "n_splits": 2,
+      "n_splits_better": 2,
+      "valid": false,
+      "pass_prereg": false,
+      "pass_strict": false
+     }
+    },
+    {
+     "method": "champion",
+     "vs": "champion@noref",
+     "endpoint": "all",
+     "entry": {
+      "pct": -6.181833030843295,
+      "ci95_pct": [
+       -8.639140415894968,
+       -3.8920841874618888
+      ],
+      "n_clusters": 4076,
+      "pass_prereg": true,
+      "pass_strict": true
+     },
+     "protein": {
+      "pct": -6.181833030843295,
+      "ci95_pct": [
+       -8.852215555793483,
+       -3.6090735728290295
+      ],
+      "n_clusters": 958,
+      "pass_prereg": true,
+      "pass_strict": true
+     },
+     "split_t": {
+      "mean_pct": -6.098673814416578,
+      "ci95_pct": [
+       -23.89970289326358,
+       11.702355264430423
+      ],
+      "n_splits": 2,
+      "n_splits_better": 2,
+      "valid": false,
+      "pass_prereg": false,
+      "pass_strict": false
+     }
+    },
+    {
+     "method": "champion",
+     "vs": "champion@noref",
+     "endpoint": "in_complex",
+     "entry": {
+      "pct": -6.64428214771411,
+      "ci95_pct": [
+       -10.061035525884627,
+       -3.244948749154782
+      ],
+      "n_clusters": 2430,
+      "pass_prereg": true,
+      "pass_strict": true
+     },
+     "protein": {
+      "pct": -6.64428214771411,
+      "ci95_pct": [
+       -10.561511819719215,
+       -3.1080295816847916
+      ],
+      "n_clusters": 567,
+      "pass_prereg": true,
+      "pass_strict": true
+     },
+     "split_t": {
+      "mean_pct": -6.615695422194946,
+      "ci95_pct": [
+       -15.984571248294618,
+       2.753180403904725
+      ],
+      "n_splits": 2,
+      "n_splits_better": 2,
+      "valid": false,
+      "pass_prereg": false,
+      "pass_strict": false
+     }
+    },
+    {
+     "method": "champion",
+     "vs": "gcn_nograph+stack",
+     "endpoint": "all",
+     "entry": {
+      "pct": 2.909514407136049,
+      "ci95_pct": [
+       0.49329890803176124,
+       5.316904414565283
+      ],
+      "n_clusters": 4076,
+      "pass_prereg": false,
+      "pass_strict": false
+     },
+     "protein": {
+      "pct": 2.909514407136049,
+      "ci95_pct": [
+       0.3250197339354324,
+       5.749471817905958
+      ],
+      "n_clusters": 958,
+      "pass_prereg": false,
+      "pass_strict": false
+     },
+     "split_t": {
+      "mean_pct": 3.0400601011190553,
+      "ci95_pct": [
+       -19.601944110995955,
+       25.682064313234065
+      ],
+      "n_splits": 2,
+      "n_splits_better": 0,
+      "valid": false,
+      "pass_prereg": false,
+      "pass_strict": false
+     }
+    },
+    {
+     "method": "champion",
+     "vs": "gcn_nograph+stack",
+     "endpoint": "in_complex",
+     "entry": {
+      "pct": 3.4604742766429046,
+      "ci95_pct": [
+       0.47544742481227315,
+       6.625295689053971
+      ],
+      "n_clusters": 2430,
+      "pass_prereg": false,
+      "pass_strict": false
+     },
+     "protein": {
+      "pct": 3.4604742766429046,
+      "ci95_pct": [
+       -0.3454978276900213,
+       7.274504250813154
+      ],
+      "n_clusters": 567,
+      "pass_prereg": false,
+      "pass_strict": false
+     },
+     "split_t": {
+      "mean_pct": 3.5973150138636294,
+      "ci95_pct": [
+       -22.327093383239845,
+       29.521723410967102
+      ],
+      "n_splits": 2,
+      "n_splits_better": 0,
+      "valid": false,
+      "pass_prereg": false,
+      "pass_strict": false
+     }
+    },
+    {
+     "method": "champion",
+     "vs": "gcn+stack",
+     "endpoint": "all",
+     "entry": {
+      "pct": -2.835614231492557,
+      "ci95_pct": [
+       -5.174528799989855,
+       -0.6894977625865121
+      ],
+      "n_clusters": 4076,
+      "pass_prereg": true,
+      "pass_strict": false
+     },
+     "protein": {
+      "pct": -2.835614231492557,
+      "ci95_pct": [
+       -5.507840778219883,
+       -0.30888783343250764
+      ],
+      "n_clusters": 958,
+      "pass_prereg": true,
+      "pass_strict": false
+     },
+     "split_t": {
+      "mean_pct": -2.760462137879287,
+      "ci95_pct": [
+       -18.06056360593108,
+       12.539639330172504
+      ],
+      "n_splits": 2,
+      "n_splits_better": 2,
+      "valid": false,
+      "pass_prereg": false,
+      "pass_strict": false
+     }
+    },
+    {
+     "method": "champion",
+     "vs": "gcn+stack",
+     "endpoint": "in_complex",
+     "entry": {
+      "pct": -2.284710393215598,
+      "ci95_pct": [
+       -5.279895325020422,
+       0.6402446670039502
+      ],
+      "n_clusters": 2430,
+      "pass_prereg": false,
+      "pass_strict": false
+     },
+     "protein": {
+      "pct": -2.284710393215598,
+      "ci95_pct": [
+       -6.143220307324101,
+       1.1817333669026027
+      ],
+      "n_clusters": 567,
+      "pass_prereg": false,
+      "pass_strict": false
+     },
+     "split_t": {
+      "mean_pct": -2.214995434934447,
+      "ci95_pct": [
+       -18.475975739369655,
+       14.045984869500758
+      ],
+      "n_splits": 2,
+      "n_splits_better": 2,
+      "valid": false,
+      "pass_prereg": false,
+      "pass_strict": false
+     }
+    }
+   ],
+   "H17": [
+    {
+     "method": "revised",
+     "vs": "champion",
+     "endpoint": "all",
+     "entry": {
+      "pct": -3.3000150347679895,
+      "ci95_pct": [
+       -5.518737970089558,
+       -0.92882569356036
+      ],
+      "n_clusters": 4076,
+      "pass_prereg": true,
+      "pass_strict": false
+     },
+     "protein": {
+      "pct": -3.3000150347679895,
+      "ci95_pct": [
+       -5.843681130292427,
+       -0.20483918155282382
+      ],
+      "n_clusters": 958,
+      "pass_prereg": true,
+      "pass_strict": false
+     },
+     "split_t": {
+      "mean_pct": -3.239199805508876,
+      "ci95_pct": [
+       -17.906103534751033,
+       11.427703923733278
+      ],
+      "n_splits": 2,
+      "n_splits_better": 2,
+      "valid": false,
+      "pass_prereg": false,
+      "pass_strict": false
+     }
+    },
+    {
+     "method": "revised",
+     "vs": "champion",
+     "endpoint": "in_complex",
+     "entry": {
+      "pct": -5.398521208704258,
+      "ci95_pct": [
+       -7.55248381754786,
+       -3.344143025682467
+      ],
+      "n_clusters": 2430,
+      "pass_prereg": true,
+      "pass_strict": true
+     },
+     "protein": {
+      "pct": -5.398521208704258,
+      "ci95_pct": [
+       -7.743789071309267,
+       -3.2595046891079282
+      ],
+      "n_clusters": 567,
+      "pass_prereg": true,
+      "pass_strict": true
+     },
+     "split_t": {
+      "mean_pct": -5.402604164377846,
+      "ci95_pct": [
+       -6.543489491310816,
+       -4.261718837444876
+      ],
+      "n_splits": 2,
+      "n_splits_better": 2,
+      "valid": false,
+      "pass_prereg": false,
+      "pass_strict": false
+     }
+    }
+   ],
+   "H18": [
+    {
+     "method": "revised",
+     "vs": "stack_lowrank",
+     "endpoint": "all",
+     "entry": {
+      "pct": -10.892782772392065,
+      "ci95_pct": [
+       -14.021364638266679,
+       -7.917044794537451
+      ],
+      "n_clusters": 4076,
+      "pass_prereg": true,
+      "pass_strict": true
+     },
+     "protein": {
+      "pct": -10.892782772392065,
+      "ci95_pct": [
+       -14.71114772978418,
+       -7.142752666479991
+      ],
+      "n_clusters": 958,
+      "pass_prereg": true,
+      "pass_strict": true
+     },
+     "split_t": {
+      "mean_pct": -10.771289901906462,
+      "ci95_pct": [
+       -39.40923484354565,
+       17.866655039732727
+      ],
+      "n_splits": 2,
+      "n_splits_better": 2,
+      "valid": false,
+      "pass_prereg": false,
+      "pass_strict": false
+     }
+    },
+    {
+     "method": "revised",
+     "vs": "stack_lowrank",
+     "endpoint": "in_complex",
+     "entry": {
+      "pct": -13.331396228030835,
+      "ci95_pct": [
+       -17.29350733264513,
+       -9.426282416946814
+      ],
+      "n_clusters": 2430,
+      "pass_prereg": true,
+      "pass_strict": true
+     },
+     "protein": {
+      "pct": -13.331396228030835,
+      "ci95_pct": [
+       -17.55215461702842,
+       -9.107626662623778
+      ],
+      "n_clusters": 567,
+      "pass_prereg": true,
+      "pass_strict": true
+     },
+     "split_t": {
+      "mean_pct": -13.332060174227475,
+      "ci95_pct": [
+       -18.324509966634782,
+       -8.33961038182017
+      ],
+      "n_splits": 2,
+      "n_splits_better": 2,
+      "valid": false,
+      "pass_prereg": false,
+      "pass_strict": false
+     }
+    },
+    {
+     "method": "revised",
+     "vs": "gcn_nograph+stack",
+     "endpoint": "all",
+     "entry": {
+      "pct": -0.48651504050617095,
+      "ci95_pct": [
+       -3.1206204499285053,
+       2.279582873659619
+      ],
+      "n_clusters": 4076,
+      "pass_prereg": false,
+      "pass_strict": false
+     },
+     "protein": {
+      "pct": -0.48651504050617095,
+      "ci95_pct": [
+       -3.6496141455191706,
+       3.499502667586249
+      ],
+      "n_clusters": 958,
+      "pass_prereg": false,
+      "pass_strict": false
+     },
+     "split_t": {
+      "mean_pct": -0.29338468940702456,
+      "ci95_pct": [
+       -38.02902830784726,
+       37.442258929033216
+      ],
+      "n_splits": 2,
+      "n_splits_better": 1,
+      "valid": false,
+      "pass_prereg": false,
+      "pass_strict": false
+     }
+    },
+    {
+     "method": "revised",
+     "vs": "gcn_nograph+stack",
+     "endpoint": "in_complex",
+     "entry": {
+      "pct": -2.124861369807676,
+      "ci95_pct": [
+       -4.970459334127006,
+       0.6498089518358909
+      ],
+      "n_clusters": 2430,
+      "pass_prereg": false,
+      "pass_strict": false
+     },
+     "protein": {
+      "pct": -2.124861369807676,
+      "ci95_pct": [
+       -5.231263899545136,
+       0.88323666545205
+      ],
+      "n_clusters": 567,
+      "pass_prereg": false,
+      "pass_strict": false
+     },
+     "split_t": {
+      "mean_pct": -1.9922448778913504,
+      "ci95_pct": [
+       -29.097018645192303,
+       25.112528889409607
+      ],
+      "n_splits": 2,
+      "n_splits_better": 1,
+      "valid": false,
+      "pass_prereg": false,
+      "pass_strict": false
+     }
+    },
+    {
+     "method": "revised",
+     "vs": "gcn+stack",
+     "endpoint": "all",
+     "entry": {
+      "pct": -6.042053570293271,
+      "ci95_pct": [
+       -8.808574118235693,
+       -3.162086908545493
+      ],
+      "n_clusters": 4076,
+      "pass_prereg": true,
+      "pass_strict": true
+     },
+     "protein": {
+      "pct": -6.042053570293271,
+      "ci95_pct": [
+       -9.23484324693436,
+       -2.576839156447816
+      ],
+      "n_clusters": 958,
+      "pass_prereg": true,
+      "pass_strict": true
+     },
+     "split_t": {
+      "mean_pct": -5.9078107327166745,
+      "ci95_pct": [
+       -35.45891912054492,
+       23.643297655111567
+      ],
+      "n_splits": 2,
+      "n_splits_better": 2,
+      "valid": false,
+      "pass_prereg": false,
+      "pass_strict": false
+     }
+    },
+    {
+     "method": "revised",
+     "vs": "gcn+stack",
+     "endpoint": "in_complex",
+     "entry": {
+      "pct": -7.5598910267846415,
+      "ci95_pct": [
+       -10.789607636163996,
+       -4.395312972865778
+      ],
+      "n_clusters": 2430,
+      "pass_prereg": true,
+      "pass_strict": true
+     },
+     "protein": {
+      "pct": -7.5598910267846415,
+      "ci95_pct": [
+       -11.145055416335104,
+       -4.050112025971102
+      ],
+      "n_clusters": 567,
+      "pass_prereg": true,
+      "pass_strict": true
+     },
+     "split_t": {
+      "mean_pct": -7.494165740464455,
+      "ci95_pct": [
+       -24.869965446193522,
+       9.881633965264616
+      ],
+      "n_splits": 2,
+      "n_splits_better": 2,
+      "valid": false,
+      "pass_prereg": false,
+      "pass_strict": false
+     }
+    }
+   ],
+   "addendum_vs": {
+    "bpca_oba": [
+     {
+      "method": "champion",
+      "vs": "bpca_oba",
+      "endpoint": "all",
+      "entry": {
+       "pct": -1.4878125033369218,
+       "ci95_pct": [
+        -3.9687344957157773,
+        1.0556368013700943
+       ],
+       "n_clusters": 4076,
+       "pass_prereg": false,
+       "pass_strict": false
+      },
+      "protein": {
+       "pct": -1.4878125033369218,
+       "ci95_pct": [
+        -4.337629836323037,
+        1.4058082735679027
+       ],
+       "n_clusters": 958,
+       "pass_prereg": false,
+       "pass_strict": false
+      },
+      "split_t": {
+       "mean_pct": -1.412587147977938,
+       "ci95_pct": [
+        -16.291254216208802,
+        13.466079920252929
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     },
+     {
+      "method": "champion",
+      "vs": "bpca_oba",
+      "endpoint": "in_complex",
+      "entry": {
+       "pct": -1.2930455023153866,
+       "ci95_pct": [
+        -4.607722376765561,
+        1.9004295086222986
+       ],
+       "n_clusters": 2430,
+       "pass_prereg": false,
+       "pass_strict": false
+      },
+      "protein": {
+       "pct": -1.2930455023153866,
+       "ci95_pct": [
+        -5.162779187065545,
+        2.487307926858273
+       ],
+       "n_clusters": 567,
+       "pass_prereg": false,
+       "pass_strict": false
+      },
+      "split_t": {
+       "mean_pct": -1.2264394583031992,
+       "ci95_pct": [
+        -16.425248060398918,
+        13.97236914379252
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     }
+    ],
+    "bpca_oba+stack": [
+     {
+      "method": "champion",
+      "vs": "bpca_oba+stack",
+      "endpoint": "all",
+      "entry": {
+       "pct": -0.9021168065321873,
+       "ci95_pct": [
+        -3.151233571916112,
+        1.3923900622623586
+       ],
+       "n_clusters": 4076,
+       "pass_prereg": false,
+       "pass_strict": false
+      },
+      "protein": {
+       "pct": -0.9021168065321873,
+       "ci95_pct": [
+        -3.323016104032571,
+        1.6305317238602168
+       ],
+       "n_clusters": 958,
+       "pass_prereg": false,
+       "pass_strict": false
+      },
+      "split_t": {
+       "mean_pct": -0.8417077777039954,
+       "ci95_pct": [
+        -12.872224134796872,
+        11.188808579388882
+       ],
+       "n_splits": 2,
+       "n_splits_better": 1,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     },
+     {
+      "method": "champion",
+      "vs": "bpca_oba+stack",
+      "endpoint": "in_complex",
+      "entry": {
+       "pct": -0.8665798828386857,
+       "ci95_pct": [
+        -3.7392694732281613,
+        2.092419443927124
+       ],
+       "n_clusters": 2430,
+       "pass_prereg": false,
+       "pass_strict": false
+      },
+      "protein": {
+       "pct": -0.8665798828386857,
+       "ci95_pct": [
+        -4.22369428998768,
+        2.791956853350134
+       ],
+       "n_clusters": 567,
+       "pass_prereg": false,
+       "pass_strict": false
+      },
+      "split_t": {
+       "mean_pct": -0.8308644807386131,
+       "ci95_pct": [
+        -9.3978304501559,
+        7.736101488678672
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     }
+    ],
+    "lls": [
+     {
+      "method": "champion",
+      "vs": "lls",
+      "endpoint": "all",
+      "entry": {
+       "pct": -8.776877896783608,
+       "ci95_pct": [
+        -11.192436931936593,
+        -6.301159169246184
+       ],
+       "n_clusters": 4076,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -8.776877896783608,
+       "ci95_pct": [
+        -11.295947407064551,
+        -6.214706804387291
+       ],
+       "n_clusters": 958,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -8.731696953878679,
+       "ci95_pct": [
+        -20.29087016785888,
+        2.8274762601015224
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     },
+     {
+      "method": "champion",
+      "vs": "lls",
+      "endpoint": "in_complex",
+      "entry": {
+       "pct": -9.024633017829403,
+       "ci95_pct": [
+        -12.400002455712622,
+        -6.023258171445408
+       ],
+       "n_clusters": 2430,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -9.024633017829403,
+       "ci95_pct": [
+        -11.991500728592092,
+        -5.588848844390327
+       ],
+       "n_clusters": 567,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -9.031650862430142,
+       "ci95_pct": [
+        -10.614943495037933,
+        -7.448358229822351
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     }
+    ],
+    "lls+stack": [
+     {
+      "method": "champion",
+      "vs": "lls+stack",
+      "endpoint": "all",
+      "entry": {
+       "pct": -5.795407713786224,
+       "ci95_pct": [
+        -8.160374423456872,
+        -3.318752542700166
+       ],
+       "n_clusters": 4076,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -5.795407713786224,
+       "ci95_pct": [
+        -8.447955342839602,
+        -3.0883596081882243
+       ],
+       "n_clusters": 958,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -5.7470195937953,
+       "ci95_pct": [
+        -17.04076110973384,
+        5.546721922143243
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     },
+     {
+      "method": "champion",
+      "vs": "lls+stack",
+      "endpoint": "in_complex",
+      "entry": {
+       "pct": -6.047515683646796,
+       "ci95_pct": [
+        -9.318528377146736,
+        -2.7953858787569605
+       ],
+       "n_clusters": 2430,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -6.047515683646796,
+       "ci95_pct": [
+        -9.585702748642152,
+        -2.6208502360376267
+       ],
+       "n_clusters": 567,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -6.060309457442325,
+       "ci95_pct": [
+        -7.068330892763249,
+        -5.052288022121401
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     }
+    ],
+    "knn_protein": [
+     {
+      "method": "champion",
+      "vs": "knn_protein",
+      "endpoint": "all",
+      "entry": {
+       "pct": -5.837060924373122,
+       "ci95_pct": [
+        -8.357445598915298,
+        -3.149148524590053
+       ],
+       "n_clusters": 4076,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -5.837060924373122,
+       "ci95_pct": [
+        -8.063524417886121,
+        -3.2535408692070367
+       ],
+       "n_clusters": 958,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -5.747925411171015,
+       "ci95_pct": [
+        -24.490015080898843,
+        12.994164258556811
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     },
+     {
+      "method": "champion",
+      "vs": "knn_protein",
+      "endpoint": "in_complex",
+      "entry": {
+       "pct": -5.639064305999011,
+       "ci95_pct": [
+        -8.890936291539287,
+        -2.3510350981917667
+       ],
+       "n_clusters": 2430,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -5.639064305999011,
+       "ci95_pct": [
+        -8.748914813321532,
+        -2.7787675599134727
+       ],
+       "n_clusters": 567,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -5.569297889138183,
+       "ci95_pct": [
+        -23.326961913367803,
+        12.188366135091439
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     }
+    ],
+    "knn_protein+stack": [
+     {
+      "method": "champion",
+      "vs": "knn_protein+stack",
+      "endpoint": "all",
+      "entry": {
+       "pct": -3.529053715206753,
+       "ci95_pct": [
+        -6.09661759490559,
+        -1.071444922473644
+       ],
+       "n_clusters": 4076,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -3.529053715206753,
+       "ci95_pct": [
+        -6.262763824243662,
+        -1.0159568973969049
+       ],
+       "n_clusters": 958,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -3.4353008956428335,
+       "ci95_pct": [
+        -22.21891624710814,
+        15.348314455822473
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     },
+     {
+      "method": "champion",
+      "vs": "knn_protein+stack",
+      "endpoint": "in_complex",
+      "entry": {
+       "pct": -3.8265902317696234,
+       "ci95_pct": [
+        -7.170615911356156,
+        -0.5276736453685155
+       ],
+       "n_clusters": 2430,
+       "pass_prereg": true,
+       "pass_strict": false
+      },
+      "protein": {
+       "pct": -3.8265902317696234,
+       "ci95_pct": [
+        -7.535292415799019,
+        -0.3141270578315928
+       ],
+       "n_clusters": 567,
+       "pass_prereg": true,
+       "pass_strict": false
+      },
+      "split_t": {
+       "mean_pct": -3.7548920319823798,
+       "ci95_pct": [
+        -21.097228930920455,
+        13.587444866955698
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     }
+    ],
+    "qrilc": [
+     {
+      "method": "champion",
+      "vs": "qrilc",
+      "endpoint": "all",
+      "entry": {
+       "pct": -88.38225316774962,
+       "ci95_pct": [
+        -90.35584760323304,
+        -86.37514161405323
+       ],
+       "n_clusters": 4076,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -88.38225316774962,
+       "ci95_pct": [
+        -91.70131388913138,
+        -85.65134360451675
+       ],
+       "n_clusters": 958,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -88.40761608215401,
+       "ci95_pct": [
+        -104.17605326965192,
+        -72.63917889465611
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     },
+     {
+      "method": "champion",
+      "vs": "qrilc",
+      "endpoint": "in_complex",
+      "entry": {
+       "pct": -87.89843574818751,
+       "ci95_pct": [
+        -90.37981206569502,
+        -85.657415781411
+       ],
+       "n_clusters": 2430,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -87.89843574818751,
+       "ci95_pct": [
+        -91.38216828577453,
+        -84.41535781673838
+       ],
+       "n_clusters": 567,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -87.91388039323408,
+       "ci95_pct": [
+        -98.66145918966707,
+        -77.16630159680109
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     }
+    ],
+    "qrilc+stack": [
+     {
+      "method": "champion",
+      "vs": "qrilc+stack",
+      "endpoint": "all",
+      "entry": {
+       "pct": -7.851880990833677,
+       "ci95_pct": [
+        -10.294295436138073,
+        -5.609962053132544
+       ],
+       "n_clusters": 4076,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -7.851880990833677,
+       "ci95_pct": [
+        -10.66128136919538,
+        -5.31295486978758
+       ],
+       "n_clusters": 958,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -7.786428210181458,
+       "ci95_pct": [
+        -22.909097248438734,
+        7.336240828075817
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     },
+     {
+      "method": "champion",
+      "vs": "qrilc+stack",
+      "endpoint": "in_complex",
+      "entry": {
+       "pct": -8.385571896637709,
+       "ci95_pct": [
+        -11.735243636638314,
+        -5.057268776314866
+       ],
+       "n_clusters": 2430,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -8.385571896637709,
+       "ci95_pct": [
+        -11.948212795646556,
+        -4.831770512649705
+       ],
+       "n_clusters": 567,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -8.382495266344277,
+       "ci95_pct": [
+        -12.329729491166766,
+        -4.4352610415217875
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     }
+    ],
+    "perseus": [
+     {
+      "method": "champion",
+      "vs": "perseus",
+      "endpoint": "all",
+      "entry": {
+       "pct": -80.55375191139669,
+       "ci95_pct": [
+        -82.48996653091704,
+        -78.62612536809891
+       ],
+       "n_clusters": 4076,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -80.55375191139669,
+       "ci95_pct": [
+        -84.38751237255461,
+        -77.04804214911826
+       ],
+       "n_clusters": 958,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -80.5885133484398,
+       "ci95_pct": [
+        -93.05430867238621,
+        -68.12271802449337
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     },
+     {
+      "method": "champion",
+      "vs": "perseus",
+      "endpoint": "in_complex",
+      "entry": {
+       "pct": -79.61430247307027,
+       "ci95_pct": [
+        -82.20524409640767,
+        -77.2395894657614
+       ],
+       "n_clusters": 2430,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -79.61430247307027,
+       "ci95_pct": [
+        -84.0694225334337,
+        -74.65832795205101
+       ],
+       "n_clusters": 567,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -79.64191274214414,
+       "ci95_pct": [
+        -84.38425905134356,
+        -74.8995664329447
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     }
+    ],
+    "perseus+stack": [
+     {
+      "method": "champion",
+      "vs": "perseus+stack",
+      "endpoint": "all",
+      "entry": {
+       "pct": -7.851880990833677,
+       "ci95_pct": [
+        -10.294295436138073,
+        -5.609962053132544
+       ],
+       "n_clusters": 4076,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -7.851880990833677,
+       "ci95_pct": [
+        -10.66128136919538,
+        -5.31295486978758
+       ],
+       "n_clusters": 958,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -7.786428210181458,
+       "ci95_pct": [
+        -22.909097248438734,
+        7.336240828075817
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     },
+     {
+      "method": "champion",
+      "vs": "perseus+stack",
+      "endpoint": "in_complex",
+      "entry": {
+       "pct": -8.385571896637709,
+       "ci95_pct": [
+        -11.735243636638314,
+        -5.057268776314866
+       ],
+       "n_clusters": 2430,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -8.385571896637709,
+       "ci95_pct": [
+        -11.948212795646556,
+        -4.831770512649705
+       ],
+       "n_clusters": 567,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -8.382495266344277,
+       "ci95_pct": [
+        -12.329729491166766,
+        -4.4352610415217875
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     }
+    ],
+    "pimms_cf": [
+     {
+      "method": "champion",
+      "vs": "pimms_cf",
+      "endpoint": "all",
+      "entry": {
+       "pct": -16.1962479827335,
+       "ci95_pct": [
+        -19.662619496751585,
+        -12.871252617671091
+       ],
+       "n_clusters": 4076,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -16.1962479827335,
+       "ci95_pct": [
+        -21.775598320291238,
+        -11.881302611394062
+       ],
+       "n_clusters": 958,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -16.33936624413458,
+       "ci95_pct": [
+        -102.63522345011722,
+        69.95649096184806
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     },
+     {
+      "method": "champion",
+      "vs": "pimms_cf",
+      "endpoint": "in_complex",
+      "entry": {
+       "pct": -16.088969984995895,
+       "ci95_pct": [
+        -20.69118299297985,
+        -11.685645938064916
+       ],
+       "n_clusters": 2430,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -16.088969984995895,
+       "ci95_pct": [
+        -21.858187685826138,
+        -11.102919630833547
+       ],
+       "n_clusters": 567,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -16.19362377337099,
+       "ci95_pct": [
+        -87.84548556626035,
+        55.45823801951837
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     }
+    ],
+    "pimms_cf+stack": [
+     {
+      "method": "champion",
+      "vs": "pimms_cf+stack",
+      "endpoint": "all",
+      "entry": {
+       "pct": -7.583852263673007,
+       "ci95_pct": [
+        -10.031270728640969,
+        -5.29448788079669
+       ],
+       "n_clusters": 4076,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -7.583852263673007,
+       "ci95_pct": [
+        -10.481741171541664,
+        -4.965162383605359
+       ],
+       "n_clusters": 958,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -7.60270059271962,
+       "ci95_pct": [
+        -9.861878635404276,
+        -5.343522550034962
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     },
+     {
+      "method": "champion",
+      "vs": "pimms_cf+stack",
+      "endpoint": "in_complex",
+      "entry": {
+       "pct": -8.147727867409793,
+       "ci95_pct": [
+        -11.430884459161586,
+        -4.9085500440826175
+       ],
+       "n_clusters": 2430,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -8.147727867409793,
+       "ci95_pct": [
+        -11.924551145314915,
+        -4.552486204673356
+       ],
+       "n_clusters": 567,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -8.19990296987134,
+       "ci95_pct": [
+        -20.19742536437224,
+        3.797619424629559
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     }
+    ],
+    "pimms_vae": [
+     {
+      "method": "champion",
+      "vs": "pimms_vae",
+      "endpoint": "all",
+      "entry": {
+       "pct": -15.285591439553935,
+       "ci95_pct": [
+        -19.15072383118494,
+        -11.426292123660996
+       ],
+       "n_clusters": 4076,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -15.285591439553935,
+       "ci95_pct": [
+        -19.79324916370433,
+        -11.287953358634294
+       ],
+       "n_clusters": 958,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -14.829125700712675,
+       "ci95_pct": [
+        -88.1128529786214,
+        58.45460157719604
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     },
+     {
+      "method": "champion",
+      "vs": "pimms_vae",
+      "endpoint": "in_complex",
+      "entry": {
+       "pct": -16.888475277223964,
+       "ci95_pct": [
+        -22.3999549235931,
+        -11.784642476639982
+       ],
+       "n_clusters": 2430,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -16.888475277223964,
+       "ci95_pct": [
+        -23.83605165481118,
+        -10.876052352465639
+       ],
+       "n_clusters": 567,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -16.530039308950478,
+       "ci95_pct": [
+        -85.6598382648059,
+        52.59975964690495
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     }
+    ],
+    "pimms_vae+stack": [
+     {
+      "method": "champion",
+      "vs": "pimms_vae+stack",
+      "endpoint": "all",
+      "entry": {
+       "pct": -7.270535503967733,
+       "ci95_pct": [
+        -9.860561302895885,
+        -4.778237736947242
+       ],
+       "n_clusters": 4076,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -7.270535503967733,
+       "ci95_pct": [
+        -10.36003440276053,
+        -4.556001100507588
+       ],
+       "n_clusters": 958,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -7.1555149837282075,
+       "ci95_pct": [
+        -30.811196183976648,
+        16.500166216520235
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     },
+     {
+      "method": "champion",
+      "vs": "pimms_vae+stack",
+      "endpoint": "in_complex",
+      "entry": {
+       "pct": -7.9620010638390895,
+       "ci95_pct": [
+        -11.816978293301393,
+        -4.427505306248152
+       ],
+       "n_clusters": 2430,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -7.9620010638390895,
+       "ci95_pct": [
+        -12.019223745899879,
+        -4.0466473267915175
+       ],
+       "n_clusters": 567,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -7.922089921676153,
+       "ci95_pct": [
+        -20.37513822024254,
+        4.530958376890235
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     }
+    ]
+   },
+   "revised_vs_addendum": {
+    "bpca_oba": [
+     {
+      "method": "revised",
+      "vs": "bpca_oba",
+      "endpoint": "all",
+      "entry": {
+       "pct": -4.738729501805635,
+       "ci95_pct": [
+        -7.731580402697719,
+        -1.5978208173469945
+       ],
+       "n_clusters": 4076,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -4.738729501805635,
+       "ci95_pct": [
+        -8.162161081127742,
+        -0.8595816609862373
+       ],
+       "n_clusters": 958,
+       "pass_prereg": true,
+       "pass_strict": false
+      },
+      "split_t": {
+       "mean_pct": -4.603593733772388,
+       "ci95_pct": [
+        -33.93094850370935,
+        24.72376103616458
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     },
+     {
+      "method": "revised",
+      "vs": "bpca_oba",
+      "endpoint": "in_complex",
+      "entry": {
+       "pct": -6.621761375338952,
+       "ci95_pct": [
+        -10.096472259865918,
+        -3.2544558326733473
+       ],
+       "n_clusters": 2430,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -6.621761375338952,
+       "ci95_pct": [
+        -10.403352991664798,
+        -3.2661842866758786
+       ],
+       "n_clusters": 567,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -6.559185492525654,
+       "ci95_pct": [
+        -22.884127255147856,
+        9.76575627009655
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     }
+    ],
+    "bpca_oba+stack": [
+     {
+      "method": "revised",
+      "vs": "bpca_oba+stack",
+      "endpoint": "all",
+      "entry": {
+       "pct": -4.172361851053446,
+       "ci95_pct": [
+        -7.19642965163729,
+        -1.262333476529682
+       ],
+       "n_clusters": 4076,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -4.172361851053446,
+       "ci95_pct": [
+        -7.309027425039366,
+        -0.5813068197271348
+       ],
+       "n_clusters": 958,
+       "pass_prereg": true,
+       "pass_strict": false
+      },
+      "split_t": {
+       "mean_pct": -4.051686217370218,
+       "ci95_pct": [
+        -30.616793700165864,
+        22.51342126542543
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     },
+     {
+      "method": "revised",
+      "vs": "bpca_oba+stack",
+      "endpoint": "in_complex",
+      "entry": {
+       "pct": -6.218318592777534,
+       "ci95_pct": [
+        -9.440145918435988,
+        -3.151103779564628
+       ],
+       "n_clusters": 2430,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -6.218318592777534,
+       "ci95_pct": [
+        -9.704860153545807,
+        -3.096691831759824
+       ],
+       "n_clusters": 567,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -6.186650764278555,
+       "ci95_pct": [
+        -15.884615377899351,
+        3.5113138493422418
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     }
+    ],
+    "lls": [
+     {
+      "method": "revised",
+      "vs": "lls",
+      "endpoint": "all",
+      "entry": {
+       "pct": -11.78725464137451,
+       "ci95_pct": [
+        -14.894251546663764,
+        -8.486933535464033
+       ],
+       "n_clusters": 4076,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -11.78725464137451,
+       "ci95_pct": [
+        -15.184132282488312,
+        -8.350146047418066
+       ],
+       "n_clusters": 958,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -11.686596147625188,
+       "ci95_pct": [
+        -36.62537685929316,
+        13.252184564042784
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     },
+     {
+      "method": "revised",
+      "vs": "lls",
+      "endpoint": "in_complex",
+      "entry": {
+       "pct": -13.935957499058414,
+       "ci95_pct": [
+        -18.077857300085814,
+        -10.3019771825972
+       ],
+       "n_clusters": 2430,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -13.935957499058414,
+       "ci95_pct": [
+        -17.400421971420915,
+        -10.015431854259633
+       ],
+       "n_clusters": 567,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -13.946689827566919,
+       "ci95_pct": [
+        -16.567907073197716,
+        -11.32547258193612
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     }
+    ],
+    "lls+stack": [
+     {
+      "method": "revised",
+      "vs": "lls+stack",
+      "endpoint": "all",
+      "entry": {
+       "pct": -8.904173422673164,
+       "ci95_pct": [
+        -12.134594849261813,
+        -5.778628674199868
+       ],
+       "n_clusters": 4076,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -8.904173422673164,
+       "ci95_pct": [
+        -12.592796578097861,
+        -5.26141567980789
+       ],
+       "n_clusters": 958,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -8.798494563910767,
+       "ci95_pct": [
+        -33.90913293899337,
+        16.312143811171836
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     },
+     {
+      "method": "revised",
+      "vs": "lls+stack",
+      "endpoint": "in_complex",
+      "entry": {
+       "pct": -11.119560475569667,
+       "ci95_pct": [
+        -15.157477032935807,
+        -7.470012582348559
+       ],
+       "n_clusters": 2430,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -11.119560475569667,
+       "ci95_pct": [
+        -14.867978205316202,
+        -7.133470735129354
+       ],
+       "n_clusters": 567,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -11.136190287654067,
+       "ci95_pct": [
+        -11.200058960187416,
+        -11.072321615120716
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     }
+    ],
+    "knn_protein": [
+     {
+      "method": "revised",
+      "vs": "knn_protein",
+      "endpoint": "all",
+      "entry": {
+       "pct": -8.944452071048232,
+       "ci95_pct": [
+        -12.04841033571793,
+        -5.901528131768072
+       ],
+       "n_clusters": 4076,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -8.944452071048232,
+       "ci95_pct": [
+        -11.949938776130484,
+        -5.732576830038762
+       ],
+       "n_clusters": 958,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -8.798051150570164,
+       "ci95_pct": [
+        -41.35092844314512,
+        23.754826142004802
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     },
+     {
+      "method": "revised",
+      "vs": "knn_protein",
+      "endpoint": "in_complex",
+      "entry": {
+       "pct": -10.73315943217144,
+       "ci95_pct": [
+        -13.835656571166572,
+        -7.466466965320937
+       ],
+       "n_clusters": 2430,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -10.73315943217144,
+       "ci95_pct": [
+        -14.027176896889676,
+        -7.66098691652122
+       ],
+       "n_clusters": 567,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -10.667245730488183,
+       "ci95_pct": [
+        -29.501459824407316,
+        8.166968363430955
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     }
+    ],
+    "knn_protein+stack": [
+     {
+      "method": "revised",
+      "vs": "knn_protein+stack",
+      "endpoint": "all",
+      "entry": {
+       "pct": -6.712609446787882,
+       "ci95_pct": [
+        -9.689175343553057,
+        -3.697790863238198
+       ],
+       "n_clusters": 4076,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -6.712609446787882,
+       "ci95_pct": [
+        -9.930258680685375,
+        -3.4320917781840277
+       ],
+       "n_clusters": 958,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -6.560187600072428,
+       "ci95_pct": [
+        -39.49310376981728,
+        26.37272856967242
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     },
+     {
+      "method": "revised",
+      "vs": "knn_protein+stack",
+      "endpoint": "in_complex",
+      "entry": {
+       "pct": -9.018532155241592,
+       "ci95_pct": [
+        -12.493521163402674,
+        -5.71768454731202
+       ],
+       "n_clusters": 2430,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -9.018532155241592,
+       "ci95_pct": [
+        -12.41289081433004,
+        -5.516782465226675
+       ],
+       "n_clusters": 567,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -8.950760673144964,
+       "ci95_pct": [
+        -27.390325892539902,
+        9.488804546249973
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     }
+    ],
+    "qrilc": [
+     {
+      "method": "revised",
+      "vs": "qrilc",
+      "endpoint": "all",
+      "entry": {
+       "pct": -88.76564055991518,
+       "ci95_pct": [
+        -90.66768757290477,
+        -86.7954598433581
+       ],
+       "n_clusters": 4076,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -88.76564055991518,
+       "ci95_pct": [
+        -91.90274967375028,
+        -86.03169323797732
+       ],
+       "n_clusters": 958,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -88.78393811494877,
+       "ci95_pct": [
+        -102.8484115590534,
+        -74.71946467084413
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     },
+     {
+      "method": "revised",
+      "vs": "qrilc",
+      "endpoint": "in_complex",
+      "entry": {
+       "pct": -88.55174126090658,
+       "ci95_pct": [
+        -91.03356154345927,
+        -86.2946922318041
+       ],
+       "n_clusters": 2430,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -88.55174126090658,
+       "ci95_pct": [
+        -92.16205917667823,
+        -84.90005586220946
+       ],
+       "n_clusters": 567,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -88.56768000745735,
+       "ci95_pct": [
+        -99.17719383301203,
+        -77.95816618190268
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     }
+    ],
+    "qrilc+stack": [
+     {
+      "method": "revised",
+      "vs": "qrilc+stack",
+      "endpoint": "all",
+      "entry": {
+       "pct": -10.892782772392065,
+       "ci95_pct": [
+        -14.021364638266679,
+        -7.917044794537451
+       ],
+       "n_clusters": 4076,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -10.892782772392065,
+       "ci95_pct": [
+        -14.71114772978418,
+        -7.142752666479991
+       ],
+       "n_clusters": 958,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -10.771289901906462,
+       "ci95_pct": [
+        -39.40923484354565,
+        17.866655039732727
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     },
+     {
+      "method": "revised",
+      "vs": "qrilc+stack",
+      "endpoint": "in_complex",
+      "entry": {
+       "pct": -13.331396228030835,
+       "ci95_pct": [
+        -17.29350733264513,
+        -9.426282416946814
+       ],
+       "n_clusters": 2430,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -13.331396228030835,
+       "ci95_pct": [
+        -17.55215461702842,
+        -9.107626662623778
+       ],
+       "n_clusters": 567,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -13.332060174227475,
+       "ci95_pct": [
+        -18.324509966634782,
+        -8.33961038182017
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     }
+    ],
+    "perseus": [
+     {
+      "method": "revised",
+      "vs": "perseus",
+      "endpoint": "all",
+      "entry": {
+       "pct": -81.19548102201888,
+       "ci95_pct": [
+        -83.01053319312166,
+        -79.43125379814873
+       ],
+       "n_clusters": 4076,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -81.19548102201888,
+       "ci95_pct": [
+        -84.73971544962963,
+        -77.84970521216405
+       ],
+       "n_clusters": 958,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -81.21841617870459,
+       "ci95_pct": [
+        -90.83204901654594,
+        -71.60478334086325
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     },
+     {
+      "method": "revised",
+      "vs": "perseus",
+      "endpoint": "in_complex",
+      "entry": {
+       "pct": -80.71482867760386,
+       "ci95_pct": [
+        -83.1538061444762,
+        -78.486278198451
+       ],
+       "n_clusters": 2430,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -80.71482867760386,
+       "ci95_pct": [
+        -85.38276488456238,
+        -75.6921920799041
+       ],
+       "n_clusters": 567,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -80.74327128567151,
+       "ci95_pct": [
+        -85.25304016299326,
+        -76.23350240834976
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     }
+    ],
+    "perseus+stack": [
+     {
+      "method": "revised",
+      "vs": "perseus+stack",
+      "endpoint": "all",
+      "entry": {
+       "pct": -10.892782772392065,
+       "ci95_pct": [
+        -14.021364638266679,
+        -7.917044794537451
+       ],
+       "n_clusters": 4076,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -10.892782772392065,
+       "ci95_pct": [
+        -14.71114772978418,
+        -7.142752666479991
+       ],
+       "n_clusters": 958,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -10.771289901906462,
+       "ci95_pct": [
+        -39.40923484354565,
+        17.866655039732727
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     },
+     {
+      "method": "revised",
+      "vs": "perseus+stack",
+      "endpoint": "in_complex",
+      "entry": {
+       "pct": -13.331396228030835,
+       "ci95_pct": [
+        -17.29350733264513,
+        -9.426282416946814
+       ],
+       "n_clusters": 2430,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -13.331396228030835,
+       "ci95_pct": [
+        -17.55215461702842,
+        -9.107626662623778
+       ],
+       "n_clusters": 567,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -13.332060174227475,
+       "ci95_pct": [
+        -18.324509966634782,
+        -8.33961038182017
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     }
+    ],
+    "pimms_cf": [
+     {
+      "method": "revised",
+      "vs": "pimms_cf",
+      "endpoint": "all",
+      "entry": {
+       "pct": -18.961784399002976,
+       "ci95_pct": [
+        -22.190484408664844,
+        -15.585612761803743
+       ],
+       "n_clusters": 4076,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -18.961784399002976,
+       "ci95_pct": [
+        -23.72684181487571,
+        -14.890563450492685
+       ],
+       "n_clusters": 958,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -19.053937216487018,
+       "ci95_pct": [
+        -93.05837879260434,
+        54.950504359630315
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     },
+     {
+      "method": "revised",
+      "vs": "pimms_cf",
+      "endpoint": "in_complex",
+      "entry": {
+       "pct": -20.618924736798085,
+       "ci95_pct": [
+        -25.714450780880384,
+        -15.955519128915821
+       ],
+       "n_clusters": 2430,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -20.618924736798085,
+       "ci95_pct": [
+        -26.469777407581745,
+        -15.017084376401193
+       ],
+       "n_clusters": 567,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -20.727004575333947,
+       "ci95_pct": [
+        -91.4215377391038,
+        49.96752858843591
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     }
+    ],
+    "pimms_cf+stack": [
+     {
+      "method": "revised",
+      "vs": "pimms_cf+stack",
+      "endpoint": "all",
+      "entry": {
+       "pct": -10.633599033525195,
+       "ci95_pct": [
+        -13.706810565277344,
+        -7.643225459351109
+       ],
+       "n_clusters": 4076,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -10.633599033525195,
+       "ci95_pct": [
+        -14.432568050801507,
+        -7.085323753100881
+       ],
+       "n_clusters": 958,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -10.596244270453518,
+       "ci95_pct": [
+        -21.891653646530145,
+        0.6991651056231069
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     },
+     {
+      "method": "revised",
+      "vs": "pimms_cf+stack",
+      "endpoint": "in_complex",
+      "entry": {
+       "pct": -13.106392259164426,
+       "ci95_pct": [
+        -16.945678608410436,
+        -9.246571297410995
+       ],
+       "n_clusters": 2430,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -13.106392259164426,
+       "ci95_pct": [
+        -17.368886927353667,
+        -8.905124691493123
+       ],
+       "n_clusters": 567,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -13.16231764918233,
+       "ci95_pct": [
+        -24.11191094846797,
+        -2.212724349896695
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     }
+    ],
+    "pimms_vae": [
+     {
+      "method": "revised",
+      "vs": "pimms_vae",
+      "endpoint": "all",
+      "entry": {
+       "pct": -18.081179658663437,
+       "ci95_pct": [
+        -22.344565916395215,
+        -13.731931728036415
+       ],
+       "n_clusters": 4076,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -18.081179658663437,
+       "ci95_pct": [
+        -23.455208381313604,
+        -13.081499475280195
+       ],
+       "n_clusters": 958,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -17.57319465804064,
+       "ci95_pct": [
+        -103.28190268430686,
+        68.13551336822559
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     },
+     {
+      "method": "revised",
+      "vs": "pimms_vae",
+      "endpoint": "in_complex",
+      "entry": {
+       "pct": -21.375268566260512,
+       "ci95_pct": [
+        -27.140390340867164,
+        -16.00051537670849
+       ],
+       "n_clusters": 2430,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -21.375268566260512,
+       "ci95_pct": [
+        -27.89170815087737,
+        -14.911864139759533
+       ],
+       "n_clusters": 567,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -21.0202260047011,
+       "ci95_pct": [
+        -91.09823215110893,
+        49.05778014170673
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     }
+    ],
+    "pimms_vae+stack": [
+     {
+      "method": "revised",
+      "vs": "pimms_vae+stack",
+      "endpoint": "all",
+      "entry": {
+       "pct": -10.330621773996643,
+       "ci95_pct": [
+        -13.699613665914542,
+        -7.1885901037848665
+       ],
+       "n_clusters": 4076,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -10.330621773996643,
+       "ci95_pct": [
+        -14.287364923064658,
+        -6.309489963770707
+       ],
+       "n_clusters": 958,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -10.159207617333108,
+       "ci95_pct": [
+        -47.41543010385639,
+        27.09701486919017
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     },
+     {
+      "method": "revised",
+      "vs": "pimms_vae+stack",
+      "endpoint": "in_complex",
+      "entry": {
+       "pct": -12.930691956474735,
+       "ci95_pct": [
+        -17.138269430866742,
+        -8.999541791774076
+       ],
+       "n_clusters": 2430,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -12.930691956474735,
+       "ci95_pct": [
+        -17.34002369412629,
+        -8.55684766267947
+       ],
+       "n_clusters": 567,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -12.894538685011222,
+       "ci95_pct": [
+        -26.39763500864299,
+        0.6085576386205515
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     }
+    ]
+   }
+  },
+  "MNAR": {
+   "rmse": {
+    "knn": 1.1218019044881924,
+    "lowrank": 1.3559519983132977,
+    "stack_lowrank": 1.053231068097928,
+    "champion": 0.945988879314405,
+    "revised": 0.880937378344814,
+    "champion@null": 1.0086594187509028,
+    "champion@noref": 1.0290058124825108,
+    "gcn_nograph": 0.9016583712955674,
+    "gcn_nograph+stack": 0.9016583712955674,
+    "gcn": 0.9529990652445998,
+    "gcn+stack": 0.9552477539208413,
+    "bpca_oba": 0.9366414931608941,
+    "bpca_oba+stack": 0.9401828281684624,
+    "lls": 1.064714934733095,
+    "lls+stack": 1.0268876792676347,
+    "knn_protein": 0.906994054635964,
+    "knn_protein+stack": 0.9366442432620963,
+    "qrilc": 6.913351126415321,
+    "qrilc+stack": 1.053231068097928,
+    "perseus": 3.5120708128638776,
+    "perseus+stack": 1.053231068097928,
+    "pimms_cf": 1.0637199209355206,
+    "pimms_cf+stack": 1.0322360094870573,
+    "pimms_vae": 1.061954053504186,
+    "pimms_vae+stack": 1.0283416517718325
+   },
+   "rel_to_champion": {
+    "knn": 1.1858510485886535,
+    "lowrank": 1.4333699137097773,
+    "stack_lowrank": 1.1133651685855395,
+    "champion": 1.0,
+    "revised": 0.9312343914478822,
+    "champion@null": 1.0662487063081731,
+    "champion@noref": 1.0877567749298187,
+    "gcn_nograph": 0.9531384469857979,
+    "gcn_nograph+stack": 0.9531384469857979,
+    "gcn": 1.0074104316482826,
+    "gcn+stack": 1.0097875089326067,
+    "bpca_oba": 0.9901189259642403,
+    "bpca_oba+stack": 0.9938624530658855,
+    "lls": 1.125504705197735,
+    "lls+stack": 1.0855177071551414,
+    "knn_protein": 0.9587787705213807,
+    "knn_protein+stack": 0.9901218330821382,
+    "qrilc": 7.308068073089502,
+    "qrilc+stack": 1.1133651685855395,
+    "perseus": 3.7125920712822884,
+    "perseus+stack": 1.1133651685855395,
+    "pimms_cf": 1.1244528812076944,
+    "pimms_cf+stack": 1.0911713996417791,
+    "pimms_vae": 1.1225861917888775,
+    "pimms_vae+stack": 1.0870546940436676
+   },
+   "H16": [
+    {
+     "method": "champion",
+     "vs": "stack_lowrank",
+     "endpoint": "all",
+     "entry": {
+      "pct": -10.1822090167921,
+      "ci95_pct": [
+       -11.85185397947639,
+       -8.72978407070865
+      ],
+      "n_clusters": 4076,
+      "pass_prereg": true,
+      "pass_strict": true
+     },
+     "protein": {
+      "pct": -10.1822090167921,
+      "ci95_pct": [
+       -12.037744137734538,
+       -8.278206806648425
+      ],
+      "n_clusters": 959,
+      "pass_prereg": true,
+      "pass_strict": true
+     },
+     "split_t": {
+      "mean_pct": -10.175106746420127,
+      "ci95_pct": [
+       -14.363204510950835,
+       -5.98700898188942
+      ],
+      "n_splits": 2,
+      "n_splits_better": 2,
+      "valid": false,
+      "pass_prereg": false,
+      "pass_strict": false
+     }
+    },
+    {
+     "method": "champion",
+     "vs": "stack_lowrank",
+     "endpoint": "in_complex",
+     "entry": {
+      "pct": -10.593338541619218,
+      "ci95_pct": [
+       -12.574865845775372,
+       -8.701447889175515
+      ],
+      "n_clusters": 2487,
+      "pass_prereg": true,
+      "pass_strict": true
+     },
+     "protein": {
+      "pct": -10.593338541619218,
+      "ci95_pct": [
+       -12.91573681746281,
+       -8.43640389310685
+      ],
+      "n_clusters": 572,
+      "pass_prereg": true,
+      "pass_strict": true
+     },
+     "split_t": {
+      "mean_pct": -10.585973273934847,
+      "ci95_pct": [
+       -29.369630461074212,
+       8.197683913204516
+      ],
+      "n_splits": 2,
+      "n_splits_better": 2,
+      "valid": false,
+      "pass_prereg": false,
+      "pass_strict": false
+     }
+    },
+    {
+     "method": "champion",
+     "vs": "champion@null",
+     "endpoint": "all",
+     "entry": {
+      "pct": -6.213250803141,
+      "ci95_pct": [
+       -7.6843573087264465,
+       -4.814129785150018
+      ],
+      "n_clusters": 4076,
+      "pass_prereg": true,
+      "pass_strict": true
+     },
+     "protein": {
+      "pct": -6.213250803141,
+      "ci95_pct": [
+       -8.02830431657225,
+       -4.54135415561948
+      ],
+      "n_clusters": 959,
+      "pass_prereg": true,
+      "pass_strict": true
+     },
+     "split_t": {
+      "mean_pct": -6.235586432569304,
+      "ci95_pct": [
+       -23.28009072001349,
+       10.808917854874883
+      ],
+      "n_splits": 2,
+      "n_splits_better": 2,
+      "valid": false,
+      "pass_prereg": false,
+      "pass_strict": false
+     }
+    },
+    {
+     "method": "champion",
+     "vs": "champion@null",
+     "endpoint": "in_complex",
+     "entry": {
+      "pct": -5.985910995284901,
+      "ci95_pct": [
+       -7.841200002339714,
+       -4.194955738449737
+      ],
+      "n_clusters": 2487,
+      "pass_prereg": true,
+      "pass_strict": true
+     },
+     "protein": {
+      "pct": -5.985910995284901,
+      "ci95_pct": [
+       -8.014866413319783,
+       -4.000361736919489
+      ],
+      "n_clusters": 572,
+      "pass_prereg": true,
+      "pass_strict": true
+     },
+     "split_t": {
+      "mean_pct": -5.982915058332522,
+      "ci95_pct": [
+       -13.194493460221127,
+       1.2286633435560828
+      ],
+      "n_splits": 2,
+      "n_splits_better": 2,
+      "valid": false,
+      "pass_prereg": false,
+      "pass_strict": false
+     }
+    },
+    {
+     "method": "champion",
+     "vs": "champion@noref",
+     "endpoint": "all",
+     "entry": {
+      "pct": -8.067683599164969,
+      "ci95_pct": [
+       -9.789696632339602,
+       -6.5964350189189
+      ],
+      "n_clusters": 4076,
+      "pass_prereg": true,
+      "pass_strict": true
+     },
+     "protein": {
+      "pct": -8.067683599164969,
+      "ci95_pct": [
+       -10.071702778399196,
+       -6.227840672009148
+      ],
+      "n_clusters": 959,
+      "pass_prereg": true,
+      "pass_strict": true
+     },
+     "split_t": {
+      "mean_pct": -8.068513365603042,
+      "ci95_pct": [
+       -8.154917482566953,
+       -7.982109248639134
+      ],
+      "n_splits": 2,
+      "n_splits_better": 2,
+      "valid": false,
+      "pass_prereg": false,
+      "pass_strict": false
+     }
+    },
+    {
+     "method": "champion",
+     "vs": "champion@noref",
+     "endpoint": "in_complex",
+     "entry": {
+      "pct": -7.817060325739395,
+      "ci95_pct": [
+       -9.5798390517182,
+       -6.0184902897041574
+      ],
+      "n_clusters": 2487,
+      "pass_prereg": true,
+      "pass_strict": true
+     },
+     "protein": {
+      "pct": -7.817060325739395,
+      "ci95_pct": [
+       -10.113544601853462,
+       -5.718347852751558
+      ],
+      "n_clusters": 572,
+      "pass_prereg": true,
+      "pass_strict": true
+     },
+     "split_t": {
+      "mean_pct": -7.814622813457488,
+      "ci95_pct": [
+       -20.506001932179814,
+       4.876756305264838
+      ],
+      "n_splits": 2,
+      "n_splits_better": 2,
+      "valid": false,
+      "pass_prereg": false,
+      "pass_strict": false
+     }
+    },
+    {
+     "method": "champion",
+     "vs": "gcn_nograph+stack",
+     "endpoint": "all",
+     "entry": {
+      "pct": 4.916552591325736,
+      "ci95_pct": [
+       3.2603187335216184,
+       6.6666929996399755
+      ],
+      "n_clusters": 4076,
+      "pass_prereg": false,
+      "pass_strict": false
+     },
+     "protein": {
+      "pct": 4.916552591325736,
+      "ci95_pct": [
+       3.366928403163219,
+       6.426960215750137
+      ],
+      "n_clusters": 959,
+      "pass_prereg": false,
+      "pass_strict": false
+     },
+     "split_t": {
+      "mean_pct": 4.914796846715448,
+      "ci95_pct": [
+       3.736553757095284,
+       6.093039936335612
+      ],
+      "n_splits": 2,
+      "n_splits_better": 0,
+      "valid": false,
+      "pass_prereg": false,
+      "pass_strict": false
+     }
+    },
+    {
+     "method": "champion",
+     "vs": "gcn_nograph+stack",
+     "endpoint": "in_complex",
+     "entry": {
+      "pct": 4.244608246950057,
+      "ci95_pct": [
+       2.3132578402936734,
+       6.2800413212381185
+      ],
+      "n_clusters": 2487,
+      "pass_prereg": false,
+      "pass_strict": false
+     },
+     "protein": {
+      "pct": 4.244608246950057,
+      "ci95_pct": [
+       2.115243893321644,
+       6.2618373464267965
+      ],
+      "n_clusters": 572,
+      "pass_prereg": false,
+      "pass_strict": false
+     },
+     "split_t": {
+      "mean_pct": 4.259355150661324,
+      "ci95_pct": [
+       -21.747307247773936,
+       30.26601754909659
+      ],
+      "n_splits": 2,
+      "n_splits_better": 0,
+      "valid": false,
+      "pass_prereg": false,
+      "pass_strict": false
+     }
+    },
+    {
+     "method": "champion",
+     "vs": "gcn+stack",
+     "endpoint": "all",
+     "entry": {
+      "pct": -0.9692642111361112,
+      "ci95_pct": [
+       -2.291702897652323,
+       0.258007985515824
+      ],
+      "n_clusters": 4076,
+      "pass_prereg": false,
+      "pass_strict": false
+     },
+     "protein": {
+      "pct": -0.9692642111361112,
+      "ci95_pct": [
+       -2.6129751178075717,
+       0.6463753547194503
+      ],
+      "n_clusters": 959,
+      "pass_prereg": false,
+      "pass_strict": false
+     },
+     "split_t": {
+      "mean_pct": -0.9848043450672029,
+      "ci95_pct": [
+       -10.921531627840434,
+       8.951922937706028
+      ],
+      "n_splits": 2,
+      "n_splits_better": 2,
+      "valid": false,
+      "pass_prereg": false,
+      "pass_strict": false
+     }
+    },
+    {
+     "method": "champion",
+     "vs": "gcn+stack",
+     "endpoint": "in_complex",
+     "entry": {
+      "pct": -0.30317827184809026,
+      "ci95_pct": [
+       -1.8049901084242277,
+       1.2625021977627315
+      ],
+      "n_clusters": 2487,
+      "pass_prereg": false,
+      "pass_strict": false
+     },
+     "protein": {
+      "pct": -0.30317827184809026,
+      "ci95_pct": [
+       -2.0133795161846955,
+       1.4896739231944918
+      ],
+      "n_clusters": 572,
+      "pass_prereg": false,
+      "pass_strict": false
+     },
+     "split_t": {
+      "mean_pct": -0.30015026432179576,
+      "ci95_pct": [
+       -7.228014969670601,
+       6.627714441027009
+      ],
+      "n_splits": 2,
+      "n_splits_better": 1,
+      "valid": false,
+      "pass_prereg": false,
+      "pass_strict": false
+     }
+    }
+   ],
+   "H17": [
+    {
+     "method": "revised",
+     "vs": "champion",
+     "endpoint": "all",
+     "entry": {
+      "pct": -6.876560855211783,
+      "ci95_pct": [
+       -8.83900650236958,
+       -4.960838002419741
+      ],
+      "n_clusters": 4076,
+      "pass_prereg": true,
+      "pass_strict": true
+     },
+     "protein": {
+      "pct": -6.876560855211783,
+      "ci95_pct": [
+       -9.22157649409023,
+       -4.7073973999070295
+      ],
+      "n_clusters": 959,
+      "pass_prereg": true,
+      "pass_strict": true
+     },
+     "split_t": {
+      "mean_pct": -6.886073399724635,
+      "ci95_pct": [
+       -11.111307710404676,
+       -2.6608390890445963
+      ],
+      "n_splits": 2,
+      "n_splits_better": 2,
+      "valid": false,
+      "pass_prereg": false,
+      "pass_strict": false
+     }
+    },
+    {
+     "method": "revised",
+     "vs": "champion",
+     "endpoint": "in_complex",
+     "entry": {
+      "pct": -6.406367309304979,
+      "ci95_pct": [
+       -8.714796170326641,
+       -4.051221947898094
+      ],
+      "n_clusters": 2487,
+      "pass_prereg": true,
+      "pass_strict": true
+     },
+     "protein": {
+      "pct": -6.406367309304979,
+      "ci95_pct": [
+       -9.161375335249073,
+       -3.8843694486446205
+      ],
+      "n_clusters": 572,
+      "pass_prereg": true,
+      "pass_strict": true
+     },
+     "split_t": {
+      "mean_pct": -6.4181438068132035,
+      "ci95_pct": [
+       -29.378011353901663,
+       16.541723740275252
+      ],
+      "n_splits": 2,
+      "n_splits_better": 2,
+      "valid": false,
+      "pass_prereg": false,
+      "pass_strict": false
+     }
+    }
+   ],
+   "H18": [
+    {
+     "method": "revised",
+     "vs": "stack_lowrank",
+     "endpoint": "all",
+     "entry": {
+      "pct": -16.358584072559314,
+      "ci95_pct": [
+       -18.82227828215318,
+       -14.337561845892381
+      ],
+      "n_clusters": 4076,
+      "pass_prereg": true,
+      "pass_strict": true
+     },
+     "protein": {
+      "pct": -16.358584072559314,
+      "ci95_pct": [
+       -19.1952286810259,
+       -13.584833353894709
+      ],
+      "n_clusters": 959,
+      "pass_prereg": true,
+      "pass_strict": true
+     },
+     "split_t": {
+      "mean_pct": -16.360025759535077,
+      "ci95_pct": [
+       -16.753111402348402,
+       -15.966940116721755
+      ],
+      "n_splits": 2,
+      "n_splits_better": 2,
+      "valid": false,
+      "pass_prereg": false,
+      "pass_strict": false
+     }
+    },
+    {
+     "method": "revised",
+     "vs": "stack_lowrank",
+     "endpoint": "in_complex",
+     "entry": {
+      "pct": -16.3210576736299,
+      "ci95_pct": [
+       -18.906334902698333,
+       -13.624614593445473
+      ],
+      "n_clusters": 2487,
+      "pass_prereg": true,
+      "pass_strict": true
+     },
+     "protein": {
+      "pct": -16.3210576736299,
+      "ci95_pct": [
+       -19.496546775936668,
+       -13.232099774937447
+      ],
+      "n_clusters": 572,
+      "pass_prereg": true,
+      "pass_strict": true
+     },
+     "split_t": {
+      "mean_pct": -16.324221379204364,
+      "ci95_pct": [
+       -18.068215241183015,
+       -14.58022751722571
+      ],
+      "n_splits": 2,
+      "n_splits_better": 2,
+      "valid": false,
+      "pass_prereg": false,
+      "pass_strict": false
+     }
+    },
+    {
+     "method": "revised",
+     "vs": "gcn_nograph+stack",
+     "endpoint": "all",
+     "entry": {
+      "pct": -2.298097994807052,
+      "ci95_pct": [
+       -4.3343770346839,
+       -0.33197994975874945
+      ],
+      "n_clusters": 4076,
+      "pass_prereg": true,
+      "pass_strict": false
+     },
+     "protein": {
+      "pct": -2.298097994807052,
+      "ci95_pct": [
+       -4.526423051086799,
+       -0.09561694891650113
+      ],
+      "n_clusters": 959,
+      "pass_prereg": true,
+      "pass_strict": false
+     },
+     "split_t": {
+      "mean_pct": -2.3098339731839412,
+      "ci95_pct": [
+       -7.921047240475468,
+       3.301379294107586
+      ],
+      "n_splits": 2,
+      "n_splits_better": 2,
+      "valid": false,
+      "pass_prereg": false,
+      "pass_strict": false
+     }
+    },
+    {
+     "method": "revised",
+     "vs": "gcn_nograph+stack",
+     "endpoint": "in_complex",
+     "entry": {
+      "pct": -2.433684257495594,
+      "ci95_pct": [
+       -4.797715333329901,
+       0.3124213986752595
+      ],
+      "n_clusters": 2487,
+      "pass_prereg": false,
+      "pass_strict": false
+     },
+     "protein": {
+      "pct": -2.433684257495594,
+      "ci95_pct": [
+       -5.286365127878616,
+       0.32365639010737296
+      ],
+      "n_clusters": 572,
+      "pass_prereg": false,
+      "pass_strict": false
+     },
+     "split_t": {
+      "mean_pct": -2.431213717476988,
+      "ci95_pct": [
+       -4.503452137431266,
+       -0.35897529752271107
+      ],
+      "n_splits": 2,
+      "n_splits_better": 2,
+      "valid": false,
+      "pass_prereg": false,
+      "pass_strict": false
+     }
+    },
+    {
+     "method": "revised",
+     "vs": "gcn+stack",
+     "endpoint": "all",
+     "entry": {
+      "pct": -7.77917302302133,
+      "ci95_pct": [
+       -10.07922643646831,
+       -5.684264776664517
+      ],
+      "n_clusters": 4076,
+      "pass_prereg": true,
+      "pass_strict": true
+     },
+     "protein": {
+      "pct": -7.77917302302133,
+      "ci95_pct": [
+       -10.691513472709754,
+       -5.10408223752497
+      ],
+      "n_clusters": 959,
+      "pass_prereg": true,
+      "pass_strict": true
+     },
+     "split_t": {
+      "mean_pct": -7.804133499775744,
+      "ci95_pct": [
+       -21.92514140921895,
+       6.316874409667462
+      ],
+      "n_splits": 2,
+      "n_splits_better": 2,
+      "valid": false,
+      "pass_prereg": false,
+      "pass_strict": false
+     }
+    },
+    {
+     "method": "revised",
+     "vs": "gcn+stack",
+     "endpoint": "in_complex",
+     "entry": {
+      "pct": -6.690122867456478,
+      "ci95_pct": [
+       -9.188184513995342,
+       -4.19072086423534
+      ],
+      "n_clusters": 2487,
+      "pass_prereg": true,
+      "pass_strict": true
+     },
+     "protein": {
+      "pct": -6.690122867456478,
+      "ci95_pct": [
+       -9.4716379503848,
+       -3.9552552501937384
+      ],
+      "n_clusters": 572,
+      "pass_prereg": true,
+      "pass_strict": true
+     },
+     "split_t": {
+      "mean_pct": -6.698835653656778,
+      "ci95_pct": [
+       -36.516958576446164,
+       23.11928726913261
+      ],
+      "n_splits": 2,
+      "n_splits_better": 2,
+      "valid": false,
+      "pass_prereg": false,
+      "pass_strict": false
+     }
+    }
+   ],
+   "addendum_vs": {
+    "bpca_oba": [
+     {
+      "method": "champion",
+      "vs": "bpca_oba",
+      "endpoint": "all",
+      "entry": {
+       "pct": 0.9979684032538656,
+       "ci95_pct": [
+        -2.987007247254837,
+        4.242032926783362
+       ],
+       "n_clusters": 4076,
+       "pass_prereg": false,
+       "pass_strict": false
+      },
+      "protein": {
+       "pct": 0.9979684032538656,
+       "ci95_pct": [
+        -4.138601302292468,
+        4.543624872750716
+       ],
+       "n_clusters": 959,
+       "pass_prereg": false,
+       "pass_strict": false
+      },
+      "split_t": {
+       "mean_pct": 1.0076947407720291,
+       "ci95_pct": [
+        -3.7366598254107615,
+        5.752049306954819
+       ],
+       "n_splits": 2,
+       "n_splits_better": 0,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     },
+     {
+      "method": "champion",
+      "vs": "bpca_oba",
+      "endpoint": "in_complex",
+      "entry": {
+       "pct": 2.4451629606927674,
+       "ci95_pct": [
+        0.4378257589980771,
+        4.590527729095685
+       ],
+       "n_clusters": 2487,
+       "pass_prereg": false,
+       "pass_strict": false
+      },
+      "protein": {
+       "pct": 2.4451629606927674,
+       "ci95_pct": [
+        0.25179484068863234,
+        4.67673570406957
+       ],
+       "n_clusters": 572,
+       "pass_prereg": false,
+       "pass_strict": false
+      },
+      "split_t": {
+       "mean_pct": 2.4573110515758017,
+       "ci95_pct": [
+        -21.450078873187135,
+        26.36470097633874
+       ],
+       "n_splits": 2,
+       "n_splits_better": 0,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     }
+    ],
+    "bpca_oba+stack": [
+     {
+      "method": "champion",
+      "vs": "bpca_oba+stack",
+      "endpoint": "all",
+      "entry": {
+       "pct": 0.6175449042451815,
+       "ci95_pct": [
+        -2.555200551747512,
+        3.3348069566880683
+       ],
+       "n_clusters": 4076,
+       "pass_prereg": false,
+       "pass_strict": false
+      },
+      "protein": {
+       "pct": 0.6175449042451815,
+       "ci95_pct": [
+        -3.239180554031945,
+        3.4709399659271347
+       ],
+       "n_clusters": 959,
+       "pass_prereg": false,
+       "pass_strict": false
+      },
+      "split_t": {
+       "mean_pct": 0.6172523283340068,
+       "ci95_pct": [
+        0.4309233964967472,
+        0.8035812601712664
+       ],
+       "n_splits": 2,
+       "n_splits_better": 0,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     },
+     {
+      "method": "champion",
+      "vs": "bpca_oba+stack",
+      "endpoint": "in_complex",
+      "entry": {
+       "pct": 1.423637266391596,
+       "ci95_pct": [
+        -0.42499130312357714,
+        3.3236341240540255
+       ],
+       "n_clusters": 2487,
+       "pass_prereg": false,
+       "pass_strict": false
+      },
+      "protein": {
+       "pct": 1.423637266391596,
+       "ci95_pct": [
+        -0.4295153687236407,
+        3.3681649014359976
+       ],
+       "n_clusters": 572,
+       "pass_prereg": false,
+       "pass_strict": false
+      },
+      "split_t": {
+       "mean_pct": 1.4248136989530535,
+       "ci95_pct": [
+        -9.436401603949117,
+        12.286029001855225
+       ],
+       "n_splits": 2,
+       "n_splits_better": 0,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     }
+    ],
+    "lls": [
+     {
+      "method": "champion",
+      "vs": "lls",
+      "endpoint": "all",
+      "entry": {
+       "pct": -11.150971170368017,
+       "ci95_pct": [
+        -13.098071521954289,
+        -9.052806232696195
+       ],
+       "n_clusters": 4076,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -11.150971170368017,
+       "ci95_pct": [
+        -13.799313542826239,
+        -8.752280295257572
+       ],
+       "n_clusters": 959,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -11.1505969662475,
+       "ci95_pct": [
+        -11.86902774890745,
+        -10.43216618358755
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     },
+     {
+      "method": "champion",
+      "vs": "lls",
+      "endpoint": "in_complex",
+      "entry": {
+       "pct": -11.340331987356201,
+       "ci95_pct": [
+        -13.655858115966321,
+        -9.09874942571228
+       ],
+       "n_clusters": 2487,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -11.340331987356201,
+       "ci95_pct": [
+        -13.724614928083824,
+        -8.935175810892813
+       ],
+       "n_clusters": 572,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -11.340714530067814,
+       "ci95_pct": [
+        -14.304373849420651,
+        -8.377055210714978
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     }
+    ],
+    "lls+stack": [
+     {
+      "method": "champion",
+      "vs": "lls+stack",
+      "endpoint": "all",
+      "entry": {
+       "pct": -7.8780573169332255,
+       "ci95_pct": [
+        -9.42481766199779,
+        -6.389456462311506
+       ],
+       "n_clusters": 4076,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -7.8780573169332255,
+       "ci95_pct": [
+        -9.744638823867076,
+        -6.194226642652418
+       ],
+       "n_clusters": 959,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -7.8919474441942254,
+       "ci95_pct": [
+        -16.5958655570164,
+        0.8119706686279478
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     },
+     {
+      "method": "champion",
+      "vs": "lls+stack",
+      "endpoint": "in_complex",
+      "entry": {
+       "pct": -7.154299155398998,
+       "ci95_pct": [
+        -8.985625659938554,
+        -5.341812007422702
+       ],
+       "n_clusters": 2487,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -7.154299155398998,
+       "ci95_pct": [
+        -9.004191651103604,
+        -5.210672971933573
+       ],
+       "n_clusters": 572,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -7.153293729615442,
+       "ci95_pct": [
+        -10.690810018960349,
+        -3.615777440270535
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     }
+    ],
+    "knn_protein": [
+     {
+      "method": "champion",
+      "vs": "knn_protein",
+      "endpoint": "all",
+      "entry": {
+       "pct": 4.299347330792827,
+       "ci95_pct": [
+        1.9066325123458583,
+        6.616646602460487
+       ],
+       "n_clusters": 4076,
+       "pass_prereg": false,
+       "pass_strict": false
+      },
+      "protein": {
+       "pct": 4.299347330792827,
+       "ci95_pct": [
+        1.6459051975720724,
+        6.788486013367811
+       ],
+       "n_clusters": 959,
+       "pass_prereg": false,
+       "pass_strict": false
+      },
+      "split_t": {
+       "mean_pct": 4.309023912831048,
+       "ci95_pct": [
+        -0.19372530846985228,
+        8.811773134131949
+       ],
+       "n_splits": 2,
+       "n_splits_better": 0,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     },
+     {
+      "method": "champion",
+      "vs": "knn_protein",
+      "endpoint": "in_complex",
+      "entry": {
+       "pct": 3.716222753490985,
+       "ci95_pct": [
+        0.911531659631316,
+        6.555214761629274
+       ],
+       "n_clusters": 2487,
+       "pass_prereg": false,
+       "pass_strict": false
+      },
+      "protein": {
+       "pct": 3.716222753490985,
+       "ci95_pct": [
+        0.7099974609384836,
+        6.810407077046318
+       ],
+       "n_clusters": 572,
+       "pass_prereg": false,
+       "pass_strict": false
+      },
+      "split_t": {
+       "mean_pct": 3.716631909903167,
+       "ci95_pct": [
+        -5.285320535621036,
+        12.71858435542737
+       ],
+       "n_splits": 2,
+       "n_splits_better": 0,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     }
+    ],
+    "knn_protein+stack": [
+     {
+      "method": "champion",
+      "vs": "knn_protein+stack",
+      "endpoint": "all",
+      "entry": {
+       "pct": 0.9976718609579784,
+       "ci95_pct": [
+        -0.29609627203846645,
+        2.298436699352402
+       ],
+       "n_clusters": 4076,
+       "pass_prereg": false,
+       "pass_strict": false
+      },
+      "protein": {
+       "pct": 0.9976718609579784,
+       "ci95_pct": [
+        -0.5066884806102121,
+        2.3480278174351743
+       ],
+       "n_clusters": 959,
+       "pass_prereg": false,
+       "pass_strict": false
+      },
+      "split_t": {
+       "mean_pct": 0.9890911104773742,
+       "ci95_pct": [
+        -4.028724516519961,
+        6.0069067374747105
+       ],
+       "n_splits": 2,
+       "n_splits_better": 0,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     },
+     {
+      "method": "champion",
+      "vs": "knn_protein+stack",
+      "endpoint": "in_complex",
+      "entry": {
+       "pct": 1.0028356203742963,
+       "ci95_pct": [
+        -0.7369016030436143,
+        2.8189656109302637
+       ],
+       "n_clusters": 2487,
+       "pass_prereg": false,
+       "pass_strict": false
+      },
+      "protein": {
+       "pct": 1.0028356203742963,
+       "ci95_pct": [
+        -0.8743725264789054,
+        2.8860099779329214
+       ],
+       "n_clusters": 572,
+       "pass_prereg": false,
+       "pass_strict": false
+      },
+      "split_t": {
+       "mean_pct": 1.007700319625987,
+       "ci95_pct": [
+        -8.358518039045675,
+        10.373918678297649
+       ],
+       "n_splits": 2,
+       "n_splits_better": 0,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     }
+    ],
+    "qrilc": [
+     {
+      "method": "champion",
+      "vs": "qrilc",
+      "endpoint": "all",
+      "entry": {
+       "pct": -86.31649308683508,
+       "ci95_pct": [
+        -89.6537629236543,
+        -83.26657127284766
+       ],
+       "n_clusters": 4076,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -86.31649308683508,
+       "ci95_pct": [
+        -90.2760828740647,
+        -82.42055596029603
+       ],
+       "n_clusters": 959,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -86.29718507056327,
+       "ci95_pct": [
+        -131.67352427016218,
+        -40.92084587096438
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     },
+     {
+      "method": "champion",
+      "vs": "qrilc",
+      "endpoint": "in_complex",
+      "entry": {
+       "pct": -87.00881077149072,
+       "ci95_pct": [
+        -91.83700118189061,
+        -82.45275436991726
+       ],
+       "n_clusters": 2487,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -87.00881077149072,
+       "ci95_pct": [
+        -93.04722594405851,
+        -81.44303191443335
+       ],
+       "n_clusters": 572,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -86.90467700552863,
+       "ci95_pct": [
+        -146.68934056392462,
+        -27.120013447132617
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     }
+    ],
+    "qrilc+stack": [
+     {
+      "method": "champion",
+      "vs": "qrilc+stack",
+      "endpoint": "all",
+      "entry": {
+       "pct": -10.1822090167921,
+       "ci95_pct": [
+        -11.85185397947639,
+        -8.72978407070865
+       ],
+       "n_clusters": 4076,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -10.1822090167921,
+       "ci95_pct": [
+        -12.037744137734538,
+        -8.278206806648425
+       ],
+       "n_clusters": 959,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -10.175106746420127,
+       "ci95_pct": [
+        -14.363204510950835,
+        -5.98700898188942
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     },
+     {
+      "method": "champion",
+      "vs": "qrilc+stack",
+      "endpoint": "in_complex",
+      "entry": {
+       "pct": -10.593338541619218,
+       "ci95_pct": [
+        -12.574865845775372,
+        -8.701447889175515
+       ],
+       "n_clusters": 2487,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -10.593338541619218,
+       "ci95_pct": [
+        -12.91573681746281,
+        -8.43640389310685
+       ],
+       "n_clusters": 572,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -10.585973273934847,
+       "ci95_pct": [
+        -29.369630461074212,
+        8.197683913204516
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     }
+    ],
+    "perseus": [
+     {
+      "method": "champion",
+      "vs": "perseus",
+      "endpoint": "all",
+      "entry": {
+       "pct": -73.06464107017791,
+       "ci95_pct": [
+        -75.38852756468452,
+        -70.66672450710617
+       ],
+       "n_clusters": 4076,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -73.06464107017791,
+       "ci95_pct": [
+        -77.05315145091744,
+        -69.28407695990899
+       ],
+       "n_clusters": 959,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -73.0756837692001,
+       "ci95_pct": [
+        -86.91030626433528,
+        -59.241061274064904
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     },
+     {
+      "method": "champion",
+      "vs": "perseus",
+      "endpoint": "in_complex",
+      "entry": {
+       "pct": -73.5823534401871,
+       "ci95_pct": [
+        -76.33876929221753,
+        -70.73852467271935
+       ],
+       "n_clusters": 2487,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -73.5823534401871,
+       "ci95_pct": [
+        -78.39685946184048,
+        -68.62182359271921
+       ],
+       "n_clusters": 572,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -73.58229253542889,
+       "ci95_pct": [
+        -77.7040868737408,
+        -69.46049819711698
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     }
+    ],
+    "perseus+stack": [
+     {
+      "method": "champion",
+      "vs": "perseus+stack",
+      "endpoint": "all",
+      "entry": {
+       "pct": -10.1822090167921,
+       "ci95_pct": [
+        -11.85185397947639,
+        -8.72978407070865
+       ],
+       "n_clusters": 4076,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -10.1822090167921,
+       "ci95_pct": [
+        -12.037744137734538,
+        -8.278206806648425
+       ],
+       "n_clusters": 959,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -10.175106746420127,
+       "ci95_pct": [
+        -14.363204510950835,
+        -5.98700898188942
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     },
+     {
+      "method": "champion",
+      "vs": "perseus+stack",
+      "endpoint": "in_complex",
+      "entry": {
+       "pct": -10.593338541619218,
+       "ci95_pct": [
+        -12.574865845775372,
+        -8.701447889175515
+       ],
+       "n_clusters": 2487,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -10.593338541619218,
+       "ci95_pct": [
+        -12.91573681746281,
+        -8.43640389310685
+       ],
+       "n_clusters": 572,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -10.585973273934847,
+       "ci95_pct": [
+        -29.369630461074212,
+        8.197683913204516
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     }
+    ],
+    "pimms_cf": [
+     {
+      "method": "champion",
+      "vs": "pimms_cf",
+      "endpoint": "all",
+      "entry": {
+       "pct": -11.06786093820387,
+       "ci95_pct": [
+        -13.053090037337757,
+        -8.960063185440282
+       ],
+       "n_clusters": 4076,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -11.06786093820387,
+       "ci95_pct": [
+        -13.452372118490834,
+        -8.422941017220444
+       ],
+       "n_clusters": 959,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -10.865232652481433,
+       "ci95_pct": [
+        -68.3774826125517,
+        46.64701730758885
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     },
+     {
+      "method": "champion",
+      "vs": "pimms_cf",
+      "endpoint": "in_complex",
+      "entry": {
+       "pct": -11.936369653635804,
+       "ci95_pct": [
+        -14.51617778208734,
+        -9.187039575134298
+       ],
+       "n_clusters": 2487,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -11.936369653635804,
+       "ci95_pct": [
+        -15.046114065115606,
+        -9.086846550402152
+       ],
+       "n_clusters": 572,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -11.743537449054633,
+       "ci95_pct": [
+        -93.57854012423772,
+        70.09146522612846
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     }
+    ],
+    "pimms_cf+stack": [
+     {
+      "method": "champion",
+      "vs": "pimms_cf+stack",
+      "endpoint": "all",
+      "entry": {
+       "pct": -8.355369254702763,
+       "ci95_pct": [
+        -9.998241939120378,
+        -6.855355399451283
+       ],
+       "n_clusters": 4076,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -8.355369254702763,
+       "ci95_pct": [
+        -10.101128487254933,
+        -6.6001945293313
+       ],
+       "n_clusters": 959,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -8.321525922309082,
+       "ci95_pct": [
+        -23.616940500178103,
+        6.973888655559939
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     },
+     {
+      "method": "champion",
+      "vs": "pimms_cf+stack",
+      "endpoint": "in_complex",
+      "entry": {
+       "pct": -8.190377698479413,
+       "ci95_pct": [
+        -10.00632682276594,
+        -6.284120015593697
+       ],
+       "n_clusters": 2487,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -8.190377698479413,
+       "ci95_pct": [
+        -10.401770073231534,
+        -6.208377997804146
+       ],
+       "n_clusters": 572,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -8.161221354061512,
+       "ci95_pct": [
+        -42.16030684258881,
+        25.837864134465782
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     }
+    ],
+    "pimms_vae": [
+     {
+      "method": "champion",
+      "vs": "pimms_vae",
+      "endpoint": "all",
+      "entry": {
+       "pct": -10.919980370819678,
+       "ci95_pct": [
+        -13.20394269743605,
+        -8.650372294961503
+       ],
+       "n_clusters": 4076,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -10.919980370819678,
+       "ci95_pct": [
+        -13.431316358134264,
+        -8.52142363013941
+       ],
+       "n_clusters": 959,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -10.94561163173576,
+       "ci95_pct": [
+        -41.72572806766246,
+        19.83450480419094
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     },
+     {
+      "method": "champion",
+      "vs": "pimms_vae",
+      "endpoint": "in_complex",
+      "entry": {
+       "pct": -12.964600665281772,
+       "ci95_pct": [
+        -15.701039401827225,
+        -10.14061853694737
+       ],
+       "n_clusters": 2487,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -12.964600665281772,
+       "ci95_pct": [
+        -16.468763497413416,
+        -10.0290008219388
+       ],
+       "n_clusters": 572,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -12.946733215188058,
+       "ci95_pct": [
+        -34.399235671701575,
+        8.505769241325467
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     }
+    ],
+    "pimms_vae+stack": [
+     {
+      "method": "champion",
+      "vs": "pimms_vae+stack",
+      "endpoint": "all",
+      "entry": {
+       "pct": -8.008308553439768,
+       "ci95_pct": [
+        -9.681218672948935,
+        -6.481486532023327
+       ],
+       "n_clusters": 4076,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -8.008308553439768,
+       "ci95_pct": [
+        -9.868461076506076,
+        -6.218090846031367
+       ],
+       "n_clusters": 959,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -8.028001395105994,
+       "ci95_pct": [
+        -22.09194758454397,
+        6.0359447943319795
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     },
+     {
+      "method": "champion",
+      "vs": "pimms_vae+stack",
+      "endpoint": "in_complex",
+      "entry": {
+       "pct": -8.197347062366248,
+       "ci95_pct": [
+        -10.111763869824225,
+        -6.360284340012462
+       ],
+       "n_clusters": 2487,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -8.197347062366248,
+       "ci95_pct": [
+        -10.397932321007293,
+        -6.144130361510148
+       ],
+       "n_clusters": 572,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -8.197450306388477,
+       "ci95_pct": [
+        -8.27309105601514,
+        -8.121809556761812
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     }
+    ]
+   },
+   "revised_vs_addendum": {
+    "bpca_oba": [
+     {
+      "method": "revised",
+      "vs": "bpca_oba",
+      "endpoint": "all",
+      "entry": {
+       "pct": -5.947218356523455,
+       "ci95_pct": [
+        -10.687757015960207,
+        -2.151773070154995
+       ],
+       "n_clusters": 4076,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -5.947218356523455,
+       "ci95_pct": [
+        -12.519604151793928,
+        -1.3592653820769554
+       ],
+       "n_clusters": 959,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -5.947099495706728,
+       "ci95_pct": [
+        -6.424053247825451,
+        -5.470145743588004
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     },
+     {
+      "method": "revised",
+      "vs": "bpca_oba",
+      "endpoint": "in_complex",
+      "entry": {
+       "pct": -4.117850469185267,
+       "ci95_pct": [
+        -6.55371042808775,
+        -1.3180342270826302
+       ],
+       "n_clusters": 2487,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -4.117850469185267,
+       "ci95_pct": [
+        -7.2837473702098015,
+        -0.9623986190641419
+       ],
+       "n_clusters": 572,
+       "pass_prereg": true,
+       "pass_strict": false
+      },
+      "split_t": {
+       "mean_pct": -4.117766830365596,
+       "ci95_pct": [
+        -4.503883030954548,
+        -3.7316506297766425
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     }
+    ],
+    "bpca_oba+stack": [
+     {
+      "method": "revised",
+      "vs": "bpca_oba+stack",
+      "endpoint": "all",
+      "entry": {
+       "pct": -6.30148180211528,
+       "ci95_pct": [
+        -10.569430595510084,
+        -3.1066860467376225
+       ],
+       "n_clusters": 4076,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -6.30148180211528,
+       "ci95_pct": [
+        -11.729523187339105,
+        -2.417282967250398
+       ],
+       "n_clusters": 959,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -6.311345666773211,
+       "ci95_pct": [
+        -10.749001628468534,
+        -1.873689705077889
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     },
+     {
+      "method": "revised",
+      "vs": "bpca_oba+stack",
+      "endpoint": "in_complex",
+      "entry": {
+       "pct": -5.073933475350578,
+       "ci95_pct": [
+        -7.486857842812326,
+        -2.373806029900961
+       ],
+       "n_clusters": 2487,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -5.073933475350578,
+       "ci95_pct": [
+        -8.032384421170802,
+        -2.162785194241618
+       ],
+       "n_clusters": 572,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -5.084701194904547,
+       "ci95_pct": [
+        -17.510218669805337,
+        7.340816279996241
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     }
+    ],
+    "lls": [
+     {
+      "method": "revised",
+      "vs": "lls",
+      "endpoint": "all",
+      "entry": {
+       "pct": -17.26072870710232,
+       "ci95_pct": [
+        -19.71672870155675,
+        -14.956822780060795
+       ],
+       "n_clusters": 4076,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -17.26072870710232,
+       "ci95_pct": [
+        -20.55788124284258,
+        -14.335430522359687
+       ],
+       "n_clusters": 959,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -17.268806306398464,
+       "ci95_pct": [
+        -20.30445517455412,
+        -14.233157438242802
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     },
+     {
+      "method": "revised",
+      "vs": "lls",
+      "endpoint": "in_complex",
+      "entry": {
+       "pct": -17.020195975456538,
+       "ci95_pct": [
+        -19.81746854590407,
+        -14.251054357919568
+       ],
+       "n_clusters": 2487,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -17.020195975456538,
+       "ci95_pct": [
+        -19.931970107626476,
+        -13.917493289511478
+       ],
+       "n_clusters": 572,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -17.03101952176246,
+       "ci95_pct": [
+        -34.42350254580099,
+        0.3614635022760731
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     }
+    ],
+    "lls+stack": [
+     {
+      "method": "revised",
+      "vs": "lls+stack",
+      "endpoint": "all",
+      "entry": {
+       "pct": -14.21287876653763,
+       "ci95_pct": [
+        -16.853786630532756,
+        -11.979334258285313
+       ],
+       "n_clusters": 4076,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -14.21287876653763,
+       "ci95_pct": [
+        -17.315592370067726,
+        -11.378489332179521
+       ],
+       "n_clusters": 959,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -14.235532034602462,
+       "ci95_pct": [
+        -26.83181807733457,
+        -1.6392459918703504
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     },
+     {
+      "method": "revised",
+      "vs": "lls+stack",
+      "endpoint": "in_complex",
+      "entry": {
+       "pct": -13.102335782402612,
+       "ci95_pct": [
+        -15.663126109160697,
+        -10.49537919758588
+       ],
+       "n_clusters": 2487,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -13.102335782402612,
+       "ci95_pct": [
+        -15.998359872995989,
+        -10.05864341428843
+       ],
+       "n_clusters": 572,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -13.112264328265518,
+       "ci95_pct": [
+        -37.967030554696805,
+        11.742501898165772
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     }
+    ],
+    "knn_protein": [
+     {
+      "method": "revised",
+      "vs": "knn_protein",
+      "endpoint": "all",
+      "entry": {
+       "pct": -2.8728607599978475,
+       "ci95_pct": [
+        -5.505243283553853,
+        -0.5074732524486716
+       ],
+       "n_clusters": 4076,
+       "pass_prereg": true,
+       "pass_strict": false
+      },
+      "protein": {
+       "pct": -2.8728607599978475,
+       "ci95_pct": [
+        -5.669730005951961,
+        -0.010355665081962367
+       ],
+       "n_clusters": 959,
+       "pass_prereg": true,
+       "pass_strict": false
+      },
+      "split_t": {
+       "mean_pct": -2.873105699801084,
+       "ci95_pct": [
+        -2.968963111865979,
+        -2.777248287736188
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     },
+     {
+      "method": "revised",
+      "vs": "knn_protein",
+      "endpoint": "in_complex",
+      "entry": {
+       "pct": -2.928219435434595,
+       "ci95_pct": [
+        -5.769586559137498,
+        0.15631498976169286
+       ],
+       "n_clusters": 2487,
+       "pass_prereg": false,
+       "pass_strict": false
+      },
+      "protein": {
+       "pct": -2.928219435434595,
+       "ci95_pct": [
+        -6.523958926131251,
+        0.6140467819573224
+       ],
+       "n_clusters": 572,
+       "pass_prereg": false,
+       "pass_strict": false
+      },
+      "split_t": {
+       "mean_pct": -2.9400244174106023,
+       "ci95_pct": [
+        -17.75117934093115,
+        11.871130506109944
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     }
+    ],
+    "knn_protein+stack": [
+     {
+      "method": "revised",
+      "vs": "knn_protein+stack",
+      "endpoint": "all",
+      "entry": {
+       "pct": -5.947494506907903,
+       "ci95_pct": [
+        -8.373314268880199,
+        -3.6955471746117277
+       ],
+       "n_clusters": 4076,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -5.947494506907903,
+       "ci95_pct": [
+        -8.83494139910954,
+        -3.1196084119285494
+       ],
+       "n_clusters": 959,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -5.965682705881226,
+       "ci95_pct": [
+        -15.2508866173358,
+        3.3195212055733445
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     },
+     {
+      "method": "revised",
+      "vs": "knn_protein+stack",
+      "endpoint": "in_complex",
+      "entry": {
+       "pct": -5.4677770222804085,
+       "ci95_pct": [
+        -8.105501786414067,
+        -2.6982223807841943
+       ],
+       "n_clusters": 2487,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -5.4677770222804085,
+       "ci95_pct": [
+        -8.58023340784475,
+        -2.2667299284592293
+       ],
+       "n_clusters": 572,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -5.474806919448787,
+       "ci95_pct": [
+        -38.031142555361875,
+        27.081528716464298
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     }
+    ],
+    "qrilc": [
+     {
+      "method": "revised",
+      "vs": "qrilc",
+      "endpoint": "all",
+      "entry": {
+       "pct": -87.25744776684597,
+       "ci95_pct": [
+        -90.56148479976713,
+        -84.16646663712119
+       ],
+       "n_clusters": 4076,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -87.25744776684597,
+       "ci95_pct": [
+        -91.32174315938127,
+        -83.22519725805498
+       ],
+       "n_clusters": 959,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -87.2394414002602,
+       "ci95_pct": [
+        -133.19394082885836,
+        -41.28494197166205
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     },
+     {
+      "method": "revised",
+      "vs": "qrilc",
+      "endpoint": "in_complex",
+      "entry": {
+       "pct": -87.84107407131589,
+       "ci95_pct": [
+        -92.58081583669568,
+        -83.2209760589892
+       ],
+       "n_clusters": 2487,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -87.84107407131589,
+       "ci95_pct": [
+        -93.86436610689243,
+        -82.25349971342582
+       ],
+       "n_clusters": 572,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -87.73847021242958,
+       "ci95_pct": [
+        -150.505893610483,
+        -24.971046814376137
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     }
+    ],
+    "qrilc+stack": [
+     {
+      "method": "revised",
+      "vs": "qrilc+stack",
+      "endpoint": "all",
+      "entry": {
+       "pct": -16.358584072559314,
+       "ci95_pct": [
+        -18.82227828215318,
+        -14.337561845892381
+       ],
+       "n_clusters": 4076,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -16.358584072559314,
+       "ci95_pct": [
+        -19.1952286810259,
+        -13.584833353894709
+       ],
+       "n_clusters": 959,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -16.360025759535077,
+       "ci95_pct": [
+        -16.753111402348402,
+        -15.966940116721755
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     },
+     {
+      "method": "revised",
+      "vs": "qrilc+stack",
+      "endpoint": "in_complex",
+      "entry": {
+       "pct": -16.3210576736299,
+       "ci95_pct": [
+        -18.906334902698333,
+        -13.624614593445473
+       ],
+       "n_clusters": 2487,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -16.3210576736299,
+       "ci95_pct": [
+        -19.496546775936668,
+        -13.232099774937447
+       ],
+       "n_clusters": 572,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -16.324221379204364,
+       "ci95_pct": [
+        -18.068215241183015,
+        -14.58022751722571
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     }
+    ],
+    "perseus": [
+     {
+      "method": "revised",
+      "vs": "perseus",
+      "endpoint": "all",
+      "entry": {
+       "pct": -74.91686741855686,
+       "ci95_pct": [
+        -77.25867328857196,
+        -72.59570994459042
+       ],
+       "n_clusters": 4076,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -74.91686741855686,
+       "ci95_pct": [
+        -78.77449162461066,
+        -71.05455514961764
+       ],
+       "n_clusters": 959,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -74.93047235558693,
+       "ci95_pct": [
+        -89.90317687792978,
+        -59.95776783324405
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     },
+     {
+      "method": "revised",
+      "vs": "perseus",
+      "endpoint": "in_complex",
+      "entry": {
+       "pct": -75.2747649132827,
+       "ci95_pct": [
+        -78.00056185826318,
+        -72.48129166072265
+       ],
+       "n_clusters": 2487,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -75.2747649132827,
+       "ci95_pct": [
+        -80.08030544040781,
+        -70.2814766533389
+       ],
+       "n_clusters": 572,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -75.27781508201333,
+       "ci95_pct": [
+        -85.46506607951626,
+        -65.09056408451039
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     }
+    ],
+    "perseus+stack": [
+     {
+      "method": "revised",
+      "vs": "perseus+stack",
+      "endpoint": "all",
+      "entry": {
+       "pct": -16.358584072559314,
+       "ci95_pct": [
+        -18.82227828215318,
+        -14.337561845892381
+       ],
+       "n_clusters": 4076,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -16.358584072559314,
+       "ci95_pct": [
+        -19.1952286810259,
+        -13.584833353894709
+       ],
+       "n_clusters": 959,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -16.360025759535077,
+       "ci95_pct": [
+        -16.753111402348402,
+        -15.966940116721755
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     },
+     {
+      "method": "revised",
+      "vs": "perseus+stack",
+      "endpoint": "in_complex",
+      "entry": {
+       "pct": -16.3210576736299,
+       "ci95_pct": [
+        -18.906334902698333,
+        -13.624614593445473
+       ],
+       "n_clusters": 2487,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -16.3210576736299,
+       "ci95_pct": [
+        -19.496546775936668,
+        -13.232099774937447
+       ],
+       "n_clusters": 572,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -16.324221379204364,
+       "ci95_pct": [
+        -18.068215241183015,
+        -14.58022751722571
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     }
+    ],
+    "pimms_cf": [
+     {
+      "method": "revised",
+      "vs": "pimms_cf",
+      "endpoint": "all",
+      "entry": {
+       "pct": -17.183333600629847,
+       "ci95_pct": [
+        -19.13999517819628,
+        -15.309225883930983
+       ],
+       "n_clusters": 4076,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -17.183333600629847,
+       "ci95_pct": [
+        -19.726175688386807,
+        -14.451040766599203
+       ],
+       "n_clusters": 959,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -16.9891650242219,
+       "ci95_pct": [
+        -70.74382373143148,
+        36.76549368298768
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     },
+     {
+      "method": "revised",
+      "vs": "pimms_cf",
+      "endpoint": "in_complex",
+      "entry": {
+       "pct": -17.57804927953246,
+       "ci95_pct": [
+        -20.20197329878319,
+        -15.060601832913063
+       ],
+       "n_clusters": 2487,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -17.57804927953246,
+       "ci95_pct": [
+        -20.882549273295435,
+        -14.455711139086572
+       ],
+       "n_clusters": 572,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -17.395587886184682,
+       "ci95_pct": [
+        -79.01129767668495,
+        44.22012190431559
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     }
+    ],
+    "pimms_cf+stack": [
+     {
+      "method": "revised",
+      "vs": "pimms_cf+stack",
+      "endpoint": "all",
+      "entry": {
+       "pct": -14.657368058437255,
+       "ci95_pct": [
+        -17.123235772868586,
+        -12.665452541729662
+       ],
+       "n_clusters": 4076,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -14.657368058437255,
+       "ci95_pct": [
+        -17.35148423786449,
+        -12.003245945023261
+       ],
+       "n_clusters": 959,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -14.63224246233686,
+       "ci95_pct": [
+        -26.055456658059555,
+        -3.2090282666141636
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     },
+     {
+      "method": "revised",
+      "vs": "pimms_cf+stack",
+      "endpoint": "in_complex",
+      "entry": {
+       "pct": -14.072039328400402,
+       "ci95_pct": [
+        -16.609731982892818,
+        -11.472472334664202
+       ],
+       "n_clusters": 2487,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -14.072039328400402,
+       "ci95_pct": [
+        -17.1259788467292,
+        -11.196896145570527
+       ],
+       "n_clusters": 572,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -14.05369494186515,
+       "ci95_pct": [
+        -26.97341275448113,
+        -1.1339771292491667
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     }
+    ],
+    "pimms_vae": [
+     {
+      "method": "revised",
+      "vs": "pimms_vae",
+      "endpoint": "all",
+      "entry": {
+       "pct": -17.045622130454863,
+       "ci95_pct": [
+        -19.641688893252127,
+        -14.495861763389764
+       ],
+       "n_clusters": 4076,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -17.045622130454863,
+       "ci95_pct": [
+        -20.371208881492038,
+        -13.779446082771587
+       ],
+       "n_clusters": 959,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -17.07972716789023,
+       "ci95_pct": [
+        -51.62368315714957,
+        17.46422882136911
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     },
+     {
+      "method": "revised",
+      "vs": "pimms_vae",
+      "endpoint": "in_complex",
+      "entry": {
+       "pct": -18.540408035784203,
+       "ci95_pct": [
+        -21.457328456987245,
+        -15.249172201237336
+       ],
+       "n_clusters": 2487,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -18.540408035784203,
+       "ci95_pct": [
+        -22.819345791117566,
+        -14.705352353057654
+       ],
+       "n_clusters": 572,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -18.53279030732442,
+       "ci95_pct": [
+        -59.968505170168754,
+        22.90292455551992
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     }
+    ],
+    "pimms_vae+stack": [
+     {
+      "method": "revised",
+      "vs": "pimms_vae+stack",
+      "endpoint": "all",
+      "entry": {
+       "pct": -14.334173197501135,
+       "ci95_pct": [
+        -16.9225084099181,
+        -12.220392163802234
+       ],
+       "n_clusters": 4076,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -14.334173197501135,
+       "ci95_pct": [
+        -17.40247375041571,
+        -11.271835193401683
+       ],
+       "n_clusters": 959,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -14.362616789764342,
+       "ci95_pct": [
+        -32.3134274891773,
+        3.5881939096486084
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     },
+     {
+      "method": "revised",
+      "vs": "pimms_vae+stack",
+      "endpoint": "in_complex",
+      "entry": {
+       "pct": -14.078562209237523,
+       "ci95_pct": [
+        -16.688596160843453,
+        -11.448276024914462
+       ],
+       "n_clusters": 2487,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "protein": {
+       "pct": -14.078562209237523,
+       "ci95_pct": [
+        -17.3236909527726,
+        -10.835816105024996
+       ],
+       "n_clusters": 572,
+       "pass_prereg": true,
+       "pass_strict": true
+      },
+      "split_t": {
+       "mean_pct": -14.089476590395437,
+       "ci95_pct": [
+        -35.09160335996279,
+        6.91265017917192
+       ],
+       "n_splits": 2,
+       "n_splits_better": 2,
+       "valid": false,
+       "pass_prereg": false,
+       "pass_strict": false
+      }
+     }
+    ]
+   }
+  }
+ },
+ "H16_passes": {
+  "entry": {
+   "pass_prereg": "13/20",
+   "pass_strict": "12/20"
+  },
+  "protein": {
+   "pass_prereg": "13/20",
+   "pass_strict": "12/20"
+  },
+  "split_t": {
+   "pass_prereg": "0/20",
+   "pass_strict": "0/20"
+  }
+ },
+ "H17_passes": {
+  "entry": {
+   "pass_prereg": "4/4",
+   "pass_strict": "3/4"
+  },
+  "protein": {
+   "pass_prereg": "4/4",
+   "pass_strict": "3/4"
+  },
+  "split_t": {
+   "pass_prereg": "0/4",
+   "pass_strict": "0/4"
+  }
+ },
+ "H18_passes": {
+  "entry": {
+   "pass_prereg": "9/12",
+   "pass_strict": "8/12"
+  },
+  "protein": {
+   "pass_prereg": "9/12",
+   "pass_strict": "8/12"
+  },
+  "split_t": {
+   "pass_prereg": "0/12",
+   "pass_strict": "0/12"
+  }
+ }
+}
