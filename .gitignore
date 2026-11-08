@@ -11,6 +11,3 @@ dashboard/out/
 benchmarks/_quick_out/
 results/v9/*.log
 results/v9/dev_splits/
-# addendum2 work in progress by the expansion workflow (re-added when it finishes)
-src/scp_graphfs_mcp/addendum2/
-scripts/r_bridge.R
