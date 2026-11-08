@@ -52,3 +52,20 @@ On dev, `bpca_oba+stack` (0.9914 x champion) would have narrowly displaced `gcn_
 | weiss2026_liver | MCAR | 0.939 | 1.024 | 0.994 | 0.997 | 1.041 | 1.098 | 1.093 | 1.142 | 1.165 |
 | weiss2026_liver | MNAR | 0.885 | 0.978 | 1.042 | 0.973 | 0.978 | 1.159 | 1.103 | 1.186 | 1.229 |
 | **mean** | | **0.9556** | **0.9914** | **0.9918** | **1.0146** | **1.0121** | **1.0510** | **1.0513** | **1.0579** | **1.0774** |
+
+## 5. Addendum 2: R reference implementations and literature-standard ports (4 of 10 seeds per mask)
+
+R: pcaMethods 1.94 `bpca`, missForest 1.6.1 defaults, impute 1.76 `impute.knn`; Python ports verified against reference code: SeqKNN, trKNN, impSeq, RegEM (protein space), per-protein median. Each raw and `+stack` (with kNN + low-rank). RMSE relative to the champion recomputed on the same splits.
+
+### MCAR
+
+| Holdout | r_bpca | r_bpca+stack | r_missforest+stack | r_missforest | rem_protein+stack | rem_protein | seqknn+stack | r_knn+stack | stack_lowrank | trknn+stack | median+stack | impseq+stack | knn | seqknn | r_knn | median | trknn | impseq |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| derks2022 | 0.947 | 0.947 | 0.982 | 0.985 | 0.987 | 0.997 | 1.014 | 1.019 | 1.029 | 1.029 | 1.029 | 1.039 | 1.069 | 1.089 | 1.155 | 1.238 | 1.289 | 1.590 |
+
+### MNAR
+
+| Holdout | r_bpca | r_bpca+stack | r_missforest | r_missforest+stack | rem_protein | rem_protein+stack | seqknn+stack | r_knn+stack | seqknn | stack_lowrank | trknn+stack | median+stack | impseq+stack | knn | r_knn | trknn | median | impseq |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| derks2022 | 0.934 | 0.939 | 0.947 | 0.956 | 0.963 | 0.984 | 1.021 | 1.033 | 1.041 | 1.047 | 1.047 | 1.047 | 1.047 | 1.078 | 1.083 | 1.191 | 1.216 | 1.433 |
+

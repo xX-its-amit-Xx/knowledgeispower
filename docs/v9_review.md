@@ -145,3 +145,14 @@ expression, beyond RMSE. v9 has none.
 | SoftHybrid | doi:10.1021/acs.jproteome.5c01221 |
 | msImpute | doi:10.1016/j.mcpro.2023.100558 |
 | Vanderaa & Gatto | doi:10.1021/acs.jproteome.3c00227 |
+
+## Erratum: hypothesis labels (found by the write-up agents)
+
+- `benchmarks/PREREGISTRATION_v9.md` §0 calls the khan2023 v6 test "H14". In `PREREGISTRATION_v6.md` and
+  `docs/EXPLORATION_LOG.md` that hypothesis is **H12**; H14 was the brunner2022 (v7) test.
+- The same mislabel appeared in the session's messages to Amit.
+- The preregistration is frozen and has been left as committed. The correct record is:
+  - H12 on khan2023 (v6): not confirmed, 3/8;
+  - H14 on brunner2022 (v7): confirmed;
+  - H15 on wu2026 (v8): confirmed 16/16.
+- No test, number or verdict depends on the label.
