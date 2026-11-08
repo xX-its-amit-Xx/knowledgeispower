@@ -9,6 +9,7 @@ The addendum recomputes the same splits from scratch (with a fresh cshrink cache
 | Holdout | reproduction (MCAR / MNAR) | H16 entry / protein-cluster / per-split t | H17 | H18 |
 |---|---|---|---|---|
 | derks2022 | 0.0e+00 / 0.0e+00 | 12/20 / 12/20 / 12/20 (strict: 12/20 / 12/20 / 12/20) | 4/4 / 4/4 / 4/4 (strict: 2/4 / 2/4 / 2/4) | 11/12 / 11/12 / 10/12 (strict: 8/12 / 8/12 / 8/12) |
+| karagach2025_S1 | 6.6e-10 / 7.0e-09 | 20/20 / 20/20 / 19/20 (strict: 19/20 / 18/20 / 17/20) | 4/4 / 4/4 / 4/4 (strict: 4/4 / 4/4 / 4/4) | 12/12 / 12/12 / 12/12 (strict: 12/12 / 12/12 / 12/12) |
 
 ## 2. Added comparators on the holdouts: RMSE relative to the champion
 
@@ -19,12 +20,14 @@ The addendum recomputes the same splits from scratch (with a fresh cshrink cache
 | Holdout | revised | champion | bpca_oba+stack | bpca_oba | gcn_nograph+stack | gcn+stack | knn_protein+stack | lls+stack | pimms_vae+stack | pimms_cf+stack | stack_lowrank | qrilc | perseus |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | derks2022 | 0.988 | 1.000 | 0.978 | 0.978 | 0.997 | 1.000 | 1.006 | 1.016 | 1.014 | 1.031 | 1.031 | 5.831 | 3.902 |
+| karagach2025_S1 | 0.968 | 1.000 | 1.009 | 1.010 | 1.012 | 1.032 | 1.035 | 1.068 | 1.066 | 1.053 | 1.083 | 10.313 | 7.912 |
 
 ### MNAR
 
 | Holdout | revised | champion | bpca_oba+stack | bpca_oba | gcn_nograph+stack | gcn+stack | knn_protein+stack | lls+stack | pimms_vae+stack | pimms_cf+stack | stack_lowrank | qrilc | perseus |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | derks2022 | 0.970 | 1.000 | 0.968 | 0.967 | 0.994 | 1.005 | 0.984 | 1.035 | 1.030 | 1.046 | 1.046 | 4.067 | 2.420 |
+| karagach2025_S1 | 0.940 | 1.000 | 0.993 | 0.986 | 1.025 | 1.042 | 1.008 | 1.113 | 1.099 | 1.072 | 1.125 | 7.845 | 5.643 |
 
 ## 3. Counterfactual: the preregistered tests with a working BPCA as the data-only comparator
 
@@ -34,6 +37,8 @@ On dev, `bpca_oba+stack` (0.9914 x champion) would have narrowly displaced `gcn_
 |---|---|---|---|
 | derks2022 | MCAR | +2.23% ✗ / +2.02% ✗ | +0.97% ✗ / +0.89% ✗ |
 | derks2022 | MNAR | +3.28% ✗ / +3.73% ✗ | +0.15% ✗ / +0.82% ✗ |
+| karagach2025_S1 | MCAR | -0.89% ✗ / -1.73% | -4.08% / -5.06% |
+| karagach2025_S1 | MNAR | +0.70% ✗ / +0.20% ✗ | -5.37% / -6.85% |
 
 ## 4. Dev screen of the added comparators (Phase-C fast pool, stratified, seeds 100-101)
 
@@ -62,10 +67,12 @@ R: pcaMethods 1.94 `bpca`, missForest 1.6.1 defaults, impute 1.76 `impute.knn`; 
 | Holdout | r_bpca | r_bpca+stack | r_missforest+stack | r_missforest | rem_protein+stack | rem_protein | seqknn+stack | r_knn+stack | stack_lowrank | trknn+stack | median+stack | impseq+stack | knn | seqknn | r_knn | median | trknn | impseq |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | derks2022 | 0.947 | 0.947 | 0.982 | 0.985 | 0.987 | 0.997 | 1.014 | 1.019 | 1.029 | 1.029 | 1.029 | 1.039 | 1.069 | 1.089 | 1.155 | 1.238 | 1.289 | 1.590 |
+| karagach2025_S1 | 0.983 | 0.983 | 0.990 | 0.988 | 1.016 | 1.019 | 1.025 | 1.078 | 1.078 | 1.078 | 1.078 | 1.105 | 1.125 | 1.058 | 1.280 | 1.239 | 1.344 | 1.835 |
 
 ### MNAR
 
 | Holdout | r_bpca | r_bpca+stack | r_missforest | r_missforest+stack | rem_protein | rem_protein+stack | seqknn+stack | r_knn+stack | seqknn | stack_lowrank | trknn+stack | median+stack | impseq+stack | knn | r_knn | trknn | median | impseq |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | derks2022 | 0.934 | 0.939 | 0.947 | 0.956 | 0.963 | 0.984 | 1.021 | 1.033 | 1.041 | 1.047 | 1.047 | 1.047 | 1.047 | 1.078 | 1.083 | 1.191 | 1.216 | 1.433 |
+| karagach2025_S1 | 0.950 | 0.953 | 0.946 | 0.950 | 0.992 | 1.005 | 1.023 | 1.100 | 1.026 | 1.100 | 1.100 | 1.100 | 1.081 | 1.154 | 1.236 | 1.235 | 1.265 | 1.209 |
 

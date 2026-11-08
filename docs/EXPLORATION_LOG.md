@@ -723,3 +723,145 @@ it exactly).
 - Round 6 (directives in `docs/phaseC/KING_LOG.md`): `taperkrige` (curated-biology covariance localisation of the
   in-domain covariance), `kronmt` (Kronecker cell × protein GP), `otanalog` (optimal-transport analog reference cells)
   and `plexre` (TMT plex / batch random effects).
+
+# v9 (Nov 2026): multi-holdout validation of the H15 champion
+
+## 2026-11-08 · v9 confirmation on 3 new projects (5 holdout sets): **H16 NOT CONFIRMED (1/3), H17 CONFIRMED (3/3), H18 NOT CONFIRMED (1/3)** (`results/confirm_v9/*.json`)
+
+The full account is `docs/v9_validation.md`. Generated tables: `docs/v9_results.md`. Review: `docs/v9_review.md`.
+State of the runs and how to resume them: `docs/HANDOFF_v9.md`. Every number below is copied from those files or from
+the JSON named.
+
+**What was run:**
+- **The v6 khan2023 test (H12), redone** at commit `411d439`. `results/v9/v6_khan2023_reproduction.json` is identical
+  to `results/confirm_v6/confirm_v6.json` except `runtime_seconds`: still 3/8, not confirmed.
+- **A 17-method panel**, each method scored raw and `+stack` (with kNN + low-rank):
+  - 10 data-only methods;
+  - 4 STRING graph-prior methods (`grmf_string`, `rwr_resid`, `gcn`, `imc_embed`);
+  - a data-graph control (`grmf_datagraph`);
+  - 2 GCN graph controls (`gcn_null`, `gcn_nograph`).
+- **Comparator selection on dev**, frozen in `results/v9/v9_selection.json` before any holdout:
+  - best data-only: `gcn_nograph+stack`, 0.9917, which replaced the draft's `mice+stack`, 1.0275, in amendment
+    `ee28470`;
+  - best graph prior: `gcn+stack`, 1.0143.
+- **The preregistration was frozen** at `0062e02` (23:34:37 UTC). The first holdout started at 23:34:53.
+- **The holdouts:**
+  - derks2022 (plexDIA, 3 cell types);
+  - karagach2025_S1 (timsTOF Slice-PASEF, HeLa);
+  - px061710_GSTP1KO, px061710_MDAfix and px061710_RKOfix, one project, which confirms if ≥ 2 of its 3 sets do.
+- **Design:** seeds 9000–9009, 30-cell subsamples, 10% MCAR and MNAR masks, all-entry and in-complex endpoints, a 95%
+  paired entry bootstrap, and the pass rule "CI < 0 and ΔRMSE ≤ −1%".
+
+**Tests passed** (`docs/v9_results.md`):
+
+| Set | H16 (of 20) | H17 (of 4) | H18 (of 12) |
+|---|---|---|---|
+| derks2022 | 12 | 4 | 11 |
+| karagach2025_S1 | 20 | 4 | 12 |
+| px061710_GSTP1KO | 18 | 4 | 12 |
+| px061710_MDAfix | 16 | 4 | 11 |
+| px061710_RKOfix | 17 | 4 | 10 |
+
+Under the strict reading, where the CI's upper bound must itself be ≤ −1% (post hoc), the project verdicts are H16 0/3,
+H17 2/3 and H18 1/3.
+
+**Read:**
+- **Every H16 and H18 failure is against `gcn_nograph+stack`** (plus `gcn+stack` in derks2022's H16). That is the
+  no-edge GCN, i.e. a protein-wise masked MLP, a data-only method.
+  - It averages 0.998 relative to the champion.
+  - The champion is significantly worse than it in 5 of 10 set × mask cells (all entries).
+- **The champion beats the kNN + low-rank stack by 3.0–14.0%**, its permuted-reference null by 2.7–4.1% and its
+  no-reference ablation by 2.6–8.3%, with every CI excluding 0. The last two are internal ablations.
+- **The revision (`cshrink`) beats the champion on every set and mask:** 1.1–3.4% under MCAR and 1.9–7.0% under MNAR.
+  - The project-level MCAR 95% CI is [−4.75, +0.20] (post hoc, `docs/v9_validation.md` §5.4).
+  - Before v9, `cshrink` had missed its own Phase-C promotion bar: full-pool MCAR was 0.9714 against a bar of 0.97.
+- **Graph prior:** the GCN with STRING beat a degree-preserving shuffle (−4.75% to −11.27%) but lost to no edges
+  (+3.00% to +14.86%) in all 10 set × mask cells (all entries). The STRING-vs-shuffle gain was about the same for complex members and
+  non-members.
+  - `rwr_resid+stack` (1.045) and `imc_embed+stack` (1.047) are on a par with `mice+stack` (1.048).
+  - No v9 method used CORUM or Complex Portal.
+- **Fragility:**
+  - The only H16 project pass (karagach2025) rests on one test at −1.16% (CI upper bound −0.64%).
+  - derks2022's H18 failure is −0.98% against a −1.00% threshold.
+  - The verdicts move with the SESOI (`docs/v9_validation.md` §5.4).
+
+## 2026-11-08 · v9 review, red team and post-hoc addenda (exploratory; no verdict changes)
+
+**Review and red team** (`docs/v9_review.md`; `results/v9/review_raw.json`, 39 agents; `results/v9/expansion_raw.json`,
+23 agents):
+- **The frozen BPCA was broken.** It treated cells as observations. It equals per-protein mean imputation on 20 of 24
+  dev splits and exactly on derks2022. On the other four holdout sets it is better than `mean` but still far behind
+  the champion (1.126–1.179, `docs/v9_results.md`).
+- **The entry bootstrap understates the SE** by about 1.5–2×.
+- **The SESOI wording is ambiguous.** The strict reading was added post hoc.
+- **The panel lacks** dedicated SCP imputers, and tuning effort was lopsided.
+- **The independent audit** recomputed 330 values and found 0 mismatches.
+
+**Addendum 1** (`results/v9/addendum/`; `docs/v9_addendum_results.md`):
+- **derks2022:**
+  - The rerun reproduced the frozen run exactly (max |ΔRMSE| 0.0).
+  - Verdicts are unchanged under the protein-cluster bootstrap and the per-split t interval; only H18 moves, from
+    11/12 to 10/12 under the per-split interval.
+  - A correctly oriented BPCA (`bpca_oba`) beats the champion: 0.978 MCAR / 0.967 MNAR.
+  - Against the revision, BPCA's point estimate is better in all 4 mask × endpoint cells but below the SESOI in each
+    (MCAR all entries +0.97%, MNAR +0.31%).
+- **Dev counterfactual:** `bpca_oba+stack` scores 0.9914, against 0.9918 for `gcn_nograph+stack`. Under the frozen rule
+  a working BPCA would narrowly have been selected.
+- **karagach2025_S1** (`results/v9/addendum/karagach2025_S1.json`; landed after the report, recomputed from the JSON):
+  - The rerun reproduces the frozen run (max |ΔRMSE| 6.6e-10 / 7.0e-9).
+  - H16 is 20/20 (entry), 20/20 (protein cluster) and 19/20 (per split); H17 is 4/4 and H18 is 12/12 under all three.
+  - Relative to the champion, `bpca_oba` is 1.010 / 0.986 and `bpca_oba+stack` 1.009 / 0.993.
+  - The revision beats `bpca_oba+stack` by −4.08% (CI [−4.72, −3.48]) under MCAR and −5.37% (CI [−5.88, −4.86]) under
+    MNAR.
+  - The champion vs `bpca_oba+stack` is −0.89% under MCAR (fails the SESOI) and +0.70% under MNAR (CI [+0.32, +1.10]).
+  - Raw `bpca_oba` beats the champion under MNAR: champion +1.43%, CI [+1.04, +1.86].
+
+**Addendum 2** (`results/v9/addendum2/`; seeds 9000–9003 only, no CIs, `revised` not scored). Ratios are relative to the
+champion, MCAR / MNAR:
+
+| Holdout | pcaMethods BPCA (`r_bpca`) | missForest defaults (`r_missforest`) |
+|---|---|---|
+| derks2022 | 0.947 / 0.934 | 0.985 / 0.947 |
+| karagach2025_S1 | 0.983 / 0.950 | 0.988 / 0.946 |
+
+- On karagach2025_S1, `r_knn` hit the known "more than 80 % missing" edge case in 8 calls (evaluation and inner input
+  of splits 9001 and 9002 under both masks) and fell back to the kNN fill, so its numbers there are not usable.
+
+**Read:**
+- On derks2022, a working BPCA matches or beats both of our methods.
+- On karagach2025_S1, the revision clearly beats `bpca_oba`, and the champion roughly ties it.
+- The R BPCA and the Python `bpca_oba` disagree on karagach2025_S1 MCAR (0.983 on 4 splits vs 1.010 on 10). This is
+  unresolved.
+- **Still running or queued:** the px061710 addenda (Addendum 1 on GSTP1KO and MDAfix and Addendum 2 on GSTP1KO are
+  running; RKOfix, and Addendum 2 on MDAfix, have not started) and the secondary holdouts (khan2023 started
+  2026-11-08T06:16:41Z; the other three are queued). See `docs/HANDOFF_v9.md`.
+
+## 2026-11-08 · Phase D dev: stacking the revision with `bpca_oba` and `gcn_nograph` (`results/phaseD/dev_combos.json`)
+
+**Setup:**
+- Dev only, with no holdout touched: the Phase-C fast pool, 6 targets × seeds 100–101 × 2 masks, 24 splits.
+- The same split recipe as `panel_v9`.
+- Simplex weights on a 0.25 grid, chosen on the inner mask. There is also an NNLS row.
+- Code: `benchmarks/phased_dev.py`. Note: `docs/phaseC/ideas/phaseD_combos.md`.
+
+Mean RMSE relative to the champion, all entries:
+
+| Stack | Ratio |
+|---|---|
+| revised | 0.9554 |
+| kNN, lr, adapt, cshrink, bpca | **0.9469** |
+| kNN, lr, cshrink, bpca | 0.9470 |
+| all 6 (+ gcn), grid | 0.9474 |
+| all 6, NNLS | 0.9464 |
+| kNN, lr, adapt, bpca | 0.9809 |
+| bpca_oba+stack | 0.9916 |
+| gcn_nograph+stack | 0.9917 |
+| raw cshrink | 0.9539 |
+
+**Read:**
+- Adding BPCA to the revision gives 0.9911 of revised (20/24 splits better). That is below the 1% SESOI, on the pool
+  that `cshrink` was selected on.
+- `adapt` gets a mean weight of 0.010 once `cshrink` and BPCA are in the stack.
+- `gcn_nograph` adds nothing.
+- In-complex RMSE tracks all-entry RMSE, so there is no complex-specific signal.
+- At most one candidate, "revised + bpca_oba", would go on to the full dev pool and then a new preregistration.

@@ -6,6 +6,55 @@
 
 **Why it could be true:** complex subunits are made in fixed ratios, and subunits that fail to assemble are degraded. So co-complex proteins co-vary at the protein level, more than their mRNAs do (Gonçalves et al., *Cell Systems* 2017, [10.1016/j.cels.2017.08.013](https://doi.org/10.1016/j.cels.2017.08.013)). That makes a missing subunit partly inferable from its measured partners.
 
+## v9 validation (Nov 2026)
+
+> **The latest result; it supersedes the Oct 22 update below.** It is a multi-holdout test of the reference-transfer
+> champion (H15) against a 17-method panel, preregistered in `benchmarks/PREREGISTRATION_v9.md`. There were 3 new
+> projects (5 holdout sets), 30-cell subsamples, MCAR and MNAR masks, and a 1% SESOI.
+>
+> | Hypothesis | Projects | Verdict | Strict reading (post hoc) |
+> |---|---|---|---|
+> | **H16:** the champion beats 5 comparators | 1 of 3 (karagach2025) | **NOT CONFIRMED** | 0 of 3 |
+> | **H17:** the revision (`cshrink` target standardisation) beats the champion | 3 of 3 | **CONFIRMED** | 2 of 3 |
+> | **H18:** the revision beats the strongest competitors | 1 of 3 (karagach2025) | **NOT CONFIRMED** | 1 of 3 |
+>
+> **What the tests show:**
+> - **Strongest competitor: a data-only one.** It is the no-edge "GCN" (really a protein-wise masked MLP), stacked with
+>   kNN and low-rank (`gcn_nograph+stack`).
+>   - It ties the champion on average (RMSE ratio 0.998).
+>   - The champion is significantly worse than it in 5 of 10 set × mask cells.
+>   - The best graph-prior competitor, `gcn+stack` (STRING), averages 1.033.
+> - **What the champion does beat** (every set and mask, all entries; every CI excludes 0):
+>   - the kNN + low-rank stack, by 3.0–14.0%;
+>   - its own permuted-reference null, by 2.7–4.1%;
+>   - its no-reference ablation, by 2.6–8.3%.
+> - **The revision** improves on the champion by 1.1–3.4% (MCAR) and 1.9–7.0% (MNAR), across both endpoints. It is a
+>   data-only preprocessing change, not a biological prior.
+>
+> **BPCA (post hoc):** the frozen panel's BPCA was broken (it treated cells as observations). On derks2022 it equalled
+> per-protein mean imputation exactly, as it did on 20 of 24 dev splits.
+> - **derks2022:** a correctly oriented BPCA (`bpca_oba`) beats the champion (0.978 MCAR / 0.967 MNAR) and narrowly
+>   beats (MCAR) or ties (MNAR) the revision, by less than the 1% SESOI. The pcaMethods BPCA, on 4 splits without CIs, gives 0.947 /
+>   0.934 relative to the champion.
+> - **karagach2025_S1** (newer files, see `docs/HANDOFF_v9.md` §3): the revision beats `bpca_oba+stack` by 4.1% /
+>   5.4% (MCAR / MNAR). The champion only roughly ties it (−0.89% / +0.70%), and raw `bpca_oba` beats the champion
+>   under MNAR (champion +1.43% worse, CI excluding 0).
+> - The px061710 addenda and all four secondary holdouts are still running or queued (`docs/HANDOFF_v9.md` §2).
+>
+> **Graph priors did not help.**
+> - In the GCN, STRING beat a degree-preserving shuffle but lost to no edges in all 10 holdout × mask cells.
+> - The other STRING methods did no better than a generic data-only third stack component.
+> - No v9 method used CORUM or Complex Portal, so v9 itself does not test the thesis.
+> - On the whole record (v2–v9), the thesis in §1 should be reported as **not supported**. What has replicated is
+>   transfer of protein-specific structure from public single-cell proteomics data, which is empirical, not curated.
+>
+> **Read more:**
+> - [`docs/v9_validation.md`](docs/v9_validation.md): the authoritative report;
+> - [`docs/v9_results.md`](docs/v9_results.md): the generated verdict tables;
+> - [`docs/v9_addendum_results.md`](docs/v9_addendum_results.md): the post-hoc addenda;
+> - [`docs/v9_review.md`](docs/v9_review.md): the independent review;
+> - [`docs/HANDOFF_v9.md`](docs/HANDOFF_v9.md): what is still running and how to resume.
+
 ## 2. Headline result
 
 > **Update, Oct 22 (final).** Our preregistered refined hypothesis **H14 was confirmed (6/6) on an untouched holdout**
