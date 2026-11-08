@@ -119,6 +119,8 @@ def main():
             sys.exit(f"refusing: preregistered result for {target} not produced yet")
         X, names = C.load_holdout(target)
         labels, seeds, refs, excl, tag = None, C.SEEDS, reference_datasets(), (), target
+    if "--seeds" in a:  # a subset of the preregistered seeds (runtime); recorded in the output
+        seeds = [int(x) for x in a[a.index("--seeds") + 1].split(",")]
     assert not set(refs) & (T.PHASE_B_HOLDOUTS | T.HOLDOUTS | T.V9_HOLDOUTS)
     V, warm = T.fit_loadings(T.corpus_reference(names, excl, refs))
     out = {"dataset": target, "seeds": seeds, "post_hoc": True, "methods": specs, "masks": {}}
