@@ -72,6 +72,20 @@ def main():
         d = R[h]
         L.append(f"| {h} | {'primary' if h not in SECONDARY else 'secondary'} | {d['shape'][0]} × {d['shape'][1]} | "
                  f"{d['missing_fraction']:.2f} | {d['H16_passes']} | {d['H17_passes']} | {d['H18_passes']} |")
+    L += ["", "## Strict-SESOI reading (post hoc; see docs/v9_review.md)", "",
+          "The preregistration applies the 1% SESOI to the point estimate (as the code and v8 do). Under the stricter "
+          "reading - the 95% CI upper bound itself must be <= -1% - the counts are:", "",
+          "| Holdout | H16 strict | H17 strict | H18 strict |", "|---|---|---|---|"]
+    for h in ORDER:
+        if h not in R:
+            continue
+        cnt = {}
+        for key, field in (("H16", "primary"), ("H17", "revision"), ("H18", "revised_vs_competitors")):
+            ts = [t for m in R[h]["masks"].values() for t in m[field]]
+            ok = sum(100 * t["ci95"][1] / (t["delta_rmse"] / (t["pct_of_ref_rmse"] / 100)) <= -1.0
+                     if t["pct_of_ref_rmse"] != 0 else False for t in ts)
+            cnt[key] = f"{ok}/{len(ts)}"
+        L.append(f"| {h} | {cnt['H16']} | {cnt['H17']} | {cnt['H18']} |")
     comps = ["stack_lowrank", "champion@null", "champion@noref", "gcn_nograph+stack", "gcn+stack"]
     for kind in ("MCAR", "MNAR"):
         L += ["", f"## Champion vs comparators, {kind}, all entries (in-complex in brackets)", "",

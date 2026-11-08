@@ -24,6 +24,16 @@ Preregistration: `benchmarks/PREREGISTRATION_v9.md`. ✗ = the test failed (95% 
 | karagach2025_S2 | secondary | | | not run yet | | |
 | px077946_H2O2 | secondary | | | not run yet | | |
 
+## Strict-SESOI reading (post hoc; see docs/v9_review.md)
+
+The preregistration applies the 1% SESOI to the point estimate (as the code and v8 do). Under the stricter reading - the 95% CI upper bound itself must be <= -1% - the counts are:
+
+| Holdout | H16 strict | H17 strict | H18 strict |
+|---|---|---|---|
+| derks2022 | 12/20 | 2/4 | 8/12 |
+| karagach2025_S1 | 19/20 | 4/4 | 12/12 |
+| px061710_GSTP1KO | 18/20 | 4/4 | 11/12 |
+
 ## Champion vs comparators, MCAR, all entries (in-complex in brackets)
 
 | Holdout | stack_lowrank | champion@null | champion@noref | gcn_nograph+stack | gcn+stack | revised vs champion |
